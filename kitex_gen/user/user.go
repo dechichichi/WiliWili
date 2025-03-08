@@ -14,10 +14,8 @@ type UserRegisterReq struct {
 	Password  string `thrift:"password,2,required" frugal:"2,required,string" json:"password"`
 	Email     string `thrift:"email,3,required" frugal:"3,required,string" json:"email"`
 	Phone     string `thrift:"phone,4,required" frugal:"4,required,string" json:"phone"`
-	Nickname  string `thrift:"nickname,5,required" frugal:"5,required,string" json:"nickname"`
-	Gender    string `thrift:"gender,6,required" frugal:"6,required,string" json:"gender"`
-	Birthday  string `thrift:"birthday,7,required" frugal:"7,required,string" json:"birthday"`
-	Signature string `thrift:"signature,8,required" frugal:"8,required,string" json:"signature"`
+	Gender    string `thrift:"gender,5,required" frugal:"5,required,string" json:"gender"`
+	Signature string `thrift:"signature,6,required" frugal:"6,required,string" json:"signature"`
 }
 
 func NewUserRegisterReq() *UserRegisterReq {
@@ -43,16 +41,8 @@ func (p *UserRegisterReq) GetPhone() (v string) {
 	return p.Phone
 }
 
-func (p *UserRegisterReq) GetNickname() (v string) {
-	return p.Nickname
-}
-
 func (p *UserRegisterReq) GetGender() (v string) {
 	return p.Gender
-}
-
-func (p *UserRegisterReq) GetBirthday() (v string) {
-	return p.Birthday
 }
 
 func (p *UserRegisterReq) GetSignature() (v string) {
@@ -70,14 +60,8 @@ func (p *UserRegisterReq) SetEmail(val string) {
 func (p *UserRegisterReq) SetPhone(val string) {
 	p.Phone = val
 }
-func (p *UserRegisterReq) SetNickname(val string) {
-	p.Nickname = val
-}
 func (p *UserRegisterReq) SetGender(val string) {
 	p.Gender = val
-}
-func (p *UserRegisterReq) SetBirthday(val string) {
-	p.Birthday = val
 }
 func (p *UserRegisterReq) SetSignature(val string) {
 	p.Signature = val
@@ -108,16 +92,10 @@ func (p *UserRegisterReq) DeepEqual(ano *UserRegisterReq) bool {
 	if !p.Field4DeepEqual(ano.Phone) {
 		return false
 	}
-	if !p.Field5DeepEqual(ano.Nickname) {
+	if !p.Field5DeepEqual(ano.Gender) {
 		return false
 	}
-	if !p.Field6DeepEqual(ano.Gender) {
-		return false
-	}
-	if !p.Field7DeepEqual(ano.Birthday) {
-		return false
-	}
-	if !p.Field8DeepEqual(ano.Signature) {
+	if !p.Field6DeepEqual(ano.Signature) {
 		return false
 	}
 	return true
@@ -153,26 +131,12 @@ func (p *UserRegisterReq) Field4DeepEqual(src string) bool {
 }
 func (p *UserRegisterReq) Field5DeepEqual(src string) bool {
 
-	if strings.Compare(p.Nickname, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *UserRegisterReq) Field6DeepEqual(src string) bool {
-
 	if strings.Compare(p.Gender, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *UserRegisterReq) Field7DeepEqual(src string) bool {
-
-	if strings.Compare(p.Birthday, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *UserRegisterReq) Field8DeepEqual(src string) bool {
+func (p *UserRegisterReq) Field6DeepEqual(src string) bool {
 
 	if strings.Compare(p.Signature, src) != 0 {
 		return false
@@ -185,10 +149,8 @@ var fieldIDToName_UserRegisterReq = map[int16]string{
 	2: "password",
 	3: "email",
 	4: "phone",
-	5: "nickname",
-	6: "gender",
-	7: "birthday",
-	8: "signature",
+	5: "gender",
+	6: "signature",
 }
 
 type UserRegisterResp struct {
@@ -410,10 +372,8 @@ type UserProfileResp struct {
 	Username  string `thrift:"username,1,required" frugal:"1,required,string" json:"username"`
 	Email     string `thrift:"email,2,required" frugal:"2,required,string" json:"email"`
 	Phone     string `thrift:"phone,3,required" frugal:"3,required,string" json:"phone"`
-	Nickname  string `thrift:"nickname,4,required" frugal:"4,required,string" json:"nickname"`
-	Gender    string `thrift:"gender,5,required" frugal:"5,required,string" json:"gender"`
-	Birthday  string `thrift:"birthday,6,required" frugal:"6,required,string" json:"birthday"`
-	Signature string `thrift:"signature,7,required" frugal:"7,required,string" json:"signature"`
+	Gender    string `thrift:"gender,4,required" frugal:"4,required,string" json:"gender"`
+	Signature string `thrift:"signature,5,required" frugal:"5,required,string" json:"signature"`
 }
 
 func NewUserProfileResp() *UserProfileResp {
@@ -435,16 +395,8 @@ func (p *UserProfileResp) GetPhone() (v string) {
 	return p.Phone
 }
 
-func (p *UserProfileResp) GetNickname() (v string) {
-	return p.Nickname
-}
-
 func (p *UserProfileResp) GetGender() (v string) {
 	return p.Gender
-}
-
-func (p *UserProfileResp) GetBirthday() (v string) {
-	return p.Birthday
 }
 
 func (p *UserProfileResp) GetSignature() (v string) {
@@ -459,14 +411,8 @@ func (p *UserProfileResp) SetEmail(val string) {
 func (p *UserProfileResp) SetPhone(val string) {
 	p.Phone = val
 }
-func (p *UserProfileResp) SetNickname(val string) {
-	p.Nickname = val
-}
 func (p *UserProfileResp) SetGender(val string) {
 	p.Gender = val
-}
-func (p *UserProfileResp) SetBirthday(val string) {
-	p.Birthday = val
 }
 func (p *UserProfileResp) SetSignature(val string) {
 	p.Signature = val
@@ -494,16 +440,10 @@ func (p *UserProfileResp) DeepEqual(ano *UserProfileResp) bool {
 	if !p.Field3DeepEqual(ano.Phone) {
 		return false
 	}
-	if !p.Field4DeepEqual(ano.Nickname) {
+	if !p.Field4DeepEqual(ano.Gender) {
 		return false
 	}
-	if !p.Field5DeepEqual(ano.Gender) {
-		return false
-	}
-	if !p.Field6DeepEqual(ano.Birthday) {
-		return false
-	}
-	if !p.Field7DeepEqual(ano.Signature) {
+	if !p.Field5DeepEqual(ano.Signature) {
 		return false
 	}
 	return true
@@ -532,26 +472,12 @@ func (p *UserProfileResp) Field3DeepEqual(src string) bool {
 }
 func (p *UserProfileResp) Field4DeepEqual(src string) bool {
 
-	if strings.Compare(p.Nickname, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *UserProfileResp) Field5DeepEqual(src string) bool {
-
 	if strings.Compare(p.Gender, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *UserProfileResp) Field6DeepEqual(src string) bool {
-
-	if strings.Compare(p.Birthday, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *UserProfileResp) Field7DeepEqual(src string) bool {
+func (p *UserProfileResp) Field5DeepEqual(src string) bool {
 
 	if strings.Compare(p.Signature, src) != 0 {
 		return false
@@ -563,10 +489,8 @@ var fieldIDToName_UserProfileResp = map[int16]string{
 	1: "username",
 	2: "email",
 	3: "phone",
-	4: "nickname",
-	5: "gender",
-	6: "birthday",
-	7: "signature",
+	4: "gender",
+	5: "signature",
 }
 
 type UserAvatarUploadReq struct {

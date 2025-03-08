@@ -6,21 +6,14 @@ namespace go video
 *@author video_name 视频名称
 *@author video_url 视频地址
 *@author video_cover_url 视频封面地址
-*@author video_desc 视频描述
-*@author video_tags 视频标签
 *@author video_duration 视频时长
-*@author video_size 视频大小
 */
 struct VideoSubmissionReq{
-required string userid
-required string video_id
-required string video_name
-required string video_url
-required string video_cover_url
-required string video_desc
-required string video_tags
-required i32 video_duration
-required i32 video_size
+1:required string userid
+2:required string video_id
+3:required string video_name
+4:required string video_url
+5:required i32 video_duration
 }
 
 /*struct VideoSubmissionResp 视频提交响应
@@ -56,9 +49,6 @@ struct VideoListResp{
 1: required list<string> video_ids,
 2: required list<string> video_names,
 3: required list<string> video_urls,
-4: required list<string> video_cover_urls,
-5: required list<string> video_descs,
-6: required list<string> video_tags,
 }
 
 /*struct VideoSearchReq 视频搜索请求
@@ -101,9 +91,6 @@ struct VideoTrendingLearderBoardResp{
     1:required list<string> video_ids
     2:required list<string> video_names
     3:required list<string> video_urls
-    4:required list<string> video_cover_urls
-    5:required list<string> video_descs
-    6:required list<string> video_tags
 }
 
 service VideoService {    
