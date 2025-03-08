@@ -34,10 +34,10 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"videoTrendingLearderBoard": kitex.NewMethodInfo(
-		videoTrendingLearderBoardHandler,
-		newVideoServiceVideoTrendingLearderBoardArgs,
-		newVideoServiceVideoTrendingLearderBoardResult,
+	"videoTrending": kitex.NewMethodInfo(
+		videoTrendingHandler,
+		newVideoServiceVideoTrendingArgs,
+		newVideoServiceVideoTrendingResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -161,22 +161,22 @@ func newVideoServiceVideoSearchResult() interface{} {
 	return video.NewVideoServiceVideoSearchResult()
 }
 
-func videoTrendingLearderBoardHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*video.VideoServiceVideoTrendingLearderBoardArgs)
-	realResult := result.(*video.VideoServiceVideoTrendingLearderBoardResult)
-	success, err := handler.(video.VideoService).VideoTrendingLearderBoard(ctx, realArg.Req)
+func videoTrendingHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*video.VideoServiceVideoTrendingArgs)
+	realResult := result.(*video.VideoServiceVideoTrendingResult)
+	success, err := handler.(video.VideoService).VideoTrending(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newVideoServiceVideoTrendingLearderBoardArgs() interface{} {
-	return video.NewVideoServiceVideoTrendingLearderBoardArgs()
+func newVideoServiceVideoTrendingArgs() interface{} {
+	return video.NewVideoServiceVideoTrendingArgs()
 }
 
-func newVideoServiceVideoTrendingLearderBoardResult() interface{} {
-	return video.NewVideoServiceVideoTrendingLearderBoardResult()
+func newVideoServiceVideoTrendingResult() interface{} {
+	return video.NewVideoServiceVideoTrendingResult()
 }
 
 type kClient struct {
@@ -219,11 +219,11 @@ func (p *kClient) VideoSearch(ctx context.Context, req *video.VideoSearchReq) (r
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) VideoTrendingLearderBoard(ctx context.Context, req *video.VideoTrendingLearderBoardReq) (r *video.VideoTrendingLearderBoardResp, err error) {
-	var _args video.VideoServiceVideoTrendingLearderBoardArgs
+func (p *kClient) VideoTrending(ctx context.Context, req *video.VideoTrendingReq) (r *video.VideoTrendingResp, err error) {
+	var _args video.VideoServiceVideoTrendingArgs
 	_args.Req = req
-	var _result video.VideoServiceVideoTrendingLearderBoardResult
-	if err = p.c.Call(ctx, "videoTrendingLearderBoard", &_args, &_result); err != nil {
+	var _result video.VideoServiceVideoTrendingResult
+	if err = p.c.Call(ctx, "videoTrending", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

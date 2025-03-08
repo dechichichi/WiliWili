@@ -11,7 +11,6 @@ import (
 type LikeOperationReq struct {
 	UserId int64 `thrift:"userId,1,required" frugal:"1,required,i64" json:"userId"`
 	PostId int64 `thrift:"postId,2,required" frugal:"2,required,i64" json:"postId"`
-	IsLike bool  `thrift:"isLike,3,required" frugal:"3,required,bool" json:"isLike"`
 }
 
 func NewLikeOperationReq() *LikeOperationReq {
@@ -28,18 +27,11 @@ func (p *LikeOperationReq) GetUserId() (v int64) {
 func (p *LikeOperationReq) GetPostId() (v int64) {
 	return p.PostId
 }
-
-func (p *LikeOperationReq) GetIsLike() (v bool) {
-	return p.IsLike
-}
 func (p *LikeOperationReq) SetUserId(val int64) {
 	p.UserId = val
 }
 func (p *LikeOperationReq) SetPostId(val int64) {
 	p.PostId = val
-}
-func (p *LikeOperationReq) SetIsLike(val bool) {
-	p.IsLike = val
 }
 
 func (p *LikeOperationReq) String() string {
@@ -61,9 +53,6 @@ func (p *LikeOperationReq) DeepEqual(ano *LikeOperationReq) bool {
 	if !p.Field2DeepEqual(ano.PostId) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.IsLike) {
-		return false
-	}
 	return true
 }
 
@@ -81,23 +70,14 @@ func (p *LikeOperationReq) Field2DeepEqual(src int64) bool {
 	}
 	return true
 }
-func (p *LikeOperationReq) Field3DeepEqual(src bool) bool {
-
-	if p.IsLike != src {
-		return false
-	}
-	return true
-}
 
 var fieldIDToName_LikeOperationReq = map[int16]string{
 	1: "userId",
 	2: "postId",
-	3: "isLike",
 }
 
 type LikeOperationResp struct {
-	Success bool    `thrift:"success,1,required" frugal:"1,required,bool" json:"success"`
-	Error   *string `thrift:"error,2,optional" frugal:"2,optional,string" json:"error,omitempty"`
+	Success bool `thrift:"success,1,required" frugal:"1,required,bool" json:"success"`
 }
 
 func NewLikeOperationResp() *LikeOperationResp {
@@ -110,24 +90,8 @@ func (p *LikeOperationResp) InitDefault() {
 func (p *LikeOperationResp) GetSuccess() (v bool) {
 	return p.Success
 }
-
-var LikeOperationResp_Error_DEFAULT string
-
-func (p *LikeOperationResp) GetError() (v string) {
-	if !p.IsSetError() {
-		return LikeOperationResp_Error_DEFAULT
-	}
-	return *p.Error
-}
 func (p *LikeOperationResp) SetSuccess(val bool) {
 	p.Success = val
-}
-func (p *LikeOperationResp) SetError(val *string) {
-	p.Error = val
-}
-
-func (p *LikeOperationResp) IsSetError() bool {
-	return p.Error != nil
 }
 
 func (p *LikeOperationResp) String() string {
@@ -146,9 +110,6 @@ func (p *LikeOperationResp) DeepEqual(ano *LikeOperationResp) bool {
 	if !p.Field1DeepEqual(ano.Success) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Error) {
-		return false
-	}
 	return true
 }
 
@@ -159,22 +120,9 @@ func (p *LikeOperationResp) Field1DeepEqual(src bool) bool {
 	}
 	return true
 }
-func (p *LikeOperationResp) Field2DeepEqual(src *string) bool {
-
-	if p.Error == src {
-		return true
-	} else if p.Error == nil || src == nil {
-		return false
-	}
-	if strings.Compare(*p.Error, *src) != 0 {
-		return false
-	}
-	return true
-}
 
 var fieldIDToName_LikeOperationResp = map[int16]string{
 	1: "success",
-	2: "error",
 }
 
 type LikeListReq struct {
@@ -369,8 +317,7 @@ var fieldIDToName_CommentReq = map[int16]string{
 }
 
 type CommentResp struct {
-	Success bool    `thrift:"success,1,required" frugal:"1,required,bool" json:"success"`
-	Error   *string `thrift:"error,2,optional" frugal:"2,optional,string" json:"error,omitempty"`
+	Success bool `thrift:"success,1,required" frugal:"1,required,bool" json:"success"`
 }
 
 func NewCommentResp() *CommentResp {
@@ -383,24 +330,8 @@ func (p *CommentResp) InitDefault() {
 func (p *CommentResp) GetSuccess() (v bool) {
 	return p.Success
 }
-
-var CommentResp_Error_DEFAULT string
-
-func (p *CommentResp) GetError() (v string) {
-	if !p.IsSetError() {
-		return CommentResp_Error_DEFAULT
-	}
-	return *p.Error
-}
 func (p *CommentResp) SetSuccess(val bool) {
 	p.Success = val
-}
-func (p *CommentResp) SetError(val *string) {
-	p.Error = val
-}
-
-func (p *CommentResp) IsSetError() bool {
-	return p.Error != nil
 }
 
 func (p *CommentResp) String() string {
@@ -419,9 +350,6 @@ func (p *CommentResp) DeepEqual(ano *CommentResp) bool {
 	if !p.Field1DeepEqual(ano.Success) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Error) {
-		return false
-	}
 	return true
 }
 
@@ -432,22 +360,9 @@ func (p *CommentResp) Field1DeepEqual(src bool) bool {
 	}
 	return true
 }
-func (p *CommentResp) Field2DeepEqual(src *string) bool {
-
-	if p.Error == src {
-		return true
-	} else if p.Error == nil || src == nil {
-		return false
-	}
-	if strings.Compare(*p.Error, *src) != 0 {
-		return false
-	}
-	return true
-}
 
 var fieldIDToName_CommentResp = map[int16]string{
 	1: "success",
-	2: "error",
 }
 
 type CommentListReq struct {

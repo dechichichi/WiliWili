@@ -4,21 +4,17 @@ namespace go interactive
 /* LikeOperationReq点赞操作请求
 * @param userId 用户id
 * @param postId 帖子id
-* @param isLike 是否点赞
 */
 struct LikeOperationReq {
     1: required i64 userId,
     2: required i64 postId,
-    3: required bool isLike,
 }
 
 /* LikeOperationResp点赞操作响应
 * @param success 操作是否成功
-* @param error 错误信息
 */
 struct LikeOperationResp {
-    1: required bool success,
-    2: optional string error,
+    1: required bool success, 
 }
 
 /* LikeListReq获取点赞列表请求
@@ -47,11 +43,9 @@ struct CommentReq {
 
 /* CommentResp评论响应
 * @param success 操作是否成功
-* @param error 错误信息
 */
 struct CommentResp {
     1: required bool success,
-    2: optional string error,
 }
 
 /* CommentListReq获取评论列表请求

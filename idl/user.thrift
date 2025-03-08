@@ -6,7 +6,6 @@ namespace go user
 * @param string username 用户名
 * @param string password 密码
 * @param string email 邮箱
-* @param string phone 手机号
 * @param string gender 性别
 * @param string signature 签名
 */
@@ -14,9 +13,8 @@ struct  UserRegisterReq {
     1: required string username;
     2: required string password;
     3: required string email;
-    4: required string phone;
-    5: required string gender;
-    6: required string signature;
+    4: required string gender;
+    5: required string signature;
 }
 
 /*
@@ -58,16 +56,14 @@ struct  UserProfileReq {
 *struct UserProfileResp 用户资料响应
 * @param string username 用户名
 * @param string email 邮箱
-* @param string phone 手机号
 * @param string gender 性别
 * @param string signature 签名
 */
 struct  UserProfileResp {
     1: required string username;
     2: required string email;
-    3: required string phone;
-    4: required string gender;
-    5: required string signature;
+    3: required string gender;
+    4: required string signature;
 }
 
 /*

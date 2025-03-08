@@ -14,7 +14,7 @@ type Client interface {
 	VideoSubmission(ctx context.Context, req *video.VideoSubmissionReq, callOptions ...callopt.Option) (r *video.VideoSubmissionResp, err error)
 	VideoList(ctx context.Context, req *video.VideoListReq, callOptions ...callopt.Option) (r *video.VideoListResp, err error)
 	VideoSearch(ctx context.Context, req *video.VideoSearchReq, callOptions ...callopt.Option) (r *video.VideoSearchResp, err error)
-	VideoTrendingLearderBoard(ctx context.Context, req *video.VideoTrendingLearderBoardReq, callOptions ...callopt.Option) (r *video.VideoTrendingLearderBoardResp, err error)
+	VideoTrending(ctx context.Context, req *video.VideoTrendingReq, callOptions ...callopt.Option) (r *video.VideoTrendingResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -61,7 +61,7 @@ func (p *kVideoServiceClient) VideoSearch(ctx context.Context, req *video.VideoS
 	return p.kClient.VideoSearch(ctx, req)
 }
 
-func (p *kVideoServiceClient) VideoTrendingLearderBoard(ctx context.Context, req *video.VideoTrendingLearderBoardReq, callOptions ...callopt.Option) (r *video.VideoTrendingLearderBoardResp, err error) {
+func (p *kVideoServiceClient) VideoTrending(ctx context.Context, req *video.VideoTrendingReq, callOptions ...callopt.Option) (r *video.VideoTrendingResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.VideoTrendingLearderBoard(ctx, req)
+	return p.kClient.VideoTrending(ctx, req)
 }
