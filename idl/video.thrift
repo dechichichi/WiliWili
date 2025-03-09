@@ -1,13 +1,7 @@
 namespace go video
 
+include "common.thrift"
 
-
-struct Video {
-1:required string video_id
-2:required string video_name
-3:required string video_url
-4:required i32 video_duration
-}
 
 /*struct VideoSubmissionReq 视频提交请求
 *@author userid 用户id
@@ -15,7 +9,7 @@ struct Video {
 */
 struct VideoSubmissionReq{
 1:required string userid
-2:required Video video
+2:required model.Video video
 }
 
 /*struct VideoSubmissionResp 视频提交响应
@@ -41,7 +35,7 @@ required i32 page_size
 *@author videos 视频列表
 */
 struct VideoListResp{
-1: required list<Video> videos,
+1: required list<model.Video> videos,
 }
 
 /*struct VideoSearchReq 视频搜索请求
@@ -58,7 +52,7 @@ struct VideoSearchReq{
 *@author videos 视频列表
 */
 struct VideoSearchResp{
-    1:required list<Video> videos
+    1:required list<model.Video> videos
 }
 
 /*struct VideoTrendingReq 视频热门榜请求
@@ -74,7 +68,7 @@ struct VideoTrendingReq{
 *@author video_ids 视频列表
 */
 struct VideoTrendingResp{
-    1:required list<Video> videos
+    1:required list<model.Video> videos
 }
 
 service VideoService {    
