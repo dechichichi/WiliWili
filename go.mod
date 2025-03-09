@@ -5,7 +5,9 @@ go 1.23.0
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
 require (
+	github.com/apache/thrift v0.0.0-00010101000000-000000000000
 	github.com/cloudwego/gopkg v0.1.4
+	github.com/cloudwego/hertz v0.9.6
 	github.com/cloudwego/kitex v0.12.3
 	github.com/spf13/viper v1.19.0
 )
@@ -14,6 +16,7 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/nyaruka/phonenumbers v1.0.55 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
@@ -63,7 +66,7 @@ require (
 	golang.org/x/arch v0.2.0 // indirect
 	golang.org/x/net v0.24.0 // indirect
 	golang.org/x/sync v0.8.0 // indirect
-	golang.org/x/sys v0.19.0 // indirect
+	golang.org/x/sys v0.24.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	google.golang.org/genproto v0.0.0-20240213162025-012b6fc9bca9 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect

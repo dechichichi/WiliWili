@@ -1,10 +1,10 @@
 namespace go api.user
 struct RegiterUserReq {
-   1: required string username;
+    1: required string username;
     2: required string password;
     3: required string email;
-    5: required string gender;
-    6: required string signature;
+    4: required string gender;
+    5: required string signature;
 }
 
 struct RegiterUserResp{

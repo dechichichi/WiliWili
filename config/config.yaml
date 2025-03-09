@@ -1,18 +1,3 @@
-server:
-  private-key: | # PKCS#8
-    -----BEGIN PRIVATE KEY-----
-    MC4CAQAwBQYDK2VwBCIEIJi1JE7fq4xFZTXiOWvK9PDEDVIOgsF0dMF46BMgT9jY
-    -----END PRIVATE KEY-----
-  public-key: |
-    -----BEGIN PUBLIC KEY-----
-    MCowBQYDK2VwAyEAe8QtuyTwO7YgDmZegsPpPPGuMZkjg6209OoArIOVOz0=
-    -----END PUBLIC KEY-----
-  version: "1.0"
-  name: "DomTok"
-  log-level: "INFO" # OPTIONS: TRACE, DEBUG, INFO(default), NOTICE, WARN, ERROR, FATAL
-
-
-
 mysql:
   addr:127.0.0.1:3306
   database:wiliwili
@@ -23,34 +8,3 @@ mysql:
 redis:
   addr:127.0.0.1:6379
   password:wiliwili
-
-service:
-  gateway:
-   name: wiliwili-gateway
-   localblance:false
-   addr: 
-   - 0.0.0.0:20001
-  
-  user:
-   name: wiliwili-user
-   localblance:false
-   addr: 
-   - 0.0.0.0:20002
- 
-  video:
-   name: wiliwili-video
-   localblance:false
-   addr: 
-   - 0.0.0.0:20003
-  
-  networking:
-   name: wiliwili-networking
-   localblance:false
-   addr: 
-   - 0.0.0.0:20004
-
-  interactive:
-   name: wiliwili-interactive
-   localblance:false
-   addr: 
-   - 0.0.0.0:20005

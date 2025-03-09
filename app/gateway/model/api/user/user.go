@@ -12,8 +12,8 @@ type RegiterUserReq struct {
 	Username  string `thrift:"username,1,required" form:"username,required" json:"username,required" query:"username,required"`
 	Password  string `thrift:"password,2,required" form:"password,required" json:"password,required" query:"password,required"`
 	Email     string `thrift:"email,3,required" form:"email,required" json:"email,required" query:"email,required"`
-	Gender    string `thrift:"gender,5,required" form:"gender,required" json:"gender,required" query:"gender,required"`
-	Signature string `thrift:"signature,6,required" form:"signature,required" json:"signature,required" query:"signature,required"`
+	Gender    string `thrift:"gender,4,required" form:"gender,required" json:"gender,required" query:"gender,required"`
+	Signature string `thrift:"signature,5,required" form:"signature,required" json:"signature,required" query:"signature,required"`
 }
 
 func NewRegiterUserReq() *RegiterUserReq {
@@ -47,8 +47,8 @@ var fieldIDToName_RegiterUserReq = map[int16]string{
 	1: "username",
 	2: "password",
 	3: "email",
-	5: "gender",
-	6: "signature",
+	4: "gender",
+	5: "signature",
 }
 
 func (p *RegiterUserReq) Read(iprot thrift.TProtocol) (err error) {
@@ -101,18 +101,18 @@ func (p *RegiterUserReq) Read(iprot thrift.TProtocol) (err error) {
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
-		case 5:
+		case 4:
 			if fieldTypeId == thrift.STRING {
-				if err = p.ReadField5(iprot); err != nil {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 				issetGender = true
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
-		case 6:
+		case 5:
 			if fieldTypeId == thrift.STRING {
-				if err = p.ReadField6(iprot); err != nil {
+				if err = p.ReadField5(iprot); err != nil {
 					goto ReadFieldError
 				}
 				issetSignature = true
@@ -148,12 +148,12 @@ func (p *RegiterUserReq) Read(iprot thrift.TProtocol) (err error) {
 	}
 
 	if !issetGender {
-		fieldId = 5
+		fieldId = 4
 		goto RequiredFieldNotSetError
 	}
 
 	if !issetSignature {
-		fieldId = 6
+		fieldId = 5
 		goto RequiredFieldNotSetError
 	}
 	return nil
@@ -207,7 +207,7 @@ func (p *RegiterUserReq) ReadField3(iprot thrift.TProtocol) error {
 	p.Email = _field
 	return nil
 }
-func (p *RegiterUserReq) ReadField5(iprot thrift.TProtocol) error {
+func (p *RegiterUserReq) ReadField4(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -218,7 +218,7 @@ func (p *RegiterUserReq) ReadField5(iprot thrift.TProtocol) error {
 	p.Gender = _field
 	return nil
 }
-func (p *RegiterUserReq) ReadField6(iprot thrift.TProtocol) error {
+func (p *RegiterUserReq) ReadField5(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -248,12 +248,12 @@ func (p *RegiterUserReq) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 3
 			goto WriteFieldError
 		}
-		if err = p.writeField5(oprot); err != nil {
-			fieldId = 5
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
-		if err = p.writeField6(oprot); err != nil {
-			fieldId = 6
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
 			goto WriteFieldError
 		}
 	}
@@ -322,8 +322,8 @@ WriteFieldBeginError:
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
-func (p *RegiterUserReq) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("gender", thrift.STRING, 5); err != nil {
+func (p *RegiterUserReq) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("gender", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.Gender); err != nil {
@@ -334,12 +334,12 @@ func (p *RegiterUserReq) writeField5(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
-func (p *RegiterUserReq) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("signature", thrift.STRING, 6); err != nil {
+func (p *RegiterUserReq) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("signature", thrift.STRING, 5); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.Signature); err != nil {
@@ -350,9 +350,9 @@ func (p *RegiterUserReq) writeField6(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
 }
 
 func (p *RegiterUserReq) String() string {

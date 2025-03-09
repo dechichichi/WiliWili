@@ -15,7 +15,7 @@ IDL_PATH=${DIR}/idl
 ## 构建与调试
 ## --------------------------------------
 
-# 启动必要的环境，比如 etcd、mysql
+# 启动必要的环境，比如 mysql redis
 .PHONY: env-up
 env-up:
 	@ docker compose -f ./docker/docker-compose.yml up -d
