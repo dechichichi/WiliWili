@@ -11,3 +11,7 @@ type UserDB interface {
 	CheckPassword(ctx context.Context, username string, password string) (*model.UserInfo, error)
 	GetUserProFile(ctx context.Context, uid int64) (*model.UserProfile, error)
 }
+
+type UserCache interface {
+	
+}

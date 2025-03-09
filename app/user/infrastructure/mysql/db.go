@@ -17,14 +17,14 @@ func NewUserDB(client *gorm.DB) repository.UserDB {
 }
 
 func (db *userDB) IsUserExist(ctx context.Context, username string) (bool, error) {
-
+	panic("implement me")
 }
 func (db *userDB) CreateUser(ctx context.Context, user *model.User) (int64, error) {
-
+	panic("implement me")
 }
 func (db *userDB) CheckPassword(ctx context.Context, username string, password string) (*model.UserInfo, error) {
-
+	panic("implement me")
 }
 func (db *userDB) GetUserProFile(ctx context.Context, uid int64) (*model.UserProfile, error) {
-
+	panic("implement me")
 }
