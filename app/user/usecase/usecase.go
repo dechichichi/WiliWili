@@ -3,7 +3,7 @@ package usecase
 import (
 	"context"
 	"wiliwili/app/user/domain/model"
-	"wiliwili/app/user/domain/respository"
+	"wiliwili/app/user/domain/repository"
 	"wiliwili/app/user/domain/service"
 )
 
@@ -15,11 +15,11 @@ type UserUsecase interface {
 }
 
 type useCase struct {
-	db  respository.UserDB
+	db  repository.UserDB
 	svc *service.UserService
 }
 
-func NewUserUsecase(db respository.UserDB, svc *service.UserService) UserUsecase {
+func NewUserUsecase(db repository.UserDB, svc *service.UserService) UserUsecase {
 	return &useCase{
 		db:  db,
 		svc: svc,

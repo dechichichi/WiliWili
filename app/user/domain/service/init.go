@@ -1,8 +1,8 @@
 package service
 
-import "wiliwili/app/user/domain/respository"
+import "wiliwili/app/user/domain/repository"
 
 type UserService struct {
-	db respository.UserDB
+	db repository.UserDB
 }
 

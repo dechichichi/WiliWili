@@ -4,25 +4,35 @@ package user
 
 import (
 	"context"
+	"wiliwili/app/gateway/rpc"
+
+	api "wiliwili/app/gateway/model/api/user"
+	"wiliwili/kitex_gen/user"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	user "wiliwili/app/gateway/model/api/user"
 )
 
 // RegisterUser .
 // @router api/v1/user/register [POST]
 func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.RegiterUserReq
+	var req api.RegiterUserReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-
-	resp := new(user.RegiterUserResp)
-
+	resp, err := rpc.RegisterUser(ctx, &user.UserRegisterReq{
+		Username: req.Username,
+		Password: req.Password,
+		Email:    req.Email,
+		Gender:   req.Gender,
+	})
+	if err != nil {
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
 	c.JSON(consts.StatusOK, resp)
 }
 
@@ -30,31 +40,43 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 // @router api/v1/user/login [POST]
 func Login(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.LoginRequest
+	var req api.LoginRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
 
-	resp := new(user.LoginResponse)
-
+	resp, err := rpc.Login(ctx, &user.UserLoginReq{
+		Username: req.Username,
+		Password: req.Password,
+	})
+	if err != nil {
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
 	c.JSON(consts.StatusOK, resp)
 }
 
 // GetProfile .
+
 // @router api/v1/user/profile [GET]
 func GetProfile(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.ProfileReq
+	var req api.ProfileReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
 
-	resp := new(user.ProfileResp)
-
+	resp, err := rpc.GetProfile(ctx, &user.UserProfileReq{
+		Uid: req.UserId,
+	})
+	if err != nil {
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
 	c.JSON(consts.StatusOK, resp)
 }
 
@@ -62,14 +84,19 @@ func GetProfile(ctx context.Context, c *app.RequestContext) {
 // @router api/v1/user/avatar [POST]
 func UploadAvatar(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.UserAvatarUploadReq
+	var req api.UserAvatarUploadReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
 
-	resp := new(user.UserAvatarUploadResp)
-
+	resp, err := rpc.UploadAvatar(ctx, &user.UserAvatarUploadReq{
+		Avatar: req.Avatar,
+	})
+	if err != nil {
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
 	c.JSON(consts.StatusOK, resp)
 }
