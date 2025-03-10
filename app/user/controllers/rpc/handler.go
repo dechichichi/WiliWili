@@ -51,3 +51,7 @@ func (u *UserHandler) UserAvatarUpload(ctx context.Context, req *user.UserAvatar
 	r.Image = pack.BuildImage(image)
 	return
 }
+
+func NewUserHandler(useCase usecase.UserUsecase) *UserHandler {
+	return &UserHandler{useCase}
+}

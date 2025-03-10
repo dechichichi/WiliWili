@@ -7,14 +7,14 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-type commodityCache struct {
+type UserDBCache struct {
 	client *redis.Client
 }
 
-func NewCommodityCache(client *redis.Client) repository.UserCache {
-	return &commodityCache{client: client}
+func NewUserCache(client *redis.Client) repository.UserCache {
+	return &UserDBCache{client: client}
 }
 
-func (c *commodityCache) IsExist(ctx context.Context, key string) bool {
+func (c *UserDBCache) IsExist(ctx context.Context, key string) bool {
 	return c.client.Exists(ctx, key).Val() == 1
 }

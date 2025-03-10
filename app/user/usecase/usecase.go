@@ -15,13 +15,15 @@ type UserUsecase interface {
 }
 
 type useCase struct {
-	db  repository.UserDB
-	svc *service.UserService
+	db    repository.UserDB
+	svc   *service.UserService
+	cache repository.UserCache
 }
 
-func NewUserUsecase(db repository.UserDB, svc *service.UserService) UserUsecase {
+func NewUserUsecase(db repository.UserDB, svc *service.UserService, cache repository.UserCache) UserUsecase {
 	return &useCase{
-		db:  db,
-		svc: svc,
+		db:    db,
+		svc:   svc,
+		cache: cache,
 	}
 }
