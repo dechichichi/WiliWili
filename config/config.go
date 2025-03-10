@@ -1,12 +1,12 @@
 package config
 
 import (
-	"errors"
 	"os"
 
 	"github.com/bytedance/gopkg/util/logger"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
+	_ "github.com/spf13/viper/remote"
 )
 
 var (
@@ -20,40 +20,37 @@ var (
 
 const (
 	remoteProvider = "etcd3"
-	remotePath     = "/config"
-	remoteFileName = "config"
+	remotePath     = "/config" // 修改为实际存储配置的路径
 	remoteFileType = "yaml"
 )
 
 func Init(service string) {
-	// 从环境变量中获取 etcd 地址
 	etcdAddr := os.Getenv("ETCD_ADDR")
 	if etcdAddr == "" {
 		logger.Fatalf("config.Init: etcd addr is empty")
 	}
 	logger.Infof("config.Init: etcd addr: %v", etcdAddr)
+
 	Etcd = &etcd{Addr: etcdAddr}
-	// 配置存储在 etcd 中
+
 	err := runtimeViper.AddRemoteProvider(remoteProvider, Etcd.Addr, remotePath)
 	if err != nil {
 		logger.Fatalf("config.Init: add remote provider error: %v", err)
 	}
-	runtimeViper.SetConfigName(remoteFileName)
-	runtimeViper.SetConfigType(remoteFileType)
+
+	runtimeViper.SetConfigType(remoteFileType) // 确保配置类型为 YAML
+
 	if err := runtimeViper.ReadRemoteConfig(); err != nil {
-		var configFileNotFoundError viper.ConfigFileNotFoundError
-		if errors.As(err, &configFileNotFoundError) {
-			logger.Fatal("config.Init: could not find config files")
-		}
 		logger.Fatalf("config.Init: read config error: %v", err)
 	}
+
+	logger.Infof("Loaded config: %+v", runtimeViper.AllSettings()) // 打印加载的配置
+
 	configMapping(service)
 
-	// 设置持续监听
 	runtimeViper.OnConfigChange(func(e fsnotify.Event) {
-		// 我们无法确定监听到配置变更时是否已经初始化完毕，所以此处需要做一个判断
-		logger.Infof("config: notice config changed: %v\n", e.String())
-		configMapping(service) // 重新映射配置
+		logger.Infof("config: notice config changed: %v", e.String())
+		configMapping(service)
 	})
 	runtimeViper.WatchConfig()
 }

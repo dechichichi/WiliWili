@@ -23,6 +23,7 @@ func Init() {
 }
 
 func main() {
+	Init()
 	r, err := etcd.NewEtcdRegistry([]string{config.Etcd.Addr})
 	if err != nil {
 		panic(err)

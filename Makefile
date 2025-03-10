@@ -10,9 +10,12 @@ TMUX_EXISTS := $(shell command -v tmux)
 PREFIX = "[Makefile]"
 
 #目录相关
-# 项目根目录
 DIR=$(shell pwd)
+CMD = $(DIR)/cmd
+CONFIG_PATH = $(DIR)/config
 IDL_PATH=${DIR}/idl
+OUTPUT_PATH = $(DIR)/output
+API_PATH= $(DIR)/cmd/api
 
 # 服务名
 SERVICES := gateway user commodity order cart payment assistant

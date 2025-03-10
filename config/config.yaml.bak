@@ -1,0 +1,42 @@
+mysql:
+  addr: 127.0.0.1:3306
+  database: wiliwili
+  username: wiliwili
+  password: wiliwili
+  charset: utf8mb4
+
+redis:
+  addr: 127.0.0.1:6379
+  password: wiliwili
+  
+
+service:
+  gateway:
+    name: gateway
+    load-blance: false
+    addr:
+    - 127.0.0.1:20000
+
+  user:
+    name: user
+    load-blance: false
+    addr:
+    - 127.0.0.1:20001
+  
+  video:
+  name: video
+  load-blance: false
+  addr:
+  - 127.0.0.1:20002
+
+  networking:
+  name: networking
+  load-blance: false
+  addr:
+  - 127.0.0.1:20003
+
+  interactive:
+    name: interactive
+    load-blance: false
+    addr:
+    - 127.0.0.1:20004

@@ -4,10 +4,12 @@ services:
   wiliwili-redis:
     container_name: wiliwili-redis
     image: redis:bookworm
+    volumes:
+      - ./data/redis:/data
     ports:
       - "6379:6379"
-    volumes:
-      - wiliwili-redis-data:/data
+    env_file:
+      - "./env/redis.env"
     networks:
       - wiliwili
 
@@ -16,11 +18,31 @@ services:
     image: mysql:9.0.1
     ports:
       - "3306:3306"
+    env_file:
+      - "./env/mysql.env"
     volumes:
       - ../config/sql:/docker-entrypoint-initdb.d
-      - wiliwili-mysql-data:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
     networks:
       - wiliwili
+   # etcd 服务，分布式键值存储系统，用于服务发现、配置管理
+  wiliwili-etcd:
+    container_name: wiliwili-etcd
+    image: quay.io/coreos/etcd:v3.5.5
+    restart: always
+    ports:
+      - 2379:2379
+      - 2380:2380
+    env_file:
+      - "./env/etcd.env"
+    volumes:
+      - ./script:/script
+      - ../config:/config
+      - ./data/etcd:/etcd-data
+    networks:
+      - wiliwili
+    entrypoint: [ "sh", "-c", "chmod +x /script/etcd-monitor.sh && /script/etcd-monitor.sh & exec etcd" ]
+
 
 volumes:
   wiliwili-redis-data:
