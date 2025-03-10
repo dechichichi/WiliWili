@@ -4,12 +4,24 @@
 
 #项目MODULE名
 MODULE=wiliwili
-
+# 检查 tmux 是否存在
+TMUX_EXISTS := $(shell command -v tmux)
+# 当前架构
+PREFIX = "[Makefile]"
 
 #目录相关
 # 项目根目录
 DIR=$(shell pwd)
 IDL_PATH=${DIR}/idl
+
+# 服务名
+SERVICES := gateway user commodity order cart payment assistant
+service = $(word 1, $@)
+
+EnvironmentStartEnv=DOMTOK_ENVIRONMENT_STARTED
+EnvironmentStartFlag=true
+EtcdAddrEnv=ETCD_ADDR
+EtcdAddr=127.0.0.1:2379
 
 ## --------------------------------------
 ## 构建与调试
@@ -37,3 +49,43 @@ kitex-gen-%:
 .PHONY: hz-%
 hz-%:
 	hz update -idl ${IDL_PATH}/api/$*.thrift
+
+
+.PHONY: $(SERVICES)
+$(SERVICES):
+	@if [ -z "$(TMUX_EXISTS)" ]; then \
+		echo "$(PREFIX) tmux is not installed. Please install tmux first."; \
+		exit 1; \
+	fi
+	@if [ -z "$$TMUX" ]; then \
+		echo "$(PREFIX) you are not in tmux, press ENTER to start tmux environment."; \
+		read -r; \
+		if tmux has-session -t fzuhelp 2>/dev/null; then \
+			echo "$(PREFIX) Tmux session 'fzuhelp' already exists. Attaching to session and running command."; \
+			tmux attach-session -t fzuhelp; \
+			tmux send-keys -t fzuhelp "make $(service)" C-m; \
+		else \
+			echo "$(PREFIX) No tmux session found. Creating a new session."; \
+			tmux new-session -s fzuhelp "make $(service); $$SHELL"; \
+		fi; \
+	else \
+		echo "$(PREFIX) Build $(service) target..."; \
+		mkdir -p output; \
+		bash $(DIR)/docker/script/build.sh $(service); \
+		echo "$(PREFIX) Build $(service) target completed"; \
+	fi
+ifndef BUILD_ONLY
+	@echo "$(PREFIX) Automatic run server"
+	@if tmux list-windows -F '#{window_name}' | grep -q "^wiliwili-$(service)$$"; then \
+		echo "$(PREFIX) Window 'wiliwili-$(service)' already exists. Reusing the window."; \
+		tmux select-window -t "wiliwili-$(service)"; \
+	else \
+		echo "$(PREFIX) Window 'wiliwili-$(service)' does not exist. Creating a new window."; \
+		tmux new-window -n "wiliwili-$(service)"; \
+		tmux split-window -h ; \
+		tmux select-layout -t "wiliwili-$(service)" even-horizontal; \
+	fi
+	@echo "$(PREFIX) Running $(service) service in tmux..."
+	@tmux send-keys -t wiliwili-$(service).0 'export SERVICE=$(service) && bash ./docker/script/entrypoint.sh' C-m
+	@tmux select-pane -t wiliwili-$(service).1
+endif

@@ -1,16 +1,14 @@
 mysql:
-  addr:127.0.0.1:3306
-  database:wiliwili
-  username:wiliwili
-  password:wiliwili
-  charset:utf8mb4
+  addr: 127.0.0.1:3306
+  database: wiliwili
+  username: wiliwili
+  password: wiliwili
+  charset: utf8mb4
 
 redis:
-  addr:127.0.0.1:6379
-  password:wiliwili
+  addr: 127.0.0.1:6379
+  password: wiliwili
   
-etcd:
-  addr:127.0.0.1:2379
 
 service:
   gateway:
