@@ -20,7 +20,7 @@ var (
 
 const (
 	remoteProvider = "etcd3"
-	remotePath     = "/config" // 修改为实际存储配置的路径
+	remotePath     = "/config"
 	remoteFileType = "yaml"
 )
 
@@ -38,13 +38,13 @@ func Init(service string) {
 		logger.Fatalf("config.Init: add remote provider error: %v", err)
 	}
 
-	runtimeViper.SetConfigType(remoteFileType) // 确保配置类型为 YAML
+	runtimeViper.SetConfigType(remoteFileType) 
 
 	if err := runtimeViper.ReadRemoteConfig(); err != nil {
 		logger.Fatalf("config.Init: read config error: %v", err)
 	}
 
-	logger.Infof("Loaded config: %+v", runtimeViper.AllSettings()) // 打印加载的配置
+	logger.Infof("Loaded config: %+v", runtimeViper.AllSettings()) 
 
 	configMapping(service)
 

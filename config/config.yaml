@@ -24,16 +24,16 @@ service:
     - 127.0.0.1:20001
   
   video:
-  name: video
-  load-blance: false
-  addr:
-  - 127.0.0.1:20002
+   name: video
+   load-blance: false
+   addr:
+   - 127.0.0.1:20002
 
   networking:
-  name: networking
-  load-blance: false
-  addr:
-  - 127.0.0.1:20003
+   name: networking
+   load-blance: false
+   addr:
+   - 127.0.0.1:20003
 
   interactive:
     name: interactive
