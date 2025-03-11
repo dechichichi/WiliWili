@@ -23,5 +23,5 @@ fi
 # output
 # └── {SERVICE}
 #     ├── bin
-#     │   └── domtok-{SERVICE}
+#     │   └── wiliwilitok-{SERVICE}
 #     └── entrypoint.sh

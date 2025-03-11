@@ -21,7 +21,7 @@ API_PATH= $(DIR)/cmd/api
 SERVICES := gateway user commodity order cart payment assistant
 service = $(word 1, $@)
 
-EnvironmentStartEnv=DOMTOK_ENVIRONMENT_STARTED
+EnvironmentStartEnv=WILIWILI_ENVIRONMENT_STARTED
 EnvironmentStartFlag=true
 EtcdAddrEnv=ETCD_ADDR
 EtcdAddr=127.0.0.1:2379

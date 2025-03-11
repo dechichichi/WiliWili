@@ -15,28 +15,28 @@ service:
     name: gateway
     load-blance: false
     addr:
-    - 127.0.0.1:20000
+    - 127.0.0.1:10001
 
   user:
     name: user
     load-blance: false
     addr:
-    - 127.0.0.1:20001
+    - 0.0.0.0:20000
   
   video:
   name: video
   load-blance: false
   addr:
-  - 127.0.0.1:20002
+  - 0.0.0.0:20001
 
   networking:
   name: networking
   load-blance: false
   addr:
-  - 127.0.0.1:20003
+  - 0.0.0.0:20002
 
   interactive:
     name: interactive
     load-blance: false
     addr:
-    - 127.0.0.1:20004
+    - 0.0.0.0:20003

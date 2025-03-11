@@ -8,4 +8,4 @@ export KITEX_RUNTIME_ROOT=$CURDIR
 export ETCD_ADDR
 
 # 这个 SERVICE 环境变量会自动地由 Dockerfile/Makefile 设置
-exec "$CURDIR/output/$SERVICE/domtok-$SERVICE"
+exec "$CURDIR/output/$SERVICE/wiliwilitok-$SERVICE"
