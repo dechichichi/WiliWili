@@ -6,6 +6,8 @@ import (
 	"wiliwili/pkg/constants"
 	"wiliwili/pkg/utils"
 
+	"github.com/west2-online/DomTok/pkg/logger"
+	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
@@ -13,9 +15,6 @@ import (
 
 func InitMySQL() (db *gorm.DB, err error) {
 	dsn, err := utils.GetMysqlDSN()
-	if err != nil {
-		return nil, err
-	}
 	db, err = gorm.Open(mysql.Open(dsn),
 		&gorm.Config{
 			PrepareStmt:            true,  // 在执行任何 SQL 时都会创建一个 prepared statement 并将其缓存，以提高后续的效率
@@ -25,9 +24,6 @@ func InitMySQL() (db *gorm.DB, err error) {
 				SingularTable: true, // 使用单数表名
 			},
 		})
-	if err != nil {
-		return nil, err
-	}
 	sqlDB, _ := db.DB() // 尝试获取 DB 实例对象
 
 	sqlDB.SetMaxIdleConns(constants.MaxIdleConns)       // 最大闲置连接数

@@ -7,7 +7,7 @@ import (
 	"wiliwili/app/user/infrastructure/redis"
 	"wiliwili/app/user/usecase"
 	"wiliwili/kitex_gen/user"
-	"wiliwili/pkg/client"
+	"wiliwili/pkg/base/client"
 
 	"github.com/west2-online/DomTok/pkg/constants"
 )

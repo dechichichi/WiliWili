@@ -1,6 +1,7 @@
 package config
 
 import (
+	"errors"
 	"os"
 
 	"github.com/bytedance/gopkg/util/logger"
@@ -21,6 +22,7 @@ var (
 const (
 	remoteProvider = "etcd3"
 	remotePath     = "/config"
+	remoteFileName = "config"
 	remoteFileType = "yaml"
 )
 
@@ -37,15 +39,16 @@ func Init(service string) {
 	if err != nil {
 		logger.Fatalf("config.Init: add remote provider error: %v", err)
 	}
-
-	runtimeViper.SetConfigType(remoteFileType) 
+	runtimeViper.SetConfigName(remoteFileName)
+	runtimeViper.SetConfigType(remoteFileType)
 
 	if err := runtimeViper.ReadRemoteConfig(); err != nil {
+		var configFileNotFoundError viper.ConfigFileNotFoundError
+		if errors.As(err, &configFileNotFoundError) {
+			logger.Fatal("config.Init: could not find config files")
+		}
 		logger.Fatalf("config.Init: read config error: %v", err)
 	}
-
-	logger.Infof("Loaded config: %+v", runtimeViper.AllSettings()) 
-
 	configMapping(service)
 
 	runtimeViper.OnConfigChange(func(e fsnotify.Event) {

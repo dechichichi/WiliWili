@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
   wiliwili-redis:
     container_name: wiliwili-redis
     image: redis:bookworm
     volumes:
-      - ./data/redis:/data
+      - wiliwili-redis-data:/data
     ports:
       - "6379:6379"
     env_file:
@@ -13,16 +11,17 @@ services:
     networks:
       - wiliwili
 
-  wiliwili-mysql:
+  wiliwili_mysql:
+    image: mysql:8.0
     container_name: wiliwili-mysql
-    image: mysql:9.0.1
-    ports:
-      - "3306:3306"
+    restart: always
     env_file:
       - "./env/mysql.env"
+    ports:
+      - "3306:3306"
     volumes:
-      - ../config/sql:/docker-entrypoint-initdb.d
-      - ./data/mysql:/var/lib/mysql
+      - wiliwili-mysql-data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
     networks:
       - wiliwili
    # etcd 服务，分布式键值存储系统，用于服务发现、配置管理
@@ -38,16 +37,18 @@ services:
     volumes:
       - ./script:/script
       - ../config:/config
-      - ./data/etcd:/etcd-data
+      - wiliwili-etcd-data:/etcd-data
     networks:
       - wiliwili
     entrypoint: [ "sh", "-c", "chmod +x /script/etcd-monitor.sh && /script/etcd-monitor.sh & exec etcd" ]
 
 
 volumes:
+  wiliwili-etcd-data:
   wiliwili-redis-data:
   wiliwili-mysql-data:
 
 networks:
   wiliwili:
     driver: bridge  # 默认使用桥接网络
+    name: wiliwili
