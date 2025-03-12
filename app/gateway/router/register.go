@@ -5,7 +5,6 @@ package router
 import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 	api_interactive "wiliwili/app/gateway/router/api/interactive"
-	api_networking "wiliwili/app/gateway/router/api/networking"
 	api_user "wiliwili/app/gateway/router/api/user"
 	api_video "wiliwili/app/gateway/router/api/video"
 )
@@ -14,8 +13,6 @@ import (
 func GeneratedRegister(r *server.Hertz) {
 	//INSERT_POINT: DO NOT DELETE THIS LINE!
 	api_interactive.Register(r)
-
-	api_networking.Register(r)
 
 	api_video.Register(r)
 

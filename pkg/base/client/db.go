@@ -6,8 +6,6 @@ import (
 	"wiliwili/pkg/constants"
 	"wiliwili/pkg/utils"
 
-	"github.com/west2-online/DomTok/pkg/logger"
-	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
