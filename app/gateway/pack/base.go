@@ -1,9 +1,9 @@
 package pack
 
-/*
 import (
 	"fmt"
 	"strconv"
+	"wiliwili/pkg/errno"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
@@ -21,7 +21,7 @@ type RespWithData struct {
 }
 
 func RespError(c *app.RequestContext, err error) {
-	Errno :=fmt.Errorf("%w", err)
+	Errno := fmt.Errorf("%w", err)
 	c.JSON(consts.StatusOK, Base{
 		Code: strconv.FormatInt(1, 10),
 		Msg:  Errno.Error(),
@@ -53,4 +53,3 @@ func RespList(c *app.RequestContext, items any) {
 	}
 	c.JSON(consts.StatusOK, resp)
 }
-*/
