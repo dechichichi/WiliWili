@@ -511,7 +511,7 @@ func (p *RegiterUserResp) String() string {
 }
 
 type LoginRequest struct {
-	Username string `thrift:"username,1,required" form:"username,required" json:"username,required" query:"username,required"`
+	ID       int64  `thrift:"id,1,required" form:"id,required" json:"id,required" query:"id,required"`
 	Password string `thrift:"password,2,required" form:"password,required" json:"password,required" query:"password,required"`
 }
 
@@ -522,8 +522,8 @@ func NewLoginRequest() *LoginRequest {
 func (p *LoginRequest) InitDefault() {
 }
 
-func (p *LoginRequest) GetUsername() (v string) {
-	return p.Username
+func (p *LoginRequest) GetID() (v int64) {
+	return p.ID
 }
 
 func (p *LoginRequest) GetPassword() (v string) {
@@ -531,14 +531,14 @@ func (p *LoginRequest) GetPassword() (v string) {
 }
 
 var fieldIDToName_LoginRequest = map[int16]string{
-	1: "username",
+	1: "id",
 	2: "password",
 }
 
 func (p *LoginRequest) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
-	var issetUsername bool = false
+	var issetID bool = false
 	var issetPassword bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
@@ -556,11 +556,11 @@ func (p *LoginRequest) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
-				issetUsername = true
+				issetID = true
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
@@ -586,7 +586,7 @@ func (p *LoginRequest) Read(iprot thrift.TProtocol) (err error) {
 		goto ReadStructEndError
 	}
 
-	if !issetUsername {
+	if !issetID {
 		fieldId = 1
 		goto RequiredFieldNotSetError
 	}
@@ -615,13 +615,13 @@ RequiredFieldNotSetError:
 
 func (p *LoginRequest) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int64
+	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
 		_field = v
 	}
-	p.Username = _field
+	p.ID = _field
 	return nil
 }
 func (p *LoginRequest) ReadField2(iprot thrift.TProtocol) error {
@@ -669,10 +669,10 @@ WriteStructEndError:
 }
 
 func (p *LoginRequest) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("username", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Username); err != nil {
+	if err := oprot.WriteI64(p.ID); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {

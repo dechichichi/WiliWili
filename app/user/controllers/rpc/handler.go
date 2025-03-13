@@ -29,7 +29,7 @@ func (u *UserHandler) UserRegister(ctx context.Context, req *user.UserRegisterRe
 func (u *UserHandler) UserLogin(ctx context.Context, req *user.UserLoginReq) (r *user.UserLoginResp, err error) {
 	r = new(user.UserLoginResp)
 	user := &model.User{
-		Username: req.Username,
+		Uid:      req.Uid,
 		Password: req.Password,
 	}
 	userInfo, err := u.useCase.UserLogin(ctx, user)

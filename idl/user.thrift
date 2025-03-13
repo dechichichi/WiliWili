@@ -30,7 +30,7 @@ struct  UserRegisterResp {
 * @param string password 密码
 */
 struct  UserLoginReq {
-    1: required string username;
+    1: required i64 Uid;
     2: required string password;
 }
 

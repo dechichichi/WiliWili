@@ -11,7 +11,7 @@ struct RegiterUserResp{
     1: required i64 id;
 }
 struct LoginRequest{
-    1: required string username;
+    1: required i64 id;
     2: required string password;
 }
 

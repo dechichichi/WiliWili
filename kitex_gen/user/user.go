@@ -213,7 +213,7 @@ var fieldIDToName_UserRegisterResp = map[int16]string{
 }
 
 type UserLoginReq struct {
-	Username string `thrift:"username,1,required" frugal:"1,required,string" json:"username"`
+	Uid      int64  `thrift:"Uid,1,required" frugal:"1,required,i64" json:"Uid"`
 	Password string `thrift:"password,2,required" frugal:"2,required,string" json:"password"`
 }
 
@@ -224,15 +224,15 @@ func NewUserLoginReq() *UserLoginReq {
 func (p *UserLoginReq) InitDefault() {
 }
 
-func (p *UserLoginReq) GetUsername() (v string) {
-	return p.Username
+func (p *UserLoginReq) GetUid() (v int64) {
+	return p.Uid
 }
 
 func (p *UserLoginReq) GetPassword() (v string) {
 	return p.Password
 }
-func (p *UserLoginReq) SetUsername(val string) {
-	p.Username = val
+func (p *UserLoginReq) SetUid(val int64) {
+	p.Uid = val
 }
 func (p *UserLoginReq) SetPassword(val string) {
 	p.Password = val
@@ -251,7 +251,7 @@ func (p *UserLoginReq) DeepEqual(ano *UserLoginReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Username) {
+	if !p.Field1DeepEqual(ano.Uid) {
 		return false
 	}
 	if !p.Field2DeepEqual(ano.Password) {
@@ -260,9 +260,9 @@ func (p *UserLoginReq) DeepEqual(ano *UserLoginReq) bool {
 	return true
 }
 
-func (p *UserLoginReq) Field1DeepEqual(src string) bool {
+func (p *UserLoginReq) Field1DeepEqual(src int64) bool {
 
-	if strings.Compare(p.Username, src) != 0 {
+	if p.Uid != src {
 		return false
 	}
 	return true
@@ -276,7 +276,7 @@ func (p *UserLoginReq) Field2DeepEqual(src string) bool {
 }
 
 var fieldIDToName_UserLoginReq = map[int16]string{
-	1: "username",
+	1: "Uid",
 	2: "password",
 }
 

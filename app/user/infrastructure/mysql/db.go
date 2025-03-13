@@ -30,7 +30,14 @@ func (db *userDB) IsUserExist(ctx context.Context, username string) (bool, error
 }
 
 func (db *userDB) GEtUserById(ctx context.Context, uid int64) (*model.User, error) {
-	panic("implement me")
+	var user model.User
+	if err := db.client.Where("uid = ?", uid).First(&user).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+		return nil, fmt.Errorf("failed to get user by id: %w", err)
+	}
+	return &user, nil
 }
 
 func (db *userDB) CreateUser(ctx context.Context, user *model.User) error {
@@ -38,9 +45,6 @@ func (db *userDB) CreateUser(ctx context.Context, user *model.User) error {
 		return fmt.Errorf("failed to create user: %w", err)
 	}
 	return nil
-}
-func (db *userDB) CheckPassword(ctx context.Context, username string, password string) (*model.UserInfo, error) {
-	panic("implement me")
 }
 func (db *userDB) GetUserProFile(ctx context.Context, uid int64) (*model.UserProfile, error) {
 	panic("implement me")

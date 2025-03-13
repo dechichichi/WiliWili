@@ -18,7 +18,7 @@ func (uc *useCase) UserRegister(ctx context.Context, user *model.User) (int64, e
 	if err != nil {
 		return 0, fmt.Errorf("failed to get new user id: %w", err)
 	}
-	user.UId = uid
+	user.Uid = uid
 	err = uc.db.CreateUser(ctx, user)
 	if err != nil {
 		return 0, fmt.Errorf("failed to create user: %w", err)
@@ -27,7 +27,18 @@ func (uc *useCase) UserRegister(ctx context.Context, user *model.User) (int64, e
 }
 
 func (uc *useCase) UserLogin(ctx context.Context, user *model.User) (*model.UserInfo, error) {
-	panic("implement me")
+	theuser, err := uc.db.GEtUserById(ctx, user.Uid)
+	if user == nil {
+		return nil, fmt.Errorf("user not exist")
+	}
+	if err != nil {
+		return nil, fmt.Errorf("failed to get user by id: %w", err)
+	}
+	userInfo, err := uc.svc.CheckPassword(ctx, theuser, user.Password)
+	if err != nil {
+		return nil, fmt.Errorf("failed to check password: %w", err)
+	}
+	return userInfo, nil
 }
 
 func (uc *useCase) UserProfile(ctx context.Context, uid int64) (*model.UserProfile, error) {

@@ -6,7 +6,7 @@ type User struct {
 	Email     string `json:"email"`
 	Gender    string `json:"gender"`
 	Signature string `json:"signature"`
-	UId       int64  `json:"uid"`
+	Uid       int64  `json:"uid"`
 }
 
 type UserInfo struct {

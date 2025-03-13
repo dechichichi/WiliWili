@@ -8,8 +8,7 @@ import (
 type UserDB interface {
 	IsUserExist(ctx context.Context, username string) (bool, error)
 	GEtUserById(ctx context.Context, uid int64) (*model.User, error)
-	CreateUser(ctx context.Context, user *model.User) (error)
-	CheckPassword(ctx context.Context, username string, password string) (*model.UserInfo, error)
+	CreateUser(ctx context.Context, user *model.User) error
 	GetUserProFile(ctx context.Context, uid int64) (*model.UserProfile, error)
 	StoreImage(ctx context.Context, uid int64, image []byte) (*model.Image, error)
 }
