@@ -48,7 +48,7 @@ func Login(ctx context.Context, c *app.RequestContext) {
 	}
 
 	resp, err := rpc.Login(ctx, &user.UserLoginReq{
-		Username: req.Username,
+		Uid:      req.ID,
 		Password: req.Password,
 	})
 	if err != nil {

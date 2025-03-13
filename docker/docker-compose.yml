@@ -23,7 +23,6 @@ services:
       - wiliwili
     volumes:
       - ../config/sql:/docker-entrypoint-initdb.d
-      - wiliwili-mysql-data:/var/lib/mysql
    # etcd 服务，分布式键值存储系统，用于服务发现、配置管理
   wiliwili-etcd:
     container_name: wiliwili-etcd

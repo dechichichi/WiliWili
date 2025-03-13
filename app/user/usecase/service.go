@@ -42,9 +42,22 @@ func (uc *useCase) UserLogin(ctx context.Context, user *model.User) (*model.User
 }
 
 func (uc *useCase) UserProfile(ctx context.Context, uid int64) (*model.UserProfile, error) {
-	panic("implement me")
+	userprofile, err := uc.cache.GetUserProFile(ctx, uid)
+	if err == nil {
+		userprofile, err = uc.db.GetUserProFile(ctx, uid)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get user profile: %w", err)
+		}
+	}
+	err = uc.cache.StoreUserProFile(ctx, uid, userprofile)
+	if err != nil {
+		return nil, fmt.Errorf("failed to store user profile: %w", err)
+	}
+	return userprofile, nil
 }
 
 func (uc *useCase) UserAvatarUpload(ctx context.Context, avatar []byte) (*model.Image, error) {
+	//检查用户是否有权限
+
 	panic("implement me")
 }

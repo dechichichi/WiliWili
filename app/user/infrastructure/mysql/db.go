@@ -47,7 +47,14 @@ func (db *userDB) CreateUser(ctx context.Context, user *model.User) error {
 	return nil
 }
 func (db *userDB) GetUserProFile(ctx context.Context, uid int64) (*model.UserProfile, error) {
-	panic("implement me")
+	var profile model.UserProfile
+	if err := db.client.Where("uid = ?", uid).First(&profile).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+		return nil, fmt.Errorf("failed to get user profile: %w", err)
+	}
+	return &profile, nil
 }
 
 func (db *userDB) StoreImage(ctx context.Context, uid int64, image []byte) (*model.Image, error) {

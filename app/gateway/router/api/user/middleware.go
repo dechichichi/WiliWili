@@ -3,11 +3,13 @@
 package user
 
 import (
+	"wiliwili/app/gateway/mw"
+
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
 func rootMw() []app.HandlerFunc {
-	// your code...
+	mw.Auth()
 	return nil
 }
 
