@@ -2,6 +2,7 @@ package mw
 
 import (
 	"context"
+	"wiliwili/app/gateway/pack"
 	metainfoContext "wiliwili/pkg/base/context"
 	"wiliwili/pkg/constants"
 	"wiliwili/pkg/utils"
@@ -14,15 +15,13 @@ func Auth() app.HandlerFunc {
 		token := string(c.GetHeader(constants.AuthHeader))
 		_, uid, err := utils.CheckToken(token)
 		if err != nil {
-			// 验证失败
-			//pack.
+			pack.RespError(c, err)
 			c.Abort()
 			return
 		}
 		access, refresh, err := utils.CreateAllToken(uid)
 		if err != nil {
-			// 刷新失败
-			//pack.
+			pack.RespError(c, err)
 			c.Abort()
 			return
 		}

@@ -57,6 +57,10 @@ func (db *userDB) GetUserProFile(ctx context.Context, uid int64) (*model.UserPro
 	return &profile, nil
 }
 
-func (db *userDB) StoreImage(ctx context.Context, uid int64, image []byte) (*model.Image, error) {
-	panic("implement me")
+func (db *userDB) StoreImage(ctx context.Context, uid int64, image *model.Image) error {
+	err := db.client.Where("uid = ?", uid).Create(image).Error
+	if err != nil {
+		return fmt.Errorf("failed to store image: %w", err)
+	}
+	return nil
 }

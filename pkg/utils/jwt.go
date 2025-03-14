@@ -5,6 +5,7 @@ import (
 	"time"
 	"wiliwili/config"
 	"wiliwili/pkg/constants"
+	"wiliwili/pkg/errno"
 
 	"github.com/golang-jwt/jwt"
 )
@@ -18,7 +19,7 @@ type Claims struct {
 // 根据tokentype的不同返回过期时间不同的token
 func CreateToken(tokenType int64, uid int64) (string, error) {
 	if config.Server == nil {
-		return "", fmt.Errorf("config.Server is nil")
+		return "", errno.Errorf(errno.ErrConfigParseCode, "config.Server is nil")
 	}
 	expireTime := time.Now().Add(getTokenTTL(tokenType))
 	claims := Claims{
@@ -32,11 +33,11 @@ func CreateToken(tokenType int64, uid int64) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
 	key, err := PraisePrivateKey(config.Server.Secret)
 	if err != nil {
-		return "", err
+		return "", errno.Errorf(errno.ErrTokenGenCode, "failed to generate token: %w", err)
 	}
 	signToken, err := token.SignedString(key)
 	if err != nil {
-		return "", err
+		return "", errno.Errorf(errno.ErrTokenGenCode, "failed to generate token: %w", err)
 	}
 	return signToken, nil
 }
@@ -45,11 +46,11 @@ func CreateToken(tokenType int64, uid int64) (string, error) {
 func CreateAllToken(uid int64) (string, string, error) {
 	accessToken, err := CreateToken(constants.TypeAccessToken, uid)
 	if err != nil {
-		return "", "", err
+		return "", "", errno.Errorf(errno.ErrTokenGenCode, "failed to generate token: %w", err)
 	}
 	refreshToken, err := CreateToken(constants.TypeRefreshToken, uid)
 	if err != nil {
-		return "", "", err
+		return "", "", errno.Errorf(errno.ErrTokenGenCode, "failed to generate token: %w", err)
 	}
 	return accessToken, refreshToken, nil
 }
@@ -57,22 +58,22 @@ func CreateAllToken(uid int64) (string, string, error) {
 // 检查token是否有效,返回token的类型和用户id
 func CheckToken(token string) (int64, int64, error) {
 	if config.Server == nil {
-		return 0, 0, fmt.Errorf("config.Server is nil")
+		return 0, 0, errno.Errorf(errno.ErrConfigParseCode, "config.Server is nil")
 	}
 	if token == "" {
-		return 0, 0, fmt.Errorf("token is empty")
+		return 0, 0, errno.Errorf(errno.ErrTokenInvalidCode, "token is empty")
 	}
 	unverifiedClaims, err := parseUnverifiedClaims(token)
 	if err != nil {
-		return 0, 0, fmt.Errorf("failed to parse token: %w", err)
+		return 0, 0, errno.Errorf(errno.ErrTokenInvalidCode, "failed to parse token: %w", err)
 	}
 	secret, err := PraisePublicKey(config.Server.PublicKey)
 	if err != nil {
-		return 0, 0, fmt.Errorf("failed to parse token: %w", err)
+		return 0, 0, errno.Errorf(errno.ErrTokenInvalidCode, "failed to parse token: %w", err)
 	}
 	verifiedClaims, err := VerifyToken(token, secret)
 	if err != nil {
-		return unverifiedClaims.Type, 0, fmt.Errorf("failed to verify token: %w", err)
+		return unverifiedClaims.Type, 0, errno.Errorf(errno.ErrTokenVerifyCode, "failed to verify token: %w", err)
 	}
 	return verifiedClaims.Type, verifiedClaims.UserID, nil
 
@@ -87,12 +88,12 @@ func VerifyToken(token string, key interface{}) (*Claims, error) {
 		return key, nil
 	})
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse token: %w", err)
+		return nil, errno.Errorf(errno.ErrTokenInvalidCode, "failed to parse token: %w", err)
 	}
 	if claims, ok := parsedToken.Claims.(*Claims); ok && parsedToken.Valid {
 		return claims, nil
 	}
-	return nil, fmt.Errorf("failed to verify token: %w", err)
+	return nil, fmt.Errorf("invalid token")
 }
 
 // Create时传入的key为私钥，Verify时传入的key为公钥

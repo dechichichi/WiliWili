@@ -10,7 +10,7 @@ type UserDB interface {
 	GEtUserById(ctx context.Context, uid int64) (*model.User, error)
 	CreateUser(ctx context.Context, user *model.User) error
 	GetUserProFile(ctx context.Context, uid int64) (*model.UserProfile, error)
-	StoreImage(ctx context.Context, uid int64, image []byte) (*model.Image, error)
+	StoreImage(ctx context.Context, uid int64,image  *model.Image) error
 }
 
 type UserCache interface {
