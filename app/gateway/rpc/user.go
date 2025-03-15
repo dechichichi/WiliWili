@@ -3,7 +3,16 @@ package rpc
 import (
 	"context"
 	"wiliwili/kitex_gen/user"
+	"wiliwili/pkg/base/client"
 )
+
+func InitUserRPC() {
+	c, err := client.InitUserRPC()
+	if err != nil {
+		panic(err)
+	}
+	userClient = *c
+}
 
 func RegisterUser(ctx context.Context, req *user.UserRegisterReq) (reponse *user.UserRegisterResp, err error) {
 	resp, err := userClient.UserRegister(ctx, req)

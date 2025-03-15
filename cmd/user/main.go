@@ -18,12 +18,11 @@ import (
 
 var serviceName = constants.UserServiceName
 
-func Init() {
+func init() {
 	config.Init(serviceName)
 }
 
 func main() {
-	Init()
 	r, err := etcd.NewEtcdRegistry([]string{config.Etcd.Addr})
 	if err != nil {
 		panic(err)

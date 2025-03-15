@@ -15,7 +15,7 @@ mysql:
   addr: 127.0.0.1:3306
   database: wiliwili
   username: root
-  password: wiliwili
+  password: root
   charset: utf8mb4
 
 redis:

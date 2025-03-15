@@ -11,3 +11,7 @@ var (
 	videoClient       videoservice.Client
 	interactiveClient interactive.Client
 )
+
+func Init() {
+	InitUserRPC()
+}

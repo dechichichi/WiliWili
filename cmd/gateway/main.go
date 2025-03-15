@@ -2,13 +2,27 @@ package main
 
 import (
 	"wiliwili/app/gateway/router"
+	"wiliwili/config"
 	"wiliwili/pkg/constants"
+	"wiliwili/pkg/utils"
+
+	"wiliwili/app/gateway/rpc"
 
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
+var serviceName = constants.GateWayServiceName
+
+func init() {
+	config.Init(serviceName)
+	rpc.Init()
+}
+
 func main() {
-	listenAddr := ":8080"
+	listenAddr, err := utils.GetAvailablePort()
+	if err != nil {
+		panic(err)
+	}
 	h := server.New(
 		server.WithHostPorts(listenAddr),
 		server.WithHandleMethodNotAllowed(true),
