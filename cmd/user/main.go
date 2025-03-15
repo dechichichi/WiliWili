@@ -6,6 +6,7 @@ import (
 	"wiliwili/config"
 	"wiliwili/kitex_gen/user/userservice"
 	"wiliwili/pkg/constants"
+	"wiliwili/pkg/middleware"
 	"wiliwili/pkg/utils"
 
 	"github.com/bytedance/gopkg/util/logger"
@@ -49,6 +50,7 @@ func main() {
 			MaxConnections: constants.MaxConnections,
 			MaxQPS:         constants.MaxQPS,
 		}),
+		server.WithMiddleware(middleware.Respond()),
 	)
 	if err = svr.Run(); err != nil {
 		logger.Fatalf("User: run server failed, err: %v", err)

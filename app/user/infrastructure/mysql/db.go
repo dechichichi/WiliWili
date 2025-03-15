@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"wiliwili/app/user/domain/model"
 	"wiliwili/app/user/domain/repository"
+	"wiliwili/pkg/errno"
 
 	"gorm.io/gorm"
 )
@@ -18,24 +19,24 @@ func NewUserDB(client *gorm.DB) repository.UserDB {
 	return &userDB{client: client}
 }
 
-func (db *userDB) IsUserExist(ctx context.Context, username string) (bool, error) {
+func (db *userDB) IsUserExist(ctx context.Context, username string) (error) {
 	var user model.User
 	if err := db.client.Where("username = ?", username).First(&user).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return false, nil
+			return nil
 		}
-		return false, fmt.Errorf("failed to check user exist: %w", err)
+		return errno.Errorf(errno.ErrCodeDBerror, "failed to get user by username: %w", err)
 	}
-	return true, fmt.Errorf("user %s already exist", username)
+	return errno.Errorf(errno.ErrCodeUserExist, "user already exist")
 }
 
 func (db *userDB) GEtUserById(ctx context.Context, uid int64) (*model.User, error) {
 	var user model.User
 	if err := db.client.Where("uid = ?", uid).First(&user).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, nil
+			return nil, errno.Errorf(errno.ErrCodeUserNotExist, "user not exist")
 		}
-		return nil, fmt.Errorf("failed to get user by id: %w", err)
+		return nil, errno.Errorf(errno.ErrCodeDBerror, "failed to get user by id: %w", err)
 	}
 	return &user, nil
 }
@@ -45,16 +46,6 @@ func (db *userDB) CreateUser(ctx context.Context, user *model.User) error {
 		return fmt.Errorf("failed to create user: %w", err)
 	}
 	return nil
-}
-func (db *userDB) GetUserProFile(ctx context.Context, uid int64) (*model.UserProfile, error) {
-	var profile model.UserProfile
-	if err := db.client.Where("uid = ?", uid).First(&profile).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, nil
-		}
-		return nil, fmt.Errorf("failed to get user profile: %w", err)
-	}
-	return &profile, nil
 }
 
 func (db *userDB) StoreImage(ctx context.Context, uid int64, image *model.Image) error {

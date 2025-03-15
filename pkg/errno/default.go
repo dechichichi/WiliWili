@@ -4,5 +4,6 @@ package errno
 
 var (
 	Success = NewErrNo(SuccessCode, "ok")
+	InternalServiceError = NewErrNo(500, "Internal Service Error")
 )
 

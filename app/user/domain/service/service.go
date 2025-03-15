@@ -10,6 +10,7 @@ import (
 	"strings"
 	"wiliwili/app/user/domain/model"
 	"wiliwili/pkg/constants"
+	"wiliwili/pkg/errno"
 
 	"github.com/bwmarrin/snowflake"
 	"github.com/google/uuid"
@@ -17,7 +18,7 @@ import (
 
 func (svc *UserService) CheckPassword(ctx context.Context, user *model.User, password string) (*model.UserInfo, error) {
 	if user.Password != password {
-		return nil, fmt.Errorf("password not correct")
+		return nil, errno.Errorf(errno.ErrCodePasswordIncorrect, "password incorrect")
 	}
 	userInfo := &model.UserInfo{
 		Username: user.Username,

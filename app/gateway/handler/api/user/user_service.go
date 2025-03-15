@@ -4,6 +4,7 @@ package user
 
 import (
 	"context"
+	"wiliwili/app/gateway/pack"
 	"wiliwili/app/gateway/rpc"
 
 	api "wiliwili/app/gateway/model/api/user"
@@ -20,7 +21,7 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	var req api.RegiterUserReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
 	resp, err := rpc.RegisterUser(ctx, &user.UserRegisterReq{
@@ -30,10 +31,10 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 		Gender:   req.Gender,
 	})
 	if err != nil {
-		c.String(consts.StatusInternalServerError, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-	c.JSON(consts.StatusOK, resp)
+	pack.RespData(c, resp)
 }
 
 // Login .
@@ -43,19 +44,18 @@ func Login(ctx context.Context, c *app.RequestContext) {
 	var req api.LoginRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-
 	resp, err := rpc.Login(ctx, &user.UserLoginReq{
 		Uid:      req.ID,
 		Password: req.Password,
 	})
 	if err != nil {
-		c.String(consts.StatusInternalServerError, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-	c.JSON(consts.StatusOK, resp)
+	pack.RespData(c, resp)
 }
 
 // GetProfile .
@@ -74,10 +74,10 @@ func GetProfile(ctx context.Context, c *app.RequestContext) {
 		Uid: req.UserId,
 	})
 	if err != nil {
-		c.String(consts.StatusInternalServerError, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-	c.JSON(consts.StatusOK, resp)
+	pack.RespData(c, resp)
 }
 
 // UploadAvatar .
@@ -95,8 +95,8 @@ func UploadAvatar(ctx context.Context, c *app.RequestContext) {
 		Avatar: req.Avatar,
 	})
 	if err != nil {
-		c.String(consts.StatusInternalServerError, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-	c.JSON(consts.StatusOK, resp)
+	pack.RespData(c, resp)
 }

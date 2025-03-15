@@ -1,6 +1,9 @@
 package errno
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type ErrNo struct {
 	ErrorCode int64
@@ -32,4 +35,17 @@ func (e ErrNo) WithMessage(msg string) ErrNo {
 func (e ErrNo) WithError(err error) ErrNo {
 	e.ErrorMsg = e.ErrorMsg + ": " + err.Error()
 	return e
+}
+
+func ConvertErr(err error) ErrNo {
+	if err == nil {
+		return Success
+	}
+	errno := ErrNo{}
+	if errors.As(err, &errno) {
+		return errno
+	}
+	s := InternalServiceError
+	s.ErrorMsg = err.Error()
+	return s
 }
