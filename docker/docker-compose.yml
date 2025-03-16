@@ -3,7 +3,7 @@ services:
     container_name: wiliwili-redis
     image: redis:bookworm
     volumes:
-      - wiliwili-redis-data:/data
+      - wiliwili-redis-data:/redis-data
     ports:
       - "6379:6379"
     env_file:
@@ -41,11 +41,23 @@ services:
       - wiliwili
     entrypoint: [ "sh", "-c", "chmod +x /script/etcd-monitor.sh && /script/etcd-monitor.sh & exec etcd" ]
 
+  wiliwili-minio:
+    container_name: wiliwili-minio
+    image: quay.io/minio/minio:latest
+    ports:
+      - 9000:9000
+    env_file:
+      - ./env/minio.env
+    volumes:
+      - wiliwili-minio-data:/minio-data
+    networks:
+      - wiliwili
 
 volumes:
   wiliwili-etcd-data:
   wiliwili-redis-data:
   wiliwili-mysql-data:
+  wiliwili-minio-data:
 
 networks:
   wiliwili:

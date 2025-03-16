@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -9,8 +10,6 @@ import (
 	"strings"
 	"wiliwili/config"
 	"wiliwili/pkg/constants"
-
-	"wiliwili/pkg/errno"
 
 	"github.com/bytedance/gopkg/util/logger"
 	"github.com/h2non/filetype"
@@ -89,27 +88,24 @@ func CheckImageFileType(header *multipart.FileHeader) (string, bool) {
 	}
 }
 
-func FileToBytes(file *multipart.FileHeader) (ret [][]byte, err error) {
+func FileToBytes(file *multipart.FileHeader) ([]byte, error) {
 	if file == nil {
-		return nil, errno.ParamMissingError
+		return nil, errors.New("file is nil")
 	}
 
+	// 打开文件
 	fileOpen, err := file.Open()
 	if err != nil {
-		return nil, errno.OSOperationError.WithMessage(err.Error())
+		return nil, err
 	}
 	defer fileOpen.Close()
 
-	for {
-		buf := make([]byte, constants.FileStreamBufferSize)
-		_, err := fileOpen.Read(buf)
-		if errors.Is(err, io.EOF) {
-			break
-		}
-		if err != nil {
-			return nil, errno.InternalServiceError.WithMessage(err.Error())
-		}
-		ret = append(ret, buf)
+	// 使用 bytes.Buffer 读取文件内容
+	var buffer bytes.Buffer
+	_, err = io.Copy(&buffer, fileOpen)
+	if err != nil {
+		return nil, err
 	}
-	return ret, nil
+
+	return buffer.Bytes(), nil
 }

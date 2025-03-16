@@ -15,6 +15,7 @@ require (
 	github.com/h2non/filetype v1.1.3
 	github.com/kitex-contrib/obs-opentelemetry v0.2.9
 	github.com/kitex-contrib/registry-etcd v0.2.5
+	github.com/minio/minio-go v6.0.14+incompatible
 	github.com/west2-online/DomTok v0.0.0-20250307130123-24e8dddf9200
 	google.golang.org/grpc v1.70.0
 	gorm.io/gorm v1.25.12
@@ -34,6 +35,7 @@ require (
 	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
+	github.com/go-ini/ini v1.67.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect

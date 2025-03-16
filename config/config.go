@@ -16,6 +16,7 @@ var (
 	Redis        *redis
 	Etcd         *etcd
 	Server       *server
+	Minio        *minio
 	runtimeViper = viper.New()
 )
 
@@ -68,6 +69,7 @@ func configMapping(srv string) {
 	Redis = &c.Redis
 	Service = &c.Service
 	Server = &c.Server
+	Minio = &c.Minio
 	Service = getService(srv)
 }
 

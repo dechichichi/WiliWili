@@ -6,6 +6,7 @@ import (
 	"context"
 	"wiliwili/app/gateway/pack"
 	"wiliwili/app/gateway/rpc"
+	"wiliwili/pkg/constants"
 	"wiliwili/pkg/errno"
 	"wiliwili/pkg/utils"
 
@@ -13,7 +14,6 @@ import (
 	"wiliwili/kitex_gen/user"
 
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
 )
 
 // RegisterUser .
@@ -57,6 +57,13 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		pack.RespError(c, err)
 		return
 	}
+	accessToken, refreshToken, err := utils.CreateAllToken(resp.UserInfo.Uid)
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	c.Header(constants.AccessTokenHeader, accessToken)
+	c.Header(constants.RefreshTokenHeader, refreshToken)
 	pack.RespData(c, resp)
 }
 
@@ -68,7 +75,7 @@ func GetProfile(ctx context.Context, c *app.RequestContext) {
 	var req api.ProfileReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
 
@@ -102,14 +109,15 @@ func UploadAvatar(ctx context.Context, c *app.RequestContext) {
 		pack.RespError(c, errno.Errorf(errno.ErrInvalidParams, "invalid image file type"))
 		return
 	}
-	datas, err := utils.FileToBytes(file)
+	data, err := utils.FileToBytes(file)
 	if err != nil {
 		pack.RespError(c, err)
 		return
 	}
 	resp, err := rpc.UploadAvatar(ctx, &user.UserAvatarUploadReq{
-		Uid: req.UserId,
-	}, datas)
+		Uid:    req.UserId,
+		Avatar: data,
+	})
 	if err != nil {
 		pack.RespError(c, err)
 		return

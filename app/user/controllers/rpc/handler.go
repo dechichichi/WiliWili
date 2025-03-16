@@ -63,8 +63,12 @@ func (u *UserHandler) UserProfile(ctx context.Context, req *user.UserProfileReq)
 
 func (u *UserHandler) UserAvatarUpload(ctx context.Context, req *user.UserAvatarUploadReq) (r *user.UserAvatarUploadResp, err error) {
 	r = new(user.UserAvatarUploadResp)
-	image, err := u.useCase.UserAvatarUpload(ctx, req.Avatar)
+	image, err := u.useCase.UserAvatarUpload(ctx, req.Uid, req.Avatar)
 	if err != nil {
+		r.BaseResp = base.BuildBaseResp(err)
+		return
+	}
+	if image == nil {
 		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}

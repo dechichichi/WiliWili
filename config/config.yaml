@@ -1,14 +1,38 @@
 server:
   private-key: | # PKCS#8
     -----BEGIN PRIVATE KEY-----
-    MC4CAQAwBQYDK2VwBCIEIJi1JE7fq4xFZTXiOWvK9PDEDVIOgsF0dMF46BMgT9jY
+    MIIEpAIBAAKCAQEA288fmgBhBTLzC9ODqvW/vNRdd0PuJLSpHCYmWg095aBYezpo
+    OAcoi8soGw0gweQnMP+UO4iEUc6HvVQ/fEetC0m+Bf2ZUOP3BJTJ7EiIuY7AM+Y+
+    /Te/SfKFJn5eR0M4pZTWOWJMi530FhAR/VUhz/vSfnIOuf322pIL6hYnKkR9Ld14
+    /SlnrGT4BRUZETAowFvuH9MIMThMxTGkPtFdG+MD78FcVO4vbxYW+JYBrcRv7A7I
+    QCn6l/nVnkuGLwfzkRuxpoK8Dcp1aY2kt3AKjzNit9RMtZYIrKQRkAqCCCxv7Gnq
+    LnSrlnCCNeVand86O5cc/7F4/hyH7mbdnw8LqwIDAQABAoIBAGqEyeyoSFvrn8pY
+    WtMrOhp40z5rpekVv2nLtwQmrJsthBNbb4vPND/iWHIbf4dWWAOvpxbehjjam/8M
+    56MDXQE+YB6pEXYYsuj+bYfacp9xZQUBi/7L2CAurYXE8U0Zb0cWhGXUlAGIrvNO
+    IFmiurr+brgl76sEPm8XHTz4NUyOc+Q4oAVa5kaCnS9eXSH+WmUdeEplsOQoXQeK
+    ufH8njz7sxNMbZQx+NAIH3dp6HcXlJCeY4HRETEDSliiV7dXCsilLWgif8ZMXrsL
+    UjRF84tEip2bbTJZ2/wkJTatQrebNpnTo5IKaY0k9k36eqXw9gFC545Q6EBkq3kN
+    xnHbaBECgYEA4aPJ+AoPjXjNIr7ZcG4H50ocFnH9v3o1LOB/Bs+gFvNQnEM+LmFv
+    dTIS4CexogOWCLQQ/0fjq62b7jnIQmi6fk9Qz6B4Rr8ANW4NCF+2s5k/Jt+RTcAC
+    6auMBV1+T+KB2FB3cLyRUkQRHp1jXtWMkuzYFsA+LtcnSXQqj1XhcEMCgYEA+WJ+
+    c4M4ER2nGj/9WG4vuZALc+N4H8aZfM1EZ7IoAq9+FV2y5l325447ljGqeX/Udu98
+    VD22h4RjDUEe5eb1XI+/d/EyVdUUi5SZVsYjZ2kwcKxnLpmPrz4YqEtjDQVFXTuz
+    TKdznVuS5LJNwt7bDqkCvm7odq1WsvcJmZV5VHkCgYEAwUo6wLV1nz5FlCcjQ3Gu
+    aY6NwxiBQ57foILrrhz8SczDWCkuQjMLdLyheM3oGB60Tt5Z1SVzPeTpt8hd6a2n
+    XH57fnE7t3b1KdANcAf2DaIQfC92XMFIfX2L5Ci0BKDHlFNSDgwq/Or8M1ql/l43
+    HsGvVsX2Ps/mgsD1mHX8OdsCgYEAiU//GjE1DM+L87sqDqfU5VJ3y96ChNSALKSF
+    Nqd0uk3QmYkW+Rrh2QuKqZ89I1sMLFSe22+DckillWW20pWBoe6QWUVYFsSVZGl0
+    qL++PLFBd7ils5Xf9Hi3cOrZZhDx6Wz2w40r7oe+cOfwQw0cBo1uslY07ytwImg9
+    Q/B2dtkCgYBAL3c+8DVxgNKidL/56fOGTOsmQESQC9cG5JBMFhyPKGTxXA+vMs3P
+    RLg3ft3AsnyAPVTSjRMo9zpLhSzktxZyfH+AJpcmYj+CzuR6nVEq8pMTOS8Lmo8Z
+    nvXmju2oinmjWWcB3Blzusraq5w/SBhzfj2thosfa4K2w82t4fOGpg==
     -----END PRIVATE KEY-----
   public-key: |
     -----BEGIN PUBLIC KEY-----
     MCowBQYDK2VwAyEAe8QtuyTwO7YgDmZegsPpPPGuMZkjg6209OoArIOVOz0=
     -----END PUBLIC KEY-----
   version: "1.0"
-  name: "DomTok"
+  name: "WiLiWiLi"
   log-level: "INFO" # OPTIONS: TRACE, DEBUG, INFO(default), NOTICE, WARN, ERROR, FATAL
 
 mysql:
@@ -21,7 +45,11 @@ mysql:
 redis:
   addr: 127.0.0.1:6379
   password: wiliwili
-  
+
+minio:
+  addr: 127.0.0.1:9000
+  accesskey: wiliwili
+  secretkey: wiliwili
 
 services:
   gateway:
