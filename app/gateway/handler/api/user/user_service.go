@@ -6,6 +6,8 @@ import (
 	"context"
 	"wiliwili/app/gateway/pack"
 	"wiliwili/app/gateway/rpc"
+	"wiliwili/pkg/errno"
+	"wiliwili/pkg/utils"
 
 	api "wiliwili/app/gateway/model/api/user"
 	"wiliwili/kitex_gen/user"
@@ -87,13 +89,27 @@ func UploadAvatar(ctx context.Context, c *app.RequestContext) {
 	var req api.UserAvatarUploadReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-
+	file, err := c.FormFile("avatar")
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	_, ok := utils.CheckImageFileType(file)
+	if !ok {
+		pack.RespError(c, errno.Errorf(errno.ErrInvalidParams, "invalid image file type"))
+		return
+	}
+	datas, err := utils.FileToBytes(file)
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
 	resp, err := rpc.UploadAvatar(ctx, &user.UserAvatarUploadReq{
-		Avatar: req.Avatar,
-	})
+		Uid: req.UserId,
+	}, datas)
 	if err != nil {
 		pack.RespError(c, err)
 		return

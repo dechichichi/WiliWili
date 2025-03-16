@@ -1497,7 +1497,7 @@ func (p *ProfileResp) String() string {
 }
 
 type UserAvatarUploadReq struct {
-	Avatar []byte `thrift:"avatar,1,required" form:"avatar,required" json:"avatar,required" query:"avatar,required"`
+	UserId int64 `thrift:"userId,1,required" form:"userId,required" json:"userId,required" query:"userId,required"`
 }
 
 func NewUserAvatarUploadReq() *UserAvatarUploadReq {
@@ -1507,18 +1507,18 @@ func NewUserAvatarUploadReq() *UserAvatarUploadReq {
 func (p *UserAvatarUploadReq) InitDefault() {
 }
 
-func (p *UserAvatarUploadReq) GetAvatar() (v []byte) {
-	return p.Avatar
+func (p *UserAvatarUploadReq) GetUserId() (v int64) {
+	return p.UserId
 }
 
 var fieldIDToName_UserAvatarUploadReq = map[int16]string{
-	1: "avatar",
+	1: "userId",
 }
 
 func (p *UserAvatarUploadReq) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
-	var issetAvatar bool = false
+	var issetUserId bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -1535,11 +1535,11 @@ func (p *UserAvatarUploadReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
-				issetAvatar = true
+				issetUserId = true
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
@@ -1556,7 +1556,7 @@ func (p *UserAvatarUploadReq) Read(iprot thrift.TProtocol) (err error) {
 		goto ReadStructEndError
 	}
 
-	if !issetAvatar {
+	if !issetUserId {
 		fieldId = 1
 		goto RequiredFieldNotSetError
 	}
@@ -1580,13 +1580,13 @@ RequiredFieldNotSetError:
 
 func (p *UserAvatarUploadReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field []byte
-	if v, err := iprot.ReadBinary(); err != nil {
+	var _field int64
+	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
-		_field = []byte(v)
+		_field = v
 	}
-	p.Avatar = _field
+	p.UserId = _field
 	return nil
 }
 
@@ -1619,10 +1619,10 @@ WriteStructEndError:
 }
 
 func (p *UserAvatarUploadReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("avatar", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("userId", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteBinary([]byte(p.Avatar)); err != nil {
+	if err := oprot.WriteI64(p.UserId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {

@@ -12,6 +12,7 @@ require (
 	github.com/cloudwego/hertz v0.9.6
 	github.com/cloudwego/kitex v0.12.3
 	github.com/google/uuid v1.6.0
+	github.com/h2non/filetype v1.1.3
 	github.com/kitex-contrib/obs-opentelemetry v0.2.9
 	github.com/kitex-contrib/registry-etcd v0.2.5
 	github.com/west2-online/DomTok v0.0.0-20250307130123-24e8dddf9200

@@ -28,7 +28,7 @@ func GetProfile(ctx context.Context, req *user.UserProfileReq) (reponse *user.Us
 	resp, err := userClient.UserProfile(ctx, req)
 	return resp, err
 }
-func UploadAvatar(ctx context.Context, req *user.UserAvatarUploadReq) (reponse *user.UserAvatarUploadResp, err error) {
+func UploadAvatar(ctx context.Context, req *user.UserAvatarUploadReq,files [][]byte) (reponse *user.UserAvatarUploadResp, err error) {
 	resp, err := userClient.UserAvatarUpload(ctx, req)
 	return resp, err
 }
