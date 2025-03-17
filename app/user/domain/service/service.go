@@ -2,11 +2,10 @@ package service
 
 import (
 	"context"
-	"fmt"
 	"time"
 	"wiliwili/app/user/domain/model"
-	"wiliwili/pkg/constants"
 	logincontext "wiliwili/pkg/base/context"
+	"wiliwili/pkg/constants"
 	"wiliwili/pkg/errno"
 	"wiliwili/pkg/utils"
 
@@ -41,10 +40,10 @@ func (svc *UserService) UploadloadAvatar(avatar []byte, imageID string) (string,
 	return url.String(), nil
 }
 
-func (svc *UserService) IndentifyUser(ctx context.Context, uid int64) (error) {
+func (svc *UserService) IndentifyUser(ctx context.Context, uid int64) error {
 	id, err := logincontext.GetLoginData(ctx)
 	if err != nil {
-		return fmt.Errorf("Failed to get info in context when get loginData")
+		return err
 	}
 	if uid != id {
 		return errno.Errorf(errno.ErrUserNotHavePermission, "用户没有权限,id:%d,uid:%d", id, uid)

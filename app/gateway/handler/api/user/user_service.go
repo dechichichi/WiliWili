@@ -104,6 +104,10 @@ func UploadAvatar(ctx context.Context, c *app.RequestContext) {
 		pack.RespError(c, err)
 		return
 	}
+	if file == nil {
+		pack.RespError(c, errno.Errorf(errno.ErrInvalidParams, "avatar file is required"))
+		return
+	}
 	_, ok := utils.CheckImageFileType(file)
 	if !ok {
 		pack.RespError(c, errno.Errorf(errno.ErrInvalidParams, "invalid image file type"))

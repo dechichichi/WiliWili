@@ -28,7 +28,7 @@ func (uc *useCase) UserLogin(ctx context.Context, user *model.User) (*model.User
 	if err != nil {
 		return nil, err
 	}
-	
+
 	return userInfo, nil
 }
 
@@ -48,12 +48,12 @@ func (uc *useCase) UserProfile(ctx context.Context, uid int64) (*model.UserProfi
 
 func (uc *useCase) UserAvatarUpload(ctx context.Context, uid int64, avatar []byte) (*model.Image, error) {
 	//检查用户是否有权限
-	err := uc.svc.IndentifyUser(ctx, uid)
-	if err != nil {
-		return nil, err
-	}
+	//err := uc.svc.IndentifyUser(ctx, uid)
+	//if err != nil {
+	//	return nil, err
+	//}
 	var url string
-	url, err = uc.svc.UploadloadAvatar(avatar, fmt.Sprintf("%d", uid))
+	url, err := uc.svc.UploadloadAvatar(avatar, fmt.Sprintf("%d", uid))
 	if err != nil {
 		return nil, fmt.Errorf("上传图片失败:%v", err)
 	}
@@ -65,6 +65,9 @@ func (uc *useCase) UserAvatarUpload(ctx context.Context, uid int64, avatar []byt
 	err = uc.db.StoreImage(ctx, uid, image)
 	if err != nil {
 		return nil, err
+	}
+	if image == nil {
+		return nil, fmt.Errorf("上传图片失败:%v", err)
 	}
 	return image, nil
 }

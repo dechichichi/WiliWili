@@ -15,35 +15,34 @@ type MinioClient struct {
 	Client *minio.Client
 }
 
-func NewMinioClient(endpoint, accessKeyID, secretAccessKey string, useSSL bool) (*MinioClient, error) {
-	minioClient, err := minio.New(endpoint, accessKeyID, secretAccessKey, false)
+func NewMinioClient(endpoint, accessKeyID, secretAccessKey string, useSSL bool) error {
+	// 初始化 MinIO 客户端
+	client, err := minio.New(endpoint, accessKeyID, secretAccessKey, useSSL)
 	if err != nil {
-		return nil, err
+		return fmt.Errorf("failed to create MinIO client: %v", err)
 	}
-	client := &MinioClient{
-		Client: minioClient,
+	// 创建 MinioClient 实例
+	minioClient := &MinioClient{
+		Client: client,
 	}
-	MinioClientGlobal = client
-	return client, nil
+	MinioClientGlobal = minioClient
+	return nil
 }
 
 // UploadFile 上传文件
 func (m *MinioClient) UploadFile(bucketName, objectName string, file []byte) error {
 	// 将 []byte 转换为 io.Reader
 	reader := bytes.NewReader(file)
-
 	// 获取文件大小
 	fileSize := int64(len(file))
-
 	// 设置 PutObjectOptions
 	options := minio.PutObjectOptions{
 		ContentType: "application/octet-stream", // 根据需要设置 MIME 类型
 	}
-
 	// 调用 PutObject 方法
 	_, err := m.Client.PutObject(bucketName, objectName, reader, fileSize, options)
 	if err != nil {
-		return err
+		return fmt.Errorf("Failed to upload %s: %v", objectName, err)
 	}
 	return nil
 }

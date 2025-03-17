@@ -45,13 +45,15 @@ services:
     container_name: wiliwili-minio
     image: quay.io/minio/minio:latest
     ports:
-      - 9000:9000
+    - "9000:9000"
+    - "9001:9001"  # 添加控制台端口
     env_file:
-      - ./env/minio.env
+    - ./env/minio.env
     volumes:
-      - wiliwili-minio-data:/minio-data
+    - wiliwili-minio-data:/minio-data
     networks:
-      - wiliwili
+    - wiliwili
+    command: server /data --console-address ":9000" --address ":9001"
 
 volumes:
   wiliwili-etcd-data:

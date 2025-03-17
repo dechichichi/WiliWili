@@ -23,6 +23,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	utils.NewMinioClient(config.Minio.Addr, config.Minio.AccessKeyID, config.Minio.AccessKey, false)
 	h := server.New(
 		server.WithHostPorts(listenAddr),
 		server.WithHandleMethodNotAllowed(true),

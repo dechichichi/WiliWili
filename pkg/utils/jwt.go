@@ -37,7 +37,7 @@ func CreateToken(tokenType int64, uid int64) (string, error) {
 	}
 	signToken, err := token.SignedString(key)
 	if err != nil {
-		return "", errno.Errorf(errno.ErrTokenGenCode, "错误4 failed to generate token: %w", err)
+		return "", errno.Errorf(errno.ErrTokenGenCode, "failed to generate token: %w", err)
 	}
 	return signToken, nil
 }
@@ -50,7 +50,7 @@ func CreateAllToken(uid int64) (string, string, error) {
 	}
 	refreshToken, err := CreateToken(constants.TypeRefreshToken, uid)
 	if err != nil {
-		return "", "", errno.Errorf(errno.ErrTokenGenCode, "错误2 failed to generate token: %w", err)
+		return "", "", errno.Errorf(errno.ErrTokenGenCode, "failed to generate token: %w", err)
 	}
 	return accessToken, refreshToken, nil
 }
@@ -88,7 +88,7 @@ func VerifyToken(token string, key interface{}) (*Claims, error) {
 		return key, nil
 	})
 	if err != nil {
-		return nil, errno.Errorf(errno.ErrTokenInvalidCode, "failed to parse token: %w", err)
+		return nil, err
 	}
 	if claims, ok := parsedToken.Claims.(*Claims); ok && parsedToken.Valid {
 		return claims, nil
@@ -108,7 +108,7 @@ func PraisePrivateKey(key string) (interface{}, error) {
 func PraisePublicKey(key string) (interface{}, error) {
 	publickey, err := jwt.ParseRSAPublicKeyFromPEM([]byte(key))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to parse public key: %w ", err)
 	}
 	return publickey, nil
 }

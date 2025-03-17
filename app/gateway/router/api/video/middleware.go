@@ -9,8 +9,7 @@ import (
 )
 
 func rootMw() []app.HandlerFunc {
-	mw.Auth()
-	return nil
+	return []app.HandlerFunc{mw.Auth()}
 }
 
 func _apiMw() []app.HandlerFunc {

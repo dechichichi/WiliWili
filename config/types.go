@@ -38,8 +38,9 @@ type etcd struct {
 	Addr string
 }
 
-type minio struct{
-	Addr string
-	AccessKey string 
-	SecretKey string 
+type minio struct {
+	Addr        string
+	AccessKey   string
+	AccessKeyID string
+	SecretKey   string
 }
