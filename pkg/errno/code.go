@@ -10,6 +10,7 @@ const (
 const(
 	ErrConfigParseCode = 20001 //config解析失败
 	ErrConfigEmptyCode = 20002 //config为空
+	RedisConnectFailed = 20003 //redis连接失败
 )
 
 

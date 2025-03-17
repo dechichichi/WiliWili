@@ -1,14 +1,13 @@
 package model
 
 type User struct {
-	Username  string `json:"username"`
+	Username  string `json:"username" gorm:"table:users;primaryKey"`
 	Password  string `json:"password"`
 	Email     string `json:"email"`
 	Gender    string `json:"gender"`
 	Signature string `json:"signature"`
-	Uid       int64  `json:"uid"`
+	Uid       int64  `json:"uid" gorm:"primaryKey"`
 }
-
 type UserInfo struct {
 	Username string `json:"username"`
 	Id       int64  `json:"id"`

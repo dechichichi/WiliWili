@@ -15,7 +15,6 @@ require (
 	github.com/kitex-contrib/obs-opentelemetry v0.2.9
 	github.com/kitex-contrib/registry-etcd v0.2.5
 	github.com/minio/minio-go v6.0.14+incompatible
-	github.com/west2-online/DomTok v0.0.0-20250307130123-24e8dddf9200
 	google.golang.org/grpc v1.70.0
 	gorm.io/gorm v1.25.12
 )

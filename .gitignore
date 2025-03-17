@@ -37,7 +37,6 @@ dumped_hertz_remote_config.json
 /cmd/**/output
 /config/redis
 /config/jaeger
-/config/sql
 /docker/data/*
 /config/config.yaml
 /config/config.yaml.bak
