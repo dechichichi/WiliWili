@@ -422,3 +422,109 @@ var fieldIDToName_Image = map[int16]string{
 	1: "image_id",
 	2: "image_url",
 }
+
+type Comment struct {
+	CommentId  int64  `thrift:"comment_id,1,required" frugal:"1,required,i64" json:"comment_id"`
+	UserId     int64  `thrift:"user_id,2,required" frugal:"2,required,i64" json:"user_id"`
+	Content    string `thrift:"content,3,required" frugal:"3,required,string" json:"content"`
+	CreateTime int64  `thrift:"create_time,4,required" frugal:"4,required,i64" json:"create_time"`
+}
+
+func NewComment() *Comment {
+	return &Comment{}
+}
+
+func (p *Comment) InitDefault() {
+}
+
+func (p *Comment) GetCommentId() (v int64) {
+	return p.CommentId
+}
+
+func (p *Comment) GetUserId() (v int64) {
+	return p.UserId
+}
+
+func (p *Comment) GetContent() (v string) {
+	return p.Content
+}
+
+func (p *Comment) GetCreateTime() (v int64) {
+	return p.CreateTime
+}
+func (p *Comment) SetCommentId(val int64) {
+	p.CommentId = val
+}
+func (p *Comment) SetUserId(val int64) {
+	p.UserId = val
+}
+func (p *Comment) SetContent(val string) {
+	p.Content = val
+}
+func (p *Comment) SetCreateTime(val int64) {
+	p.CreateTime = val
+}
+
+func (p *Comment) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("Comment(%+v)", *p)
+}
+
+func (p *Comment) DeepEqual(ano *Comment) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.CommentId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.UserId) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.Content) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.CreateTime) {
+		return false
+	}
+	return true
+}
+
+func (p *Comment) Field1DeepEqual(src int64) bool {
+
+	if p.CommentId != src {
+		return false
+	}
+	return true
+}
+func (p *Comment) Field2DeepEqual(src int64) bool {
+
+	if p.UserId != src {
+		return false
+	}
+	return true
+}
+func (p *Comment) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.Content, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Comment) Field4DeepEqual(src int64) bool {
+
+	if p.CreateTime != src {
+		return false
+	}
+	return true
+}
+
+var fieldIDToName_Comment = map[int16]string{
+	1: "comment_id",
+	2: "user_id",
+	3: "content",
+	4: "create_time",
+}
