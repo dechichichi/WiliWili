@@ -1691,7 +1691,7 @@ func (p *DeleteCommentResp) field1Length() int {
 	return l
 }
 
-func (p *CommentCommentVideoArgs) FastRead(buf []byte) (int, error) {
+func (p *CommentServiceCommentVideoArgs) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -1735,12 +1735,12 @@ func (p *CommentCommentVideoArgs) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentCommentVideoArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentServiceCommentVideoArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommentCommentVideoArgs) FastReadField1(buf []byte) (int, error) {
+func (p *CommentServiceCommentVideoArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewCommentVideoReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -1752,11 +1752,11 @@ func (p *CommentCommentVideoArgs) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *CommentCommentVideoArgs) FastWrite(buf []byte) int {
+func (p *CommentServiceCommentVideoArgs) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *CommentCommentVideoArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceCommentVideoArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -1765,7 +1765,7 @@ func (p *CommentCommentVideoArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWri
 	return offset
 }
 
-func (p *CommentCommentVideoArgs) BLength() int {
+func (p *CommentServiceCommentVideoArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -1774,21 +1774,21 @@ func (p *CommentCommentVideoArgs) BLength() int {
 	return l
 }
 
-func (p *CommentCommentVideoArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceCommentVideoArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *CommentCommentVideoArgs) field1Length() int {
+func (p *CommentServiceCommentVideoArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *CommentCommentVideoResult) FastRead(buf []byte) (int, error) {
+func (p *CommentServiceCommentVideoResult) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -1832,12 +1832,12 @@ func (p *CommentCommentVideoResult) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentCommentVideoResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentServiceCommentVideoResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommentCommentVideoResult) FastReadField0(buf []byte) (int, error) {
+func (p *CommentServiceCommentVideoResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewCommentVideoResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -1849,11 +1849,11 @@ func (p *CommentCommentVideoResult) FastReadField0(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *CommentCommentVideoResult) FastWrite(buf []byte) int {
+func (p *CommentServiceCommentVideoResult) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *CommentCommentVideoResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceCommentVideoResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -1862,7 +1862,7 @@ func (p *CommentCommentVideoResult) FastWriteNocopy(buf []byte, w thrift.NocopyW
 	return offset
 }
 
-func (p *CommentCommentVideoResult) BLength() int {
+func (p *CommentServiceCommentVideoResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -1871,7 +1871,7 @@ func (p *CommentCommentVideoResult) BLength() int {
 	return l
 }
 
-func (p *CommentCommentVideoResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceCommentVideoResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -1880,7 +1880,7 @@ func (p *CommentCommentVideoResult) fastWriteField0(buf []byte, w thrift.NocopyW
 	return offset
 }
 
-func (p *CommentCommentVideoResult) field0Length() int {
+func (p *CommentServiceCommentVideoResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -1889,7 +1889,7 @@ func (p *CommentCommentVideoResult) field0Length() int {
 	return l
 }
 
-func (p *CommentReplyCommentArgs) FastRead(buf []byte) (int, error) {
+func (p *CommentServiceReplyCommentArgs) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -1933,12 +1933,12 @@ func (p *CommentReplyCommentArgs) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentReplyCommentArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentServiceReplyCommentArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommentReplyCommentArgs) FastReadField1(buf []byte) (int, error) {
+func (p *CommentServiceReplyCommentArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewReplyCommentReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -1950,11 +1950,11 @@ func (p *CommentReplyCommentArgs) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *CommentReplyCommentArgs) FastWrite(buf []byte) int {
+func (p *CommentServiceReplyCommentArgs) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *CommentReplyCommentArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceReplyCommentArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -1963,7 +1963,7 @@ func (p *CommentReplyCommentArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWri
 	return offset
 }
 
-func (p *CommentReplyCommentArgs) BLength() int {
+func (p *CommentServiceReplyCommentArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -1972,21 +1972,21 @@ func (p *CommentReplyCommentArgs) BLength() int {
 	return l
 }
 
-func (p *CommentReplyCommentArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceReplyCommentArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *CommentReplyCommentArgs) field1Length() int {
+func (p *CommentServiceReplyCommentArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *CommentReplyCommentResult) FastRead(buf []byte) (int, error) {
+func (p *CommentServiceReplyCommentResult) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -2030,12 +2030,12 @@ func (p *CommentReplyCommentResult) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentReplyCommentResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentServiceReplyCommentResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommentReplyCommentResult) FastReadField0(buf []byte) (int, error) {
+func (p *CommentServiceReplyCommentResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewReplyCommentResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -2047,11 +2047,11 @@ func (p *CommentReplyCommentResult) FastReadField0(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *CommentReplyCommentResult) FastWrite(buf []byte) int {
+func (p *CommentServiceReplyCommentResult) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *CommentReplyCommentResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceReplyCommentResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -2060,7 +2060,7 @@ func (p *CommentReplyCommentResult) FastWriteNocopy(buf []byte, w thrift.NocopyW
 	return offset
 }
 
-func (p *CommentReplyCommentResult) BLength() int {
+func (p *CommentServiceReplyCommentResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -2069,7 +2069,7 @@ func (p *CommentReplyCommentResult) BLength() int {
 	return l
 }
 
-func (p *CommentReplyCommentResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceReplyCommentResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -2078,7 +2078,7 @@ func (p *CommentReplyCommentResult) fastWriteField0(buf []byte, w thrift.NocopyW
 	return offset
 }
 
-func (p *CommentReplyCommentResult) field0Length() int {
+func (p *CommentServiceReplyCommentResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -2087,7 +2087,7 @@ func (p *CommentReplyCommentResult) field0Length() int {
 	return l
 }
 
-func (p *CommentGetVideoCommentListArgs) FastRead(buf []byte) (int, error) {
+func (p *CommentServiceGetVideoCommentListArgs) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -2131,12 +2131,12 @@ func (p *CommentGetVideoCommentListArgs) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentGetVideoCommentListArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentServiceGetVideoCommentListArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommentGetVideoCommentListArgs) FastReadField1(buf []byte) (int, error) {
+func (p *CommentServiceGetVideoCommentListArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewGetVideoCommentListReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -2148,11 +2148,11 @@ func (p *CommentGetVideoCommentListArgs) FastReadField1(buf []byte) (int, error)
 	return offset, nil
 }
 
-func (p *CommentGetVideoCommentListArgs) FastWrite(buf []byte) int {
+func (p *CommentServiceGetVideoCommentListArgs) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *CommentGetVideoCommentListArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceGetVideoCommentListArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -2161,7 +2161,7 @@ func (p *CommentGetVideoCommentListArgs) FastWriteNocopy(buf []byte, w thrift.No
 	return offset
 }
 
-func (p *CommentGetVideoCommentListArgs) BLength() int {
+func (p *CommentServiceGetVideoCommentListArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -2170,21 +2170,21 @@ func (p *CommentGetVideoCommentListArgs) BLength() int {
 	return l
 }
 
-func (p *CommentGetVideoCommentListArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceGetVideoCommentListArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *CommentGetVideoCommentListArgs) field1Length() int {
+func (p *CommentServiceGetVideoCommentListArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *CommentGetVideoCommentListResult) FastRead(buf []byte) (int, error) {
+func (p *CommentServiceGetVideoCommentListResult) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -2228,12 +2228,12 @@ func (p *CommentGetVideoCommentListResult) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentGetVideoCommentListResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentServiceGetVideoCommentListResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommentGetVideoCommentListResult) FastReadField0(buf []byte) (int, error) {
+func (p *CommentServiceGetVideoCommentListResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewGetVideoCommentListResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -2245,11 +2245,11 @@ func (p *CommentGetVideoCommentListResult) FastReadField0(buf []byte) (int, erro
 	return offset, nil
 }
 
-func (p *CommentGetVideoCommentListResult) FastWrite(buf []byte) int {
+func (p *CommentServiceGetVideoCommentListResult) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *CommentGetVideoCommentListResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceGetVideoCommentListResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -2258,7 +2258,7 @@ func (p *CommentGetVideoCommentListResult) FastWriteNocopy(buf []byte, w thrift.
 	return offset
 }
 
-func (p *CommentGetVideoCommentListResult) BLength() int {
+func (p *CommentServiceGetVideoCommentListResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -2267,7 +2267,7 @@ func (p *CommentGetVideoCommentListResult) BLength() int {
 	return l
 }
 
-func (p *CommentGetVideoCommentListResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceGetVideoCommentListResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -2276,7 +2276,7 @@ func (p *CommentGetVideoCommentListResult) fastWriteField0(buf []byte, w thrift.
 	return offset
 }
 
-func (p *CommentGetVideoCommentListResult) field0Length() int {
+func (p *CommentServiceGetVideoCommentListResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -2285,7 +2285,7 @@ func (p *CommentGetVideoCommentListResult) field0Length() int {
 	return l
 }
 
-func (p *CommentGetCommentReplyListArgs) FastRead(buf []byte) (int, error) {
+func (p *CommentServiceGetCommentReplyListArgs) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -2329,12 +2329,12 @@ func (p *CommentGetCommentReplyListArgs) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentGetCommentReplyListArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentServiceGetCommentReplyListArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommentGetCommentReplyListArgs) FastReadField1(buf []byte) (int, error) {
+func (p *CommentServiceGetCommentReplyListArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewGetCommentReplyListReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -2346,11 +2346,11 @@ func (p *CommentGetCommentReplyListArgs) FastReadField1(buf []byte) (int, error)
 	return offset, nil
 }
 
-func (p *CommentGetCommentReplyListArgs) FastWrite(buf []byte) int {
+func (p *CommentServiceGetCommentReplyListArgs) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *CommentGetCommentReplyListArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceGetCommentReplyListArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -2359,7 +2359,7 @@ func (p *CommentGetCommentReplyListArgs) FastWriteNocopy(buf []byte, w thrift.No
 	return offset
 }
 
-func (p *CommentGetCommentReplyListArgs) BLength() int {
+func (p *CommentServiceGetCommentReplyListArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -2368,21 +2368,21 @@ func (p *CommentGetCommentReplyListArgs) BLength() int {
 	return l
 }
 
-func (p *CommentGetCommentReplyListArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceGetCommentReplyListArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *CommentGetCommentReplyListArgs) field1Length() int {
+func (p *CommentServiceGetCommentReplyListArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *CommentGetCommentReplyListResult) FastRead(buf []byte) (int, error) {
+func (p *CommentServiceGetCommentReplyListResult) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -2426,12 +2426,12 @@ func (p *CommentGetCommentReplyListResult) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentGetCommentReplyListResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentServiceGetCommentReplyListResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommentGetCommentReplyListResult) FastReadField0(buf []byte) (int, error) {
+func (p *CommentServiceGetCommentReplyListResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewGetCommentReplyListResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -2443,11 +2443,11 @@ func (p *CommentGetCommentReplyListResult) FastReadField0(buf []byte) (int, erro
 	return offset, nil
 }
 
-func (p *CommentGetCommentReplyListResult) FastWrite(buf []byte) int {
+func (p *CommentServiceGetCommentReplyListResult) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *CommentGetCommentReplyListResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceGetCommentReplyListResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -2456,7 +2456,7 @@ func (p *CommentGetCommentReplyListResult) FastWriteNocopy(buf []byte, w thrift.
 	return offset
 }
 
-func (p *CommentGetCommentReplyListResult) BLength() int {
+func (p *CommentServiceGetCommentReplyListResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -2465,7 +2465,7 @@ func (p *CommentGetCommentReplyListResult) BLength() int {
 	return l
 }
 
-func (p *CommentGetCommentReplyListResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceGetCommentReplyListResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -2474,7 +2474,7 @@ func (p *CommentGetCommentReplyListResult) fastWriteField0(buf []byte, w thrift.
 	return offset
 }
 
-func (p *CommentGetCommentReplyListResult) field0Length() int {
+func (p *CommentServiceGetCommentReplyListResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -2483,7 +2483,7 @@ func (p *CommentGetCommentReplyListResult) field0Length() int {
 	return l
 }
 
-func (p *CommentDeleteCommentArgs) FastRead(buf []byte) (int, error) {
+func (p *CommentServiceDeleteCommentArgs) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -2527,12 +2527,12 @@ func (p *CommentDeleteCommentArgs) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentDeleteCommentArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentServiceDeleteCommentArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommentDeleteCommentArgs) FastReadField1(buf []byte) (int, error) {
+func (p *CommentServiceDeleteCommentArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewDeleteCommentReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -2544,11 +2544,11 @@ func (p *CommentDeleteCommentArgs) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *CommentDeleteCommentArgs) FastWrite(buf []byte) int {
+func (p *CommentServiceDeleteCommentArgs) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *CommentDeleteCommentArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceDeleteCommentArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -2557,7 +2557,7 @@ func (p *CommentDeleteCommentArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWr
 	return offset
 }
 
-func (p *CommentDeleteCommentArgs) BLength() int {
+func (p *CommentServiceDeleteCommentArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -2566,21 +2566,21 @@ func (p *CommentDeleteCommentArgs) BLength() int {
 	return l
 }
 
-func (p *CommentDeleteCommentArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceDeleteCommentArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *CommentDeleteCommentArgs) field1Length() int {
+func (p *CommentServiceDeleteCommentArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *CommentDeleteCommentResult) FastRead(buf []byte) (int, error) {
+func (p *CommentServiceDeleteCommentResult) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -2624,12 +2624,12 @@ func (p *CommentDeleteCommentResult) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentDeleteCommentResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommentServiceDeleteCommentResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommentDeleteCommentResult) FastReadField0(buf []byte) (int, error) {
+func (p *CommentServiceDeleteCommentResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewDeleteCommentResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -2641,11 +2641,11 @@ func (p *CommentDeleteCommentResult) FastReadField0(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *CommentDeleteCommentResult) FastWrite(buf []byte) int {
+func (p *CommentServiceDeleteCommentResult) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *CommentDeleteCommentResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceDeleteCommentResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -2654,7 +2654,7 @@ func (p *CommentDeleteCommentResult) FastWriteNocopy(buf []byte, w thrift.Nocopy
 	return offset
 }
 
-func (p *CommentDeleteCommentResult) BLength() int {
+func (p *CommentServiceDeleteCommentResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -2663,7 +2663,7 @@ func (p *CommentDeleteCommentResult) BLength() int {
 	return l
 }
 
-func (p *CommentDeleteCommentResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommentServiceDeleteCommentResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -2672,7 +2672,7 @@ func (p *CommentDeleteCommentResult) fastWriteField0(buf []byte, w thrift.Nocopy
 	return offset
 }
 
-func (p *CommentDeleteCommentResult) field0Length() int {
+func (p *CommentServiceDeleteCommentResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -2681,42 +2681,42 @@ func (p *CommentDeleteCommentResult) field0Length() int {
 	return l
 }
 
-func (p *CommentCommentVideoArgs) GetFirstArgument() interface{} {
+func (p *CommentServiceCommentVideoArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *CommentCommentVideoResult) GetResult() interface{} {
+func (p *CommentServiceCommentVideoResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *CommentReplyCommentArgs) GetFirstArgument() interface{} {
+func (p *CommentServiceReplyCommentArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *CommentReplyCommentResult) GetResult() interface{} {
+func (p *CommentServiceReplyCommentResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *CommentGetVideoCommentListArgs) GetFirstArgument() interface{} {
+func (p *CommentServiceGetVideoCommentListArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *CommentGetVideoCommentListResult) GetResult() interface{} {
+func (p *CommentServiceGetVideoCommentListResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *CommentGetCommentReplyListArgs) GetFirstArgument() interface{} {
+func (p *CommentServiceGetCommentReplyListArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *CommentGetCommentReplyListResult) GetResult() interface{} {
+func (p *CommentServiceGetCommentReplyListResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *CommentDeleteCommentArgs) GetFirstArgument() interface{} {
+func (p *CommentServiceDeleteCommentArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *CommentDeleteCommentResult) GetResult() interface{} {
+func (p *CommentServiceDeleteCommentResult) GetResult() interface{} {
 	return p.Success
 }

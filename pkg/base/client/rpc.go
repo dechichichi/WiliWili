@@ -4,7 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"wiliwili/config"
-	"wiliwili/kitex_gen/interactive/interactive"
+	"wiliwili/kitex_gen/comment/commentservice"
+	"wiliwili/kitex_gen/like/likeservice"
 	"wiliwili/kitex_gen/user/userservice"
 	"wiliwili/kitex_gen/video/videoservice"
 	"wiliwili/pkg/constants"
@@ -38,13 +39,17 @@ func initRPCClient[T any](serviceName string, newClientFunc func(string, ...clie
 }
 
 func InitUserRPC() (*userservice.Client, error) {
-	return initRPCClient("user", userservice.NewClient)
+	return initRPCClient(string(constants.UserServiceName), userservice.NewClient)
 }
 
 func InitVideoRPC() (*videoservice.Client, error) {
-	return initRPCClient("video", videoservice.NewClient)
+	return initRPCClient(constants.VideoServiceName, videoservice.NewClient)
 }
 
-func InitInteractiveRPC() (*interactive.Client, error) {
-	return initRPCClient("interactive", interactive.NewClient)
+func InitLikeRPC() (*likeservice.Client, error) {
+	return initRPCClient(constants.LikeServiceName, likeservice.NewClient)
+}
+
+func InitCommentRPC() (*commentservice.Client, error) {
+	return initRPCClient(constants.CommentServiceName, commentservice.NewClient)
 }

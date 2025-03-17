@@ -68,7 +68,7 @@ struct DeleteCommentResp {
     1:required model.BaseResp baseResp
 }
 
-service Comment{
+service CommentService {
     CommentVideoResp CommentVideo(1:CommentVideoReq req),
     ReplyCommentResp ReplyComment(1:ReplyCommentReq req),
     GetVideoCommentListResp GetVideoCommentList(1:GetVideoCommentListReq req),

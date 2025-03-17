@@ -5,7 +5,6 @@ package router
 import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 	api_comment "wiliwili/app/gateway/router/api/comment"
-	api_interactive "wiliwili/app/gateway/router/api/interactive"
 	api_like "wiliwili/app/gateway/router/api/like"
 	api_user "wiliwili/app/gateway/router/api/user"
 	api_video "wiliwili/app/gateway/router/api/video"
@@ -17,8 +16,6 @@ func GeneratedRegister(r *server.Hertz) {
 	api_comment.Register(r)
 
 	api_like.Register(r)
-
-	api_interactive.Register(r)
 
 	api_video.Register(r)
 
