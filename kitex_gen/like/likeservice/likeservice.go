@@ -27,17 +27,17 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"CommentLikeList": kitex.NewMethodInfo(
-		commentLikeListHandler,
-		newLikeServiceCommentLikeListArgs,
-		newLikeServiceCommentLikeListResult,
+	"CommentLikeNum": kitex.NewMethodInfo(
+		commentLikeNumHandler,
+		newLikeServiceCommentLikeNumArgs,
+		newLikeServiceCommentLikeNumResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"VideoLikeList": kitex.NewMethodInfo(
-		videoLikeListHandler,
-		newLikeServiceVideoLikeListArgs,
-		newLikeServiceVideoLikeListResult,
+	"VideoLikeNum": kitex.NewMethodInfo(
+		videoLikeNumHandler,
+		newLikeServiceVideoLikeNumArgs,
+		newLikeServiceVideoLikeNumResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -143,40 +143,40 @@ func newLikeServiceLikeVideoResult() interface{} {
 	return like.NewLikeServiceLikeVideoResult()
 }
 
-func commentLikeListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*like.LikeServiceCommentLikeListArgs)
-	realResult := result.(*like.LikeServiceCommentLikeListResult)
-	success, err := handler.(like.LikeService).CommentLikeList(ctx, realArg.Req)
+func commentLikeNumHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*like.LikeServiceCommentLikeNumArgs)
+	realResult := result.(*like.LikeServiceCommentLikeNumResult)
+	success, err := handler.(like.LikeService).CommentLikeNum(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newLikeServiceCommentLikeListArgs() interface{} {
-	return like.NewLikeServiceCommentLikeListArgs()
+func newLikeServiceCommentLikeNumArgs() interface{} {
+	return like.NewLikeServiceCommentLikeNumArgs()
 }
 
-func newLikeServiceCommentLikeListResult() interface{} {
-	return like.NewLikeServiceCommentLikeListResult()
+func newLikeServiceCommentLikeNumResult() interface{} {
+	return like.NewLikeServiceCommentLikeNumResult()
 }
 
-func videoLikeListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*like.LikeServiceVideoLikeListArgs)
-	realResult := result.(*like.LikeServiceVideoLikeListResult)
-	success, err := handler.(like.LikeService).VideoLikeList(ctx, realArg.Req)
+func videoLikeNumHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*like.LikeServiceVideoLikeNumArgs)
+	realResult := result.(*like.LikeServiceVideoLikeNumResult)
+	success, err := handler.(like.LikeService).VideoLikeNum(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newLikeServiceVideoLikeListArgs() interface{} {
-	return like.NewLikeServiceVideoLikeListArgs()
+func newLikeServiceVideoLikeNumArgs() interface{} {
+	return like.NewLikeServiceVideoLikeNumArgs()
 }
 
-func newLikeServiceVideoLikeListResult() interface{} {
-	return like.NewLikeServiceVideoLikeListResult()
+func newLikeServiceVideoLikeNumResult() interface{} {
+	return like.NewLikeServiceVideoLikeNumResult()
 }
 
 type kClient struct {
@@ -209,21 +209,21 @@ func (p *kClient) LikeVideo(ctx context.Context, req *like.LikeVideoReq) (r *lik
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) CommentLikeList(ctx context.Context, req *like.CommentLikeNumReq) (r *like.CommentLikeNumResp, err error) {
-	var _args like.LikeServiceCommentLikeListArgs
+func (p *kClient) CommentLikeNum(ctx context.Context, req *like.CommentLikeNumReq) (r *like.CommentLikeNumResp, err error) {
+	var _args like.LikeServiceCommentLikeNumArgs
 	_args.Req = req
-	var _result like.LikeServiceCommentLikeListResult
-	if err = p.c.Call(ctx, "CommentLikeList", &_args, &_result); err != nil {
+	var _result like.LikeServiceCommentLikeNumResult
+	if err = p.c.Call(ctx, "CommentLikeNum", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) VideoLikeList(ctx context.Context, req *like.VideoLikeNumReq) (r *like.VideoLikeNumResp, err error) {
-	var _args like.LikeServiceVideoLikeListArgs
+func (p *kClient) VideoLikeNum(ctx context.Context, req *like.VideoLikeNumReq) (r *like.VideoLikeNumResp, err error) {
+	var _args like.LikeServiceVideoLikeNumArgs
 	_args.Req = req
-	var _result like.LikeServiceVideoLikeListResult
-	if err = p.c.Call(ctx, "VideoLikeList", &_args, &_result); err != nil {
+	var _result like.LikeServiceVideoLikeNumResult
+	if err = p.c.Call(ctx, "VideoLikeNum", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

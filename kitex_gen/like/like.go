@@ -11,7 +11,7 @@ import (
 type LikeCommentReq struct {
 	CommentId int64 `thrift:"commentId,1,required" frugal:"1,required,i64" json:"commentId"`
 	UserId    int64 `thrift:"userId,2,required" frugal:"2,required,i64" json:"userId"`
-	LikeType  int32 `thrift:"likeType,3,required" frugal:"3,required,i32" json:"likeType"`
+	LikeType  int64 `thrift:"likeType,3,required" frugal:"3,required,i64" json:"likeType"`
 }
 
 func NewLikeCommentReq() *LikeCommentReq {
@@ -29,7 +29,7 @@ func (p *LikeCommentReq) GetUserId() (v int64) {
 	return p.UserId
 }
 
-func (p *LikeCommentReq) GetLikeType() (v int32) {
+func (p *LikeCommentReq) GetLikeType() (v int64) {
 	return p.LikeType
 }
 func (p *LikeCommentReq) SetCommentId(val int64) {
@@ -38,7 +38,7 @@ func (p *LikeCommentReq) SetCommentId(val int64) {
 func (p *LikeCommentReq) SetUserId(val int64) {
 	p.UserId = val
 }
-func (p *LikeCommentReq) SetLikeType(val int32) {
+func (p *LikeCommentReq) SetLikeType(val int64) {
 	p.LikeType = val
 }
 
@@ -81,7 +81,7 @@ func (p *LikeCommentReq) Field2DeepEqual(src int64) bool {
 	}
 	return true
 }
-func (p *LikeCommentReq) Field3DeepEqual(src int32) bool {
+func (p *LikeCommentReq) Field3DeepEqual(src int64) bool {
 
 	if p.LikeType != src {
 		return false
@@ -156,7 +156,7 @@ var fieldIDToName_LikeCommentResp = map[int16]string{
 type LikeVideoReq struct {
 	VideoId  int64 `thrift:"videoId,1,required" frugal:"1,required,i64" json:"videoId"`
 	UserId   int64 `thrift:"userId,2,required" frugal:"2,required,i64" json:"userId"`
-	LikeType int32 `thrift:"likeType,3,required" frugal:"3,required,i32" json:"likeType"`
+	LikeType int64 `thrift:"likeType,3,required" frugal:"3,required,i64" json:"likeType"`
 }
 
 func NewLikeVideoReq() *LikeVideoReq {
@@ -174,7 +174,7 @@ func (p *LikeVideoReq) GetUserId() (v int64) {
 	return p.UserId
 }
 
-func (p *LikeVideoReq) GetLikeType() (v int32) {
+func (p *LikeVideoReq) GetLikeType() (v int64) {
 	return p.LikeType
 }
 func (p *LikeVideoReq) SetVideoId(val int64) {
@@ -183,7 +183,7 @@ func (p *LikeVideoReq) SetVideoId(val int64) {
 func (p *LikeVideoReq) SetUserId(val int64) {
 	p.UserId = val
 }
-func (p *LikeVideoReq) SetLikeType(val int32) {
+func (p *LikeVideoReq) SetLikeType(val int64) {
 	p.LikeType = val
 }
 
@@ -226,7 +226,7 @@ func (p *LikeVideoReq) Field2DeepEqual(src int64) bool {
 	}
 	return true
 }
-func (p *LikeVideoReq) Field3DeepEqual(src int32) bool {
+func (p *LikeVideoReq) Field3DeepEqual(src int64) bool {
 
 	if p.LikeType != src {
 		return false
@@ -348,7 +348,8 @@ var fieldIDToName_CommentLikeNumReq = map[int16]string{
 }
 
 type CommentLikeNumResp struct {
-	TotalCount int32 `thrift:"totalCount,1,required" frugal:"1,required,i32" json:"totalCount"`
+	BaseResp   *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
+	TotalCount int64           `thrift:"totalCount,2,required" frugal:"2,required,i64" json:"totalCount"`
 }
 
 func NewCommentLikeNumResp() *CommentLikeNumResp {
@@ -358,11 +359,27 @@ func NewCommentLikeNumResp() *CommentLikeNumResp {
 func (p *CommentLikeNumResp) InitDefault() {
 }
 
-func (p *CommentLikeNumResp) GetTotalCount() (v int32) {
+var CommentLikeNumResp_BaseResp_DEFAULT *model.BaseResp
+
+func (p *CommentLikeNumResp) GetBaseResp() (v *model.BaseResp) {
+	if !p.IsSetBaseResp() {
+		return CommentLikeNumResp_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+
+func (p *CommentLikeNumResp) GetTotalCount() (v int64) {
 	return p.TotalCount
 }
-func (p *CommentLikeNumResp) SetTotalCount(val int32) {
+func (p *CommentLikeNumResp) SetBaseResp(val *model.BaseResp) {
+	p.BaseResp = val
+}
+func (p *CommentLikeNumResp) SetTotalCount(val int64) {
 	p.TotalCount = val
+}
+
+func (p *CommentLikeNumResp) IsSetBaseResp() bool {
+	return p.BaseResp != nil
 }
 
 func (p *CommentLikeNumResp) String() string {
@@ -378,13 +395,23 @@ func (p *CommentLikeNumResp) DeepEqual(ano *CommentLikeNumResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.TotalCount) {
+	if !p.Field1DeepEqual(ano.BaseResp) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.TotalCount) {
 		return false
 	}
 	return true
 }
 
-func (p *CommentLikeNumResp) Field1DeepEqual(src int32) bool {
+func (p *CommentLikeNumResp) Field1DeepEqual(src *model.BaseResp) bool {
+
+	if !p.BaseResp.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *CommentLikeNumResp) Field2DeepEqual(src int64) bool {
 
 	if p.TotalCount != src {
 		return false
@@ -393,7 +420,8 @@ func (p *CommentLikeNumResp) Field1DeepEqual(src int32) bool {
 }
 
 var fieldIDToName_CommentLikeNumResp = map[int16]string{
-	1: "totalCount",
+	1: "baseResp",
+	2: "totalCount",
 }
 
 type VideoLikeNumReq struct {
@@ -446,7 +474,8 @@ var fieldIDToName_VideoLikeNumReq = map[int16]string{
 }
 
 type VideoLikeNumResp struct {
-	TotalCount int32 `thrift:"totalCount,1,required" frugal:"1,required,i32" json:"totalCount"`
+	BaseResp   *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
+	TotalCount int64           `thrift:"totalCount,2,required" frugal:"2,required,i64" json:"totalCount"`
 }
 
 func NewVideoLikeNumResp() *VideoLikeNumResp {
@@ -456,11 +485,27 @@ func NewVideoLikeNumResp() *VideoLikeNumResp {
 func (p *VideoLikeNumResp) InitDefault() {
 }
 
-func (p *VideoLikeNumResp) GetTotalCount() (v int32) {
+var VideoLikeNumResp_BaseResp_DEFAULT *model.BaseResp
+
+func (p *VideoLikeNumResp) GetBaseResp() (v *model.BaseResp) {
+	if !p.IsSetBaseResp() {
+		return VideoLikeNumResp_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+
+func (p *VideoLikeNumResp) GetTotalCount() (v int64) {
 	return p.TotalCount
 }
-func (p *VideoLikeNumResp) SetTotalCount(val int32) {
+func (p *VideoLikeNumResp) SetBaseResp(val *model.BaseResp) {
+	p.BaseResp = val
+}
+func (p *VideoLikeNumResp) SetTotalCount(val int64) {
 	p.TotalCount = val
+}
+
+func (p *VideoLikeNumResp) IsSetBaseResp() bool {
+	return p.BaseResp != nil
 }
 
 func (p *VideoLikeNumResp) String() string {
@@ -476,13 +521,23 @@ func (p *VideoLikeNumResp) DeepEqual(ano *VideoLikeNumResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.TotalCount) {
+	if !p.Field1DeepEqual(ano.BaseResp) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.TotalCount) {
 		return false
 	}
 	return true
 }
 
-func (p *VideoLikeNumResp) Field1DeepEqual(src int32) bool {
+func (p *VideoLikeNumResp) Field1DeepEqual(src *model.BaseResp) bool {
+
+	if !p.BaseResp.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *VideoLikeNumResp) Field2DeepEqual(src int64) bool {
 
 	if p.TotalCount != src {
 		return false
@@ -491,7 +546,8 @@ func (p *VideoLikeNumResp) Field1DeepEqual(src int32) bool {
 }
 
 var fieldIDToName_VideoLikeNumResp = map[int16]string{
-	1: "totalCount",
+	1: "baseResp",
+	2: "totalCount",
 }
 
 type LikeService interface {
@@ -499,9 +555,9 @@ type LikeService interface {
 
 	LikeVideo(ctx context.Context, req *LikeVideoReq) (r *LikeVideoResp, err error)
 
-	CommentLikeList(ctx context.Context, req *CommentLikeNumReq) (r *CommentLikeNumResp, err error)
+	CommentLikeNum(ctx context.Context, req *CommentLikeNumReq) (r *CommentLikeNumResp, err error)
 
-	VideoLikeList(ctx context.Context, req *VideoLikeNumReq) (r *VideoLikeNumResp, err error)
+	VideoLikeNum(ctx context.Context, req *VideoLikeNumReq) (r *VideoLikeNumResp, err error)
 }
 
 type LikeServiceLikeCommentArgs struct {
@@ -736,41 +792,41 @@ var fieldIDToName_LikeServiceLikeVideoResult = map[int16]string{
 	0: "success",
 }
 
-type LikeServiceCommentLikeListArgs struct {
+type LikeServiceCommentLikeNumArgs struct {
 	Req *CommentLikeNumReq `thrift:"req,1" frugal:"1,default,CommentLikeNumReq" json:"req"`
 }
 
-func NewLikeServiceCommentLikeListArgs() *LikeServiceCommentLikeListArgs {
-	return &LikeServiceCommentLikeListArgs{}
+func NewLikeServiceCommentLikeNumArgs() *LikeServiceCommentLikeNumArgs {
+	return &LikeServiceCommentLikeNumArgs{}
 }
 
-func (p *LikeServiceCommentLikeListArgs) InitDefault() {
+func (p *LikeServiceCommentLikeNumArgs) InitDefault() {
 }
 
-var LikeServiceCommentLikeListArgs_Req_DEFAULT *CommentLikeNumReq
+var LikeServiceCommentLikeNumArgs_Req_DEFAULT *CommentLikeNumReq
 
-func (p *LikeServiceCommentLikeListArgs) GetReq() (v *CommentLikeNumReq) {
+func (p *LikeServiceCommentLikeNumArgs) GetReq() (v *CommentLikeNumReq) {
 	if !p.IsSetReq() {
-		return LikeServiceCommentLikeListArgs_Req_DEFAULT
+		return LikeServiceCommentLikeNumArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *LikeServiceCommentLikeListArgs) SetReq(val *CommentLikeNumReq) {
+func (p *LikeServiceCommentLikeNumArgs) SetReq(val *CommentLikeNumReq) {
 	p.Req = val
 }
 
-func (p *LikeServiceCommentLikeListArgs) IsSetReq() bool {
+func (p *LikeServiceCommentLikeNumArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *LikeServiceCommentLikeListArgs) String() string {
+func (p *LikeServiceCommentLikeNumArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("LikeServiceCommentLikeListArgs(%+v)", *p)
+	return fmt.Sprintf("LikeServiceCommentLikeNumArgs(%+v)", *p)
 }
 
-func (p *LikeServiceCommentLikeListArgs) DeepEqual(ano *LikeServiceCommentLikeListArgs) bool {
+func (p *LikeServiceCommentLikeNumArgs) DeepEqual(ano *LikeServiceCommentLikeNumArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -782,7 +838,7 @@ func (p *LikeServiceCommentLikeListArgs) DeepEqual(ano *LikeServiceCommentLikeLi
 	return true
 }
 
-func (p *LikeServiceCommentLikeListArgs) Field1DeepEqual(src *CommentLikeNumReq) bool {
+func (p *LikeServiceCommentLikeNumArgs) Field1DeepEqual(src *CommentLikeNumReq) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -790,45 +846,45 @@ func (p *LikeServiceCommentLikeListArgs) Field1DeepEqual(src *CommentLikeNumReq)
 	return true
 }
 
-var fieldIDToName_LikeServiceCommentLikeListArgs = map[int16]string{
+var fieldIDToName_LikeServiceCommentLikeNumArgs = map[int16]string{
 	1: "req",
 }
 
-type LikeServiceCommentLikeListResult struct {
+type LikeServiceCommentLikeNumResult struct {
 	Success *CommentLikeNumResp `thrift:"success,0,optional" frugal:"0,optional,CommentLikeNumResp" json:"success,omitempty"`
 }
 
-func NewLikeServiceCommentLikeListResult() *LikeServiceCommentLikeListResult {
-	return &LikeServiceCommentLikeListResult{}
+func NewLikeServiceCommentLikeNumResult() *LikeServiceCommentLikeNumResult {
+	return &LikeServiceCommentLikeNumResult{}
 }
 
-func (p *LikeServiceCommentLikeListResult) InitDefault() {
+func (p *LikeServiceCommentLikeNumResult) InitDefault() {
 }
 
-var LikeServiceCommentLikeListResult_Success_DEFAULT *CommentLikeNumResp
+var LikeServiceCommentLikeNumResult_Success_DEFAULT *CommentLikeNumResp
 
-func (p *LikeServiceCommentLikeListResult) GetSuccess() (v *CommentLikeNumResp) {
+func (p *LikeServiceCommentLikeNumResult) GetSuccess() (v *CommentLikeNumResp) {
 	if !p.IsSetSuccess() {
-		return LikeServiceCommentLikeListResult_Success_DEFAULT
+		return LikeServiceCommentLikeNumResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *LikeServiceCommentLikeListResult) SetSuccess(x interface{}) {
+func (p *LikeServiceCommentLikeNumResult) SetSuccess(x interface{}) {
 	p.Success = x.(*CommentLikeNumResp)
 }
 
-func (p *LikeServiceCommentLikeListResult) IsSetSuccess() bool {
+func (p *LikeServiceCommentLikeNumResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *LikeServiceCommentLikeListResult) String() string {
+func (p *LikeServiceCommentLikeNumResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("LikeServiceCommentLikeListResult(%+v)", *p)
+	return fmt.Sprintf("LikeServiceCommentLikeNumResult(%+v)", *p)
 }
 
-func (p *LikeServiceCommentLikeListResult) DeepEqual(ano *LikeServiceCommentLikeListResult) bool {
+func (p *LikeServiceCommentLikeNumResult) DeepEqual(ano *LikeServiceCommentLikeNumResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -840,7 +896,7 @@ func (p *LikeServiceCommentLikeListResult) DeepEqual(ano *LikeServiceCommentLike
 	return true
 }
 
-func (p *LikeServiceCommentLikeListResult) Field0DeepEqual(src *CommentLikeNumResp) bool {
+func (p *LikeServiceCommentLikeNumResult) Field0DeepEqual(src *CommentLikeNumResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -848,45 +904,45 @@ func (p *LikeServiceCommentLikeListResult) Field0DeepEqual(src *CommentLikeNumRe
 	return true
 }
 
-var fieldIDToName_LikeServiceCommentLikeListResult = map[int16]string{
+var fieldIDToName_LikeServiceCommentLikeNumResult = map[int16]string{
 	0: "success",
 }
 
-type LikeServiceVideoLikeListArgs struct {
+type LikeServiceVideoLikeNumArgs struct {
 	Req *VideoLikeNumReq `thrift:"req,1" frugal:"1,default,VideoLikeNumReq" json:"req"`
 }
 
-func NewLikeServiceVideoLikeListArgs() *LikeServiceVideoLikeListArgs {
-	return &LikeServiceVideoLikeListArgs{}
+func NewLikeServiceVideoLikeNumArgs() *LikeServiceVideoLikeNumArgs {
+	return &LikeServiceVideoLikeNumArgs{}
 }
 
-func (p *LikeServiceVideoLikeListArgs) InitDefault() {
+func (p *LikeServiceVideoLikeNumArgs) InitDefault() {
 }
 
-var LikeServiceVideoLikeListArgs_Req_DEFAULT *VideoLikeNumReq
+var LikeServiceVideoLikeNumArgs_Req_DEFAULT *VideoLikeNumReq
 
-func (p *LikeServiceVideoLikeListArgs) GetReq() (v *VideoLikeNumReq) {
+func (p *LikeServiceVideoLikeNumArgs) GetReq() (v *VideoLikeNumReq) {
 	if !p.IsSetReq() {
-		return LikeServiceVideoLikeListArgs_Req_DEFAULT
+		return LikeServiceVideoLikeNumArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *LikeServiceVideoLikeListArgs) SetReq(val *VideoLikeNumReq) {
+func (p *LikeServiceVideoLikeNumArgs) SetReq(val *VideoLikeNumReq) {
 	p.Req = val
 }
 
-func (p *LikeServiceVideoLikeListArgs) IsSetReq() bool {
+func (p *LikeServiceVideoLikeNumArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *LikeServiceVideoLikeListArgs) String() string {
+func (p *LikeServiceVideoLikeNumArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("LikeServiceVideoLikeListArgs(%+v)", *p)
+	return fmt.Sprintf("LikeServiceVideoLikeNumArgs(%+v)", *p)
 }
 
-func (p *LikeServiceVideoLikeListArgs) DeepEqual(ano *LikeServiceVideoLikeListArgs) bool {
+func (p *LikeServiceVideoLikeNumArgs) DeepEqual(ano *LikeServiceVideoLikeNumArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -898,7 +954,7 @@ func (p *LikeServiceVideoLikeListArgs) DeepEqual(ano *LikeServiceVideoLikeListAr
 	return true
 }
 
-func (p *LikeServiceVideoLikeListArgs) Field1DeepEqual(src *VideoLikeNumReq) bool {
+func (p *LikeServiceVideoLikeNumArgs) Field1DeepEqual(src *VideoLikeNumReq) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -906,45 +962,45 @@ func (p *LikeServiceVideoLikeListArgs) Field1DeepEqual(src *VideoLikeNumReq) boo
 	return true
 }
 
-var fieldIDToName_LikeServiceVideoLikeListArgs = map[int16]string{
+var fieldIDToName_LikeServiceVideoLikeNumArgs = map[int16]string{
 	1: "req",
 }
 
-type LikeServiceVideoLikeListResult struct {
+type LikeServiceVideoLikeNumResult struct {
 	Success *VideoLikeNumResp `thrift:"success,0,optional" frugal:"0,optional,VideoLikeNumResp" json:"success,omitempty"`
 }
 
-func NewLikeServiceVideoLikeListResult() *LikeServiceVideoLikeListResult {
-	return &LikeServiceVideoLikeListResult{}
+func NewLikeServiceVideoLikeNumResult() *LikeServiceVideoLikeNumResult {
+	return &LikeServiceVideoLikeNumResult{}
 }
 
-func (p *LikeServiceVideoLikeListResult) InitDefault() {
+func (p *LikeServiceVideoLikeNumResult) InitDefault() {
 }
 
-var LikeServiceVideoLikeListResult_Success_DEFAULT *VideoLikeNumResp
+var LikeServiceVideoLikeNumResult_Success_DEFAULT *VideoLikeNumResp
 
-func (p *LikeServiceVideoLikeListResult) GetSuccess() (v *VideoLikeNumResp) {
+func (p *LikeServiceVideoLikeNumResult) GetSuccess() (v *VideoLikeNumResp) {
 	if !p.IsSetSuccess() {
-		return LikeServiceVideoLikeListResult_Success_DEFAULT
+		return LikeServiceVideoLikeNumResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *LikeServiceVideoLikeListResult) SetSuccess(x interface{}) {
+func (p *LikeServiceVideoLikeNumResult) SetSuccess(x interface{}) {
 	p.Success = x.(*VideoLikeNumResp)
 }
 
-func (p *LikeServiceVideoLikeListResult) IsSetSuccess() bool {
+func (p *LikeServiceVideoLikeNumResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *LikeServiceVideoLikeListResult) String() string {
+func (p *LikeServiceVideoLikeNumResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("LikeServiceVideoLikeListResult(%+v)", *p)
+	return fmt.Sprintf("LikeServiceVideoLikeNumResult(%+v)", *p)
 }
 
-func (p *LikeServiceVideoLikeListResult) DeepEqual(ano *LikeServiceVideoLikeListResult) bool {
+func (p *LikeServiceVideoLikeNumResult) DeepEqual(ano *LikeServiceVideoLikeNumResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -956,7 +1012,7 @@ func (p *LikeServiceVideoLikeListResult) DeepEqual(ano *LikeServiceVideoLikeList
 	return true
 }
 
-func (p *LikeServiceVideoLikeListResult) Field0DeepEqual(src *VideoLikeNumResp) bool {
+func (p *LikeServiceVideoLikeNumResult) Field0DeepEqual(src *VideoLikeNumResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -964,6 +1020,6 @@ func (p *LikeServiceVideoLikeListResult) Field0DeepEqual(src *VideoLikeNumResp) 
 	return true
 }
 
-var fieldIDToName_LikeServiceVideoLikeListResult = map[int16]string{
+var fieldIDToName_LikeServiceVideoLikeNumResult = map[int16]string{
 	0: "success",
 }

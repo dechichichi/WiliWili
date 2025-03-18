@@ -77,7 +77,7 @@ func (p *LikeCommentReq) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.I64 {
 				l, err = p.FastReadField3(buf[offset:])
 				offset += l
 				if err != nil {
@@ -156,8 +156,8 @@ func (p *LikeCommentReq) FastReadField2(buf []byte) (int, error) {
 func (p *LikeCommentReq) FastReadField3(buf []byte) (int, error) {
 	offset := 0
 
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+	var _field int64
+	if v, l, err := thrift.Binary.ReadI64(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -209,8 +209,8 @@ func (p *LikeCommentReq) fastWriteField2(buf []byte, w thrift.NocopyWriter) int 
 
 func (p *LikeCommentReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 3)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.LikeType)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 3)
+	offset += thrift.Binary.WriteI64(buf[offset:], p.LikeType)
 	return offset
 }
 
@@ -231,7 +231,7 @@ func (p *LikeCommentReq) field2Length() int {
 func (p *LikeCommentReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
+	l += thrift.Binary.I64Length()
 	return l
 }
 
@@ -391,7 +391,7 @@ func (p *LikeVideoReq) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.I64 {
 				l, err = p.FastReadField3(buf[offset:])
 				offset += l
 				if err != nil {
@@ -470,8 +470,8 @@ func (p *LikeVideoReq) FastReadField2(buf []byte) (int, error) {
 func (p *LikeVideoReq) FastReadField3(buf []byte) (int, error) {
 	offset := 0
 
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+	var _field int64
+	if v, l, err := thrift.Binary.ReadI64(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -523,8 +523,8 @@ func (p *LikeVideoReq) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
 
 func (p *LikeVideoReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 3)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.LikeType)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 3)
+	offset += thrift.Binary.WriteI64(buf[offset:], p.LikeType)
 	return offset
 }
 
@@ -545,7 +545,7 @@ func (p *LikeVideoReq) field2Length() int {
 func (p *LikeVideoReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
+	l += thrift.Binary.I64Length()
 	return l
 }
 
@@ -768,6 +768,7 @@ func (p *CommentLikeNumResp) FastRead(buf []byte) (int, error) {
 	var l int
 	var fieldTypeId thrift.TType
 	var fieldId int16
+	var issetBaseResp bool = false
 	var issetTotalCount bool = false
 	for {
 		fieldTypeId, fieldId, l, err = thrift.Binary.ReadFieldBegin(buf[offset:])
@@ -780,8 +781,23 @@ func (p *CommentLikeNumResp) FastRead(buf []byte) (int, error) {
 		}
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRUCT {
 				l, err = p.FastReadField1(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+				issetBaseResp = true
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.I64 {
+				l, err = p.FastReadField2(buf[offset:])
 				offset += l
 				if err != nil {
 					goto ReadFieldError
@@ -803,8 +819,13 @@ func (p *CommentLikeNumResp) FastRead(buf []byte) (int, error) {
 		}
 	}
 
-	if !issetTotalCount {
+	if !issetBaseResp {
 		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetTotalCount {
+		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return offset, nil
@@ -820,9 +841,21 @@ RequiredFieldNotSetError:
 
 func (p *CommentLikeNumResp) FastReadField1(buf []byte) (int, error) {
 	offset := 0
+	_field := model.NewBaseResp()
+	if l, err := _field.FastRead(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+	}
+	p.BaseResp = _field
+	return offset, nil
+}
 
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+func (p *CommentLikeNumResp) FastReadField2(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int64
+	if v, l, err := thrift.Binary.ReadI64(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -839,6 +872,7 @@ func (p *CommentLikeNumResp) FastWrite(buf []byte) int {
 func (p *CommentLikeNumResp) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
+		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField1(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
@@ -849,6 +883,7 @@ func (p *CommentLikeNumResp) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
+		l += p.field2Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -856,15 +891,29 @@ func (p *CommentLikeNumResp) BLength() int {
 
 func (p *CommentLikeNumResp) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 1)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.TotalCount)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
+	offset += p.BaseResp.FastWriteNocopy(buf[offset:], w)
+	return offset
+}
+
+func (p *CommentLikeNumResp) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 2)
+	offset += thrift.Binary.WriteI64(buf[offset:], p.TotalCount)
 	return offset
 }
 
 func (p *CommentLikeNumResp) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
+	l += p.BaseResp.BLength()
+	return l
+}
+
+func (p *CommentLikeNumResp) field2Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I64Length()
 	return l
 }
 
@@ -982,6 +1031,7 @@ func (p *VideoLikeNumResp) FastRead(buf []byte) (int, error) {
 	var l int
 	var fieldTypeId thrift.TType
 	var fieldId int16
+	var issetBaseResp bool = false
 	var issetTotalCount bool = false
 	for {
 		fieldTypeId, fieldId, l, err = thrift.Binary.ReadFieldBegin(buf[offset:])
@@ -994,8 +1044,23 @@ func (p *VideoLikeNumResp) FastRead(buf []byte) (int, error) {
 		}
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRUCT {
 				l, err = p.FastReadField1(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+				issetBaseResp = true
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.I64 {
+				l, err = p.FastReadField2(buf[offset:])
 				offset += l
 				if err != nil {
 					goto ReadFieldError
@@ -1017,8 +1082,13 @@ func (p *VideoLikeNumResp) FastRead(buf []byte) (int, error) {
 		}
 	}
 
-	if !issetTotalCount {
+	if !issetBaseResp {
 		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetTotalCount {
+		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return offset, nil
@@ -1034,9 +1104,21 @@ RequiredFieldNotSetError:
 
 func (p *VideoLikeNumResp) FastReadField1(buf []byte) (int, error) {
 	offset := 0
+	_field := model.NewBaseResp()
+	if l, err := _field.FastRead(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+	}
+	p.BaseResp = _field
+	return offset, nil
+}
 
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+func (p *VideoLikeNumResp) FastReadField2(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int64
+	if v, l, err := thrift.Binary.ReadI64(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -1053,6 +1135,7 @@ func (p *VideoLikeNumResp) FastWrite(buf []byte) int {
 func (p *VideoLikeNumResp) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
+		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField1(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
@@ -1063,6 +1146,7 @@ func (p *VideoLikeNumResp) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
+		l += p.field2Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -1070,15 +1154,29 @@ func (p *VideoLikeNumResp) BLength() int {
 
 func (p *VideoLikeNumResp) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 1)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.TotalCount)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
+	offset += p.BaseResp.FastWriteNocopy(buf[offset:], w)
+	return offset
+}
+
+func (p *VideoLikeNumResp) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 2)
+	offset += thrift.Binary.WriteI64(buf[offset:], p.TotalCount)
 	return offset
 }
 
 func (p *VideoLikeNumResp) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
+	l += p.BaseResp.BLength()
+	return l
+}
+
+func (p *VideoLikeNumResp) field2Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I64Length()
 	return l
 }
 
@@ -1478,7 +1576,7 @@ func (p *LikeServiceLikeVideoResult) field0Length() int {
 	return l
 }
 
-func (p *LikeServiceCommentLikeListArgs) FastRead(buf []byte) (int, error) {
+func (p *LikeServiceCommentLikeNumArgs) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -1522,12 +1620,12 @@ func (p *LikeServiceCommentLikeListArgs) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_LikeServiceCommentLikeListArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_LikeServiceCommentLikeNumArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *LikeServiceCommentLikeListArgs) FastReadField1(buf []byte) (int, error) {
+func (p *LikeServiceCommentLikeNumArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewCommentLikeNumReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -1539,11 +1637,11 @@ func (p *LikeServiceCommentLikeListArgs) FastReadField1(buf []byte) (int, error)
 	return offset, nil
 }
 
-func (p *LikeServiceCommentLikeListArgs) FastWrite(buf []byte) int {
+func (p *LikeServiceCommentLikeNumArgs) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *LikeServiceCommentLikeListArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *LikeServiceCommentLikeNumArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -1552,7 +1650,7 @@ func (p *LikeServiceCommentLikeListArgs) FastWriteNocopy(buf []byte, w thrift.No
 	return offset
 }
 
-func (p *LikeServiceCommentLikeListArgs) BLength() int {
+func (p *LikeServiceCommentLikeNumArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -1561,21 +1659,21 @@ func (p *LikeServiceCommentLikeListArgs) BLength() int {
 	return l
 }
 
-func (p *LikeServiceCommentLikeListArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *LikeServiceCommentLikeNumArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *LikeServiceCommentLikeListArgs) field1Length() int {
+func (p *LikeServiceCommentLikeNumArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *LikeServiceCommentLikeListResult) FastRead(buf []byte) (int, error) {
+func (p *LikeServiceCommentLikeNumResult) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -1619,12 +1717,12 @@ func (p *LikeServiceCommentLikeListResult) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_LikeServiceCommentLikeListResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_LikeServiceCommentLikeNumResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *LikeServiceCommentLikeListResult) FastReadField0(buf []byte) (int, error) {
+func (p *LikeServiceCommentLikeNumResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewCommentLikeNumResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -1636,11 +1734,11 @@ func (p *LikeServiceCommentLikeListResult) FastReadField0(buf []byte) (int, erro
 	return offset, nil
 }
 
-func (p *LikeServiceCommentLikeListResult) FastWrite(buf []byte) int {
+func (p *LikeServiceCommentLikeNumResult) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *LikeServiceCommentLikeListResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *LikeServiceCommentLikeNumResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -1649,7 +1747,7 @@ func (p *LikeServiceCommentLikeListResult) FastWriteNocopy(buf []byte, w thrift.
 	return offset
 }
 
-func (p *LikeServiceCommentLikeListResult) BLength() int {
+func (p *LikeServiceCommentLikeNumResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -1658,7 +1756,7 @@ func (p *LikeServiceCommentLikeListResult) BLength() int {
 	return l
 }
 
-func (p *LikeServiceCommentLikeListResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *LikeServiceCommentLikeNumResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -1667,7 +1765,7 @@ func (p *LikeServiceCommentLikeListResult) fastWriteField0(buf []byte, w thrift.
 	return offset
 }
 
-func (p *LikeServiceCommentLikeListResult) field0Length() int {
+func (p *LikeServiceCommentLikeNumResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -1676,7 +1774,7 @@ func (p *LikeServiceCommentLikeListResult) field0Length() int {
 	return l
 }
 
-func (p *LikeServiceVideoLikeListArgs) FastRead(buf []byte) (int, error) {
+func (p *LikeServiceVideoLikeNumArgs) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -1720,12 +1818,12 @@ func (p *LikeServiceVideoLikeListArgs) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_LikeServiceVideoLikeListArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_LikeServiceVideoLikeNumArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *LikeServiceVideoLikeListArgs) FastReadField1(buf []byte) (int, error) {
+func (p *LikeServiceVideoLikeNumArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewVideoLikeNumReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -1737,11 +1835,11 @@ func (p *LikeServiceVideoLikeListArgs) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *LikeServiceVideoLikeListArgs) FastWrite(buf []byte) int {
+func (p *LikeServiceVideoLikeNumArgs) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *LikeServiceVideoLikeListArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *LikeServiceVideoLikeNumArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -1750,7 +1848,7 @@ func (p *LikeServiceVideoLikeListArgs) FastWriteNocopy(buf []byte, w thrift.Noco
 	return offset
 }
 
-func (p *LikeServiceVideoLikeListArgs) BLength() int {
+func (p *LikeServiceVideoLikeNumArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -1759,21 +1857,21 @@ func (p *LikeServiceVideoLikeListArgs) BLength() int {
 	return l
 }
 
-func (p *LikeServiceVideoLikeListArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *LikeServiceVideoLikeNumArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *LikeServiceVideoLikeListArgs) field1Length() int {
+func (p *LikeServiceVideoLikeNumArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *LikeServiceVideoLikeListResult) FastRead(buf []byte) (int, error) {
+func (p *LikeServiceVideoLikeNumResult) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -1817,12 +1915,12 @@ func (p *LikeServiceVideoLikeListResult) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_LikeServiceVideoLikeListResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_LikeServiceVideoLikeNumResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *LikeServiceVideoLikeListResult) FastReadField0(buf []byte) (int, error) {
+func (p *LikeServiceVideoLikeNumResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewVideoLikeNumResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -1834,11 +1932,11 @@ func (p *LikeServiceVideoLikeListResult) FastReadField0(buf []byte) (int, error)
 	return offset, nil
 }
 
-func (p *LikeServiceVideoLikeListResult) FastWrite(buf []byte) int {
+func (p *LikeServiceVideoLikeNumResult) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *LikeServiceVideoLikeListResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *LikeServiceVideoLikeNumResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -1847,7 +1945,7 @@ func (p *LikeServiceVideoLikeListResult) FastWriteNocopy(buf []byte, w thrift.No
 	return offset
 }
 
-func (p *LikeServiceVideoLikeListResult) BLength() int {
+func (p *LikeServiceVideoLikeNumResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -1856,7 +1954,7 @@ func (p *LikeServiceVideoLikeListResult) BLength() int {
 	return l
 }
 
-func (p *LikeServiceVideoLikeListResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *LikeServiceVideoLikeNumResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -1865,7 +1963,7 @@ func (p *LikeServiceVideoLikeListResult) fastWriteField0(buf []byte, w thrift.No
 	return offset
 }
 
-func (p *LikeServiceVideoLikeListResult) field0Length() int {
+func (p *LikeServiceVideoLikeNumResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -1890,18 +1988,18 @@ func (p *LikeServiceLikeVideoResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *LikeServiceCommentLikeListArgs) GetFirstArgument() interface{} {
+func (p *LikeServiceCommentLikeNumArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *LikeServiceCommentLikeListResult) GetResult() interface{} {
+func (p *LikeServiceCommentLikeNumResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *LikeServiceVideoLikeListArgs) GetFirstArgument() interface{} {
+func (p *LikeServiceVideoLikeNumArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *LikeServiceVideoLikeListResult) GetResult() interface{} {
+func (p *LikeServiceVideoLikeNumResult) GetResult() interface{} {
 	return p.Success
 }

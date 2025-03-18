@@ -8,7 +8,7 @@ include "model.thrift"
 struct LikeCommentReq {
     1:required i64 commentId // 评论ID
     2:required i64 userId // 用户ID
-    3:required i32 likeType // 点赞类型 1:点赞 2:取消点赞
+    3:required i64 likeType // 点赞类型 1:点赞 2:取消点赞
 }
 
 struct LikeCommentResp {
@@ -24,7 +24,7 @@ struct LikeCommentResp {
 struct LikeVideoReq {
     1:required i64 videoId // 视频ID
     2:required i64 userId // 用户ID
-    3:required i32 likeType // 点赞类型 1:点赞 2:取消点赞
+    3:required i64 likeType // 点赞类型 1:点赞 2:取消点赞
 }
 struct LikeVideoResp {
     1:required model.BaseResp baseResp;
@@ -37,7 +37,8 @@ struct CommentLikeNumReq {
 }
 
 struct CommentLikeNumResp {
-    1:required i32 totalCount; // 总数量
+    1:required model.BaseResp baseResp;
+    2:required i64 totalCount; // 总数量
 }
 
 /*VideoLikeNum 获取视频点赞数目
@@ -47,12 +48,13 @@ struct VideoLikeNumReq {
 }
 
 struct VideoLikeNumResp {
-    1:required i32 totalCount; // 总数量
+    1:required model.BaseResp baseResp;
+    2:required i64 totalCount; // 总数量
 }
 
 service LikeService {
      LikeCommentResp LikeComment(1:LikeCommentReq req);
      LikeVideoResp LikeVideo(1:LikeVideoReq req);
-     CommentLikeNumResp CommentLikeList(1:CommentLikeNumReq req);
-     VideoLikeNumResp VideoLikeList(1:VideoLikeNumReq req);
+     CommentLikeNumResp CommentLikeNum(1:CommentLikeNumReq req);
+     VideoLikeNumResp VideoLikeNum(1:VideoLikeNumReq req);
 }

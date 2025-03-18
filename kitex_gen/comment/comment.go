@@ -97,7 +97,8 @@ var fieldIDToName_CommentVideoReq = map[int16]string{
 }
 
 type CommentVideoResp struct {
-	BaseResp *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
+	BaseResp  *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
+	CommentId int64           `thrift:"commentId,2,required" frugal:"2,required,i64" json:"commentId"`
 }
 
 func NewCommentVideoResp() *CommentVideoResp {
@@ -115,8 +116,15 @@ func (p *CommentVideoResp) GetBaseResp() (v *model.BaseResp) {
 	}
 	return p.BaseResp
 }
+
+func (p *CommentVideoResp) GetCommentId() (v int64) {
+	return p.CommentId
+}
 func (p *CommentVideoResp) SetBaseResp(val *model.BaseResp) {
 	p.BaseResp = val
+}
+func (p *CommentVideoResp) SetCommentId(val int64) {
+	p.CommentId = val
 }
 
 func (p *CommentVideoResp) IsSetBaseResp() bool {
@@ -139,6 +147,9 @@ func (p *CommentVideoResp) DeepEqual(ano *CommentVideoResp) bool {
 	if !p.Field1DeepEqual(ano.BaseResp) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.CommentId) {
+		return false
+	}
 	return true
 }
 
@@ -149,9 +160,17 @@ func (p *CommentVideoResp) Field1DeepEqual(src *model.BaseResp) bool {
 	}
 	return true
 }
+func (p *CommentVideoResp) Field2DeepEqual(src int64) bool {
+
+	if p.CommentId != src {
+		return false
+	}
+	return true
+}
 
 var fieldIDToName_CommentVideoResp = map[int16]string{
 	1: "baseResp",
+	2: "commentId",
 }
 
 type ReplyCommentReq struct {
@@ -242,7 +261,8 @@ var fieldIDToName_ReplyCommentReq = map[int16]string{
 }
 
 type ReplyCommentResp struct {
-	BaseResp *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
+	BaseResp  *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
+	CommentId int64           `thrift:"commentId,2,required" frugal:"2,required,i64" json:"commentId"`
 }
 
 func NewReplyCommentResp() *ReplyCommentResp {
@@ -260,8 +280,15 @@ func (p *ReplyCommentResp) GetBaseResp() (v *model.BaseResp) {
 	}
 	return p.BaseResp
 }
+
+func (p *ReplyCommentResp) GetCommentId() (v int64) {
+	return p.CommentId
+}
 func (p *ReplyCommentResp) SetBaseResp(val *model.BaseResp) {
 	p.BaseResp = val
+}
+func (p *ReplyCommentResp) SetCommentId(val int64) {
+	p.CommentId = val
 }
 
 func (p *ReplyCommentResp) IsSetBaseResp() bool {
@@ -284,6 +311,9 @@ func (p *ReplyCommentResp) DeepEqual(ano *ReplyCommentResp) bool {
 	if !p.Field1DeepEqual(ano.BaseResp) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.CommentId) {
+		return false
+	}
 	return true
 }
 
@@ -294,53 +324,69 @@ func (p *ReplyCommentResp) Field1DeepEqual(src *model.BaseResp) bool {
 	}
 	return true
 }
+func (p *ReplyCommentResp) Field2DeepEqual(src int64) bool {
+
+	if p.CommentId != src {
+		return false
+	}
+	return true
+}
 
 var fieldIDToName_ReplyCommentResp = map[int16]string{
 	1: "baseResp",
+	2: "commentId",
 }
 
-type GetVideoCommentListReq struct {
-	VideoId  int64 `thrift:"videoId,1,required" frugal:"1,required,i64" json:"videoId"`
-	Page     int32 `thrift:"page,2,required" frugal:"2,required,i32" json:"page"`
-	PageSize int32 `thrift:"pageSize,3,required" frugal:"3,required,i32" json:"pageSize"`
+type GetCommentListReq struct {
+	VideoId     int64 `thrift:"videoId,1,required" frugal:"1,required,i64" json:"videoId"`
+	Page        int64 `thrift:"page,2,required" frugal:"2,required,i64" json:"page"`
+	PageSize    int64 `thrift:"pageSize,3,required" frugal:"3,required,i64" json:"pageSize"`
+	CommentTpye int64 `thrift:"CommentTpye,4,required" frugal:"4,required,i64" json:"CommentTpye"`
 }
 
-func NewGetVideoCommentListReq() *GetVideoCommentListReq {
-	return &GetVideoCommentListReq{}
+func NewGetCommentListReq() *GetCommentListReq {
+	return &GetCommentListReq{}
 }
 
-func (p *GetVideoCommentListReq) InitDefault() {
+func (p *GetCommentListReq) InitDefault() {
 }
 
-func (p *GetVideoCommentListReq) GetVideoId() (v int64) {
+func (p *GetCommentListReq) GetVideoId() (v int64) {
 	return p.VideoId
 }
 
-func (p *GetVideoCommentListReq) GetPage() (v int32) {
+func (p *GetCommentListReq) GetPage() (v int64) {
 	return p.Page
 }
 
-func (p *GetVideoCommentListReq) GetPageSize() (v int32) {
+func (p *GetCommentListReq) GetPageSize() (v int64) {
 	return p.PageSize
 }
-func (p *GetVideoCommentListReq) SetVideoId(val int64) {
+
+func (p *GetCommentListReq) GetCommentTpye() (v int64) {
+	return p.CommentTpye
+}
+func (p *GetCommentListReq) SetVideoId(val int64) {
 	p.VideoId = val
 }
-func (p *GetVideoCommentListReq) SetPage(val int32) {
+func (p *GetCommentListReq) SetPage(val int64) {
 	p.Page = val
 }
-func (p *GetVideoCommentListReq) SetPageSize(val int32) {
+func (p *GetCommentListReq) SetPageSize(val int64) {
 	p.PageSize = val
 }
+func (p *GetCommentListReq) SetCommentTpye(val int64) {
+	p.CommentTpye = val
+}
 
-func (p *GetVideoCommentListReq) String() string {
+func (p *GetCommentListReq) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("GetVideoCommentListReq(%+v)", *p)
+	return fmt.Sprintf("GetCommentListReq(%+v)", *p)
 }
 
-func (p *GetVideoCommentListReq) DeepEqual(ano *GetVideoCommentListReq) bool {
+func (p *GetCommentListReq) DeepEqual(ano *GetCommentListReq) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -355,80 +401,91 @@ func (p *GetVideoCommentListReq) DeepEqual(ano *GetVideoCommentListReq) bool {
 	if !p.Field3DeepEqual(ano.PageSize) {
 		return false
 	}
+	if !p.Field4DeepEqual(ano.CommentTpye) {
+		return false
+	}
 	return true
 }
 
-func (p *GetVideoCommentListReq) Field1DeepEqual(src int64) bool {
+func (p *GetCommentListReq) Field1DeepEqual(src int64) bool {
 
 	if p.VideoId != src {
 		return false
 	}
 	return true
 }
-func (p *GetVideoCommentListReq) Field2DeepEqual(src int32) bool {
+func (p *GetCommentListReq) Field2DeepEqual(src int64) bool {
 
 	if p.Page != src {
 		return false
 	}
 	return true
 }
-func (p *GetVideoCommentListReq) Field3DeepEqual(src int32) bool {
+func (p *GetCommentListReq) Field3DeepEqual(src int64) bool {
 
 	if p.PageSize != src {
 		return false
 	}
 	return true
 }
+func (p *GetCommentListReq) Field4DeepEqual(src int64) bool {
 
-var fieldIDToName_GetVideoCommentListReq = map[int16]string{
+	if p.CommentTpye != src {
+		return false
+	}
+	return true
+}
+
+var fieldIDToName_GetCommentListReq = map[int16]string{
 	1: "videoId",
 	2: "page",
 	3: "pageSize",
+	4: "CommentTpye",
 }
 
-type GetVideoCommentListResp struct {
+type GetCommentListResp struct {
 	BaseResp    *model.BaseResp  `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
 	CommentList []*model.Comment `thrift:"commentList,2,required" frugal:"2,required,list<model.Comment>" json:"commentList"`
 }
 
-func NewGetVideoCommentListResp() *GetVideoCommentListResp {
-	return &GetVideoCommentListResp{}
+func NewGetCommentListResp() *GetCommentListResp {
+	return &GetCommentListResp{}
 }
 
-func (p *GetVideoCommentListResp) InitDefault() {
+func (p *GetCommentListResp) InitDefault() {
 }
 
-var GetVideoCommentListResp_BaseResp_DEFAULT *model.BaseResp
+var GetCommentListResp_BaseResp_DEFAULT *model.BaseResp
 
-func (p *GetVideoCommentListResp) GetBaseResp() (v *model.BaseResp) {
+func (p *GetCommentListResp) GetBaseResp() (v *model.BaseResp) {
 	if !p.IsSetBaseResp() {
-		return GetVideoCommentListResp_BaseResp_DEFAULT
+		return GetCommentListResp_BaseResp_DEFAULT
 	}
 	return p.BaseResp
 }
 
-func (p *GetVideoCommentListResp) GetCommentList() (v []*model.Comment) {
+func (p *GetCommentListResp) GetCommentList() (v []*model.Comment) {
 	return p.CommentList
 }
-func (p *GetVideoCommentListResp) SetBaseResp(val *model.BaseResp) {
+func (p *GetCommentListResp) SetBaseResp(val *model.BaseResp) {
 	p.BaseResp = val
 }
-func (p *GetVideoCommentListResp) SetCommentList(val []*model.Comment) {
+func (p *GetCommentListResp) SetCommentList(val []*model.Comment) {
 	p.CommentList = val
 }
 
-func (p *GetVideoCommentListResp) IsSetBaseResp() bool {
+func (p *GetCommentListResp) IsSetBaseResp() bool {
 	return p.BaseResp != nil
 }
 
-func (p *GetVideoCommentListResp) String() string {
+func (p *GetCommentListResp) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("GetVideoCommentListResp(%+v)", *p)
+	return fmt.Sprintf("GetCommentListResp(%+v)", *p)
 }
 
-func (p *GetVideoCommentListResp) DeepEqual(ano *GetVideoCommentListResp) bool {
+func (p *GetCommentListResp) DeepEqual(ano *GetCommentListResp) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -443,14 +500,14 @@ func (p *GetVideoCommentListResp) DeepEqual(ano *GetVideoCommentListResp) bool {
 	return true
 }
 
-func (p *GetVideoCommentListResp) Field1DeepEqual(src *model.BaseResp) bool {
+func (p *GetCommentListResp) Field1DeepEqual(src *model.BaseResp) bool {
 
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *GetVideoCommentListResp) Field2DeepEqual(src []*model.Comment) bool {
+func (p *GetCommentListResp) Field2DeepEqual(src []*model.Comment) bool {
 
 	if len(p.CommentList) != len(src) {
 		return false
@@ -464,177 +521,7 @@ func (p *GetVideoCommentListResp) Field2DeepEqual(src []*model.Comment) bool {
 	return true
 }
 
-var fieldIDToName_GetVideoCommentListResp = map[int16]string{
-	1: "baseResp",
-	2: "commentList",
-}
-
-type GetCommentReplyListReq struct {
-	CommentId int64 `thrift:"commentId,1,required" frugal:"1,required,i64" json:"commentId"`
-	Page      int32 `thrift:"page,2,required" frugal:"2,required,i32" json:"page"`
-	PageSize  int32 `thrift:"pageSize,3,required" frugal:"3,required,i32" json:"pageSize"`
-}
-
-func NewGetCommentReplyListReq() *GetCommentReplyListReq {
-	return &GetCommentReplyListReq{}
-}
-
-func (p *GetCommentReplyListReq) InitDefault() {
-}
-
-func (p *GetCommentReplyListReq) GetCommentId() (v int64) {
-	return p.CommentId
-}
-
-func (p *GetCommentReplyListReq) GetPage() (v int32) {
-	return p.Page
-}
-
-func (p *GetCommentReplyListReq) GetPageSize() (v int32) {
-	return p.PageSize
-}
-func (p *GetCommentReplyListReq) SetCommentId(val int64) {
-	p.CommentId = val
-}
-func (p *GetCommentReplyListReq) SetPage(val int32) {
-	p.Page = val
-}
-func (p *GetCommentReplyListReq) SetPageSize(val int32) {
-	p.PageSize = val
-}
-
-func (p *GetCommentReplyListReq) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("GetCommentReplyListReq(%+v)", *p)
-}
-
-func (p *GetCommentReplyListReq) DeepEqual(ano *GetCommentReplyListReq) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.CommentId) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.Page) {
-		return false
-	}
-	if !p.Field3DeepEqual(ano.PageSize) {
-		return false
-	}
-	return true
-}
-
-func (p *GetCommentReplyListReq) Field1DeepEqual(src int64) bool {
-
-	if p.CommentId != src {
-		return false
-	}
-	return true
-}
-func (p *GetCommentReplyListReq) Field2DeepEqual(src int32) bool {
-
-	if p.Page != src {
-		return false
-	}
-	return true
-}
-func (p *GetCommentReplyListReq) Field3DeepEqual(src int32) bool {
-
-	if p.PageSize != src {
-		return false
-	}
-	return true
-}
-
-var fieldIDToName_GetCommentReplyListReq = map[int16]string{
-	1: "commentId",
-	2: "page",
-	3: "pageSize",
-}
-
-type GetCommentReplyListResp struct {
-	BaseResp    *model.BaseResp  `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
-	CommentList []*model.Comment `thrift:"commentList,2,required" frugal:"2,required,list<model.Comment>" json:"commentList"`
-}
-
-func NewGetCommentReplyListResp() *GetCommentReplyListResp {
-	return &GetCommentReplyListResp{}
-}
-
-func (p *GetCommentReplyListResp) InitDefault() {
-}
-
-var GetCommentReplyListResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *GetCommentReplyListResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return GetCommentReplyListResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-
-func (p *GetCommentReplyListResp) GetCommentList() (v []*model.Comment) {
-	return p.CommentList
-}
-func (p *GetCommentReplyListResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
-func (p *GetCommentReplyListResp) SetCommentList(val []*model.Comment) {
-	p.CommentList = val
-}
-
-func (p *GetCommentReplyListResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
-}
-
-func (p *GetCommentReplyListResp) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("GetCommentReplyListResp(%+v)", *p)
-}
-
-func (p *GetCommentReplyListResp) DeepEqual(ano *GetCommentReplyListResp) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.CommentList) {
-		return false
-	}
-	return true
-}
-
-func (p *GetCommentReplyListResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *GetCommentReplyListResp) Field2DeepEqual(src []*model.Comment) bool {
-
-	if len(p.CommentList) != len(src) {
-		return false
-	}
-	for i, v := range p.CommentList {
-		_src := src[i]
-		if !v.DeepEqual(_src) {
-			return false
-		}
-	}
-	return true
-}
-
-var fieldIDToName_GetCommentReplyListResp = map[int16]string{
+var fieldIDToName_GetCommentListResp = map[int16]string{
 	1: "baseResp",
 	2: "commentList",
 }
@@ -770,9 +657,7 @@ type CommentService interface {
 
 	ReplyComment(ctx context.Context, req *ReplyCommentReq) (r *ReplyCommentResp, err error)
 
-	GetVideoCommentList(ctx context.Context, req *GetVideoCommentListReq) (r *GetVideoCommentListResp, err error)
-
-	GetCommentReplyList(ctx context.Context, req *GetCommentReplyListReq) (r *GetCommentReplyListResp, err error)
+	GetCommentList(ctx context.Context, req *GetCommentListReq) (r *GetCommentListResp, err error)
 
 	DeleteComment(ctx context.Context, req *DeleteCommentReq) (r *DeleteCommentResp, err error)
 }
@@ -1009,41 +894,41 @@ var fieldIDToName_CommentServiceReplyCommentResult = map[int16]string{
 	0: "success",
 }
 
-type CommentServiceGetVideoCommentListArgs struct {
-	Req *GetVideoCommentListReq `thrift:"req,1" frugal:"1,default,GetVideoCommentListReq" json:"req"`
+type CommentServiceGetCommentListArgs struct {
+	Req *GetCommentListReq `thrift:"req,1" frugal:"1,default,GetCommentListReq" json:"req"`
 }
 
-func NewCommentServiceGetVideoCommentListArgs() *CommentServiceGetVideoCommentListArgs {
-	return &CommentServiceGetVideoCommentListArgs{}
+func NewCommentServiceGetCommentListArgs() *CommentServiceGetCommentListArgs {
+	return &CommentServiceGetCommentListArgs{}
 }
 
-func (p *CommentServiceGetVideoCommentListArgs) InitDefault() {
+func (p *CommentServiceGetCommentListArgs) InitDefault() {
 }
 
-var CommentServiceGetVideoCommentListArgs_Req_DEFAULT *GetVideoCommentListReq
+var CommentServiceGetCommentListArgs_Req_DEFAULT *GetCommentListReq
 
-func (p *CommentServiceGetVideoCommentListArgs) GetReq() (v *GetVideoCommentListReq) {
+func (p *CommentServiceGetCommentListArgs) GetReq() (v *GetCommentListReq) {
 	if !p.IsSetReq() {
-		return CommentServiceGetVideoCommentListArgs_Req_DEFAULT
+		return CommentServiceGetCommentListArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *CommentServiceGetVideoCommentListArgs) SetReq(val *GetVideoCommentListReq) {
+func (p *CommentServiceGetCommentListArgs) SetReq(val *GetCommentListReq) {
 	p.Req = val
 }
 
-func (p *CommentServiceGetVideoCommentListArgs) IsSetReq() bool {
+func (p *CommentServiceGetCommentListArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *CommentServiceGetVideoCommentListArgs) String() string {
+func (p *CommentServiceGetCommentListArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("CommentServiceGetVideoCommentListArgs(%+v)", *p)
+	return fmt.Sprintf("CommentServiceGetCommentListArgs(%+v)", *p)
 }
 
-func (p *CommentServiceGetVideoCommentListArgs) DeepEqual(ano *CommentServiceGetVideoCommentListArgs) bool {
+func (p *CommentServiceGetCommentListArgs) DeepEqual(ano *CommentServiceGetCommentListArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -1055,7 +940,7 @@ func (p *CommentServiceGetVideoCommentListArgs) DeepEqual(ano *CommentServiceGet
 	return true
 }
 
-func (p *CommentServiceGetVideoCommentListArgs) Field1DeepEqual(src *GetVideoCommentListReq) bool {
+func (p *CommentServiceGetCommentListArgs) Field1DeepEqual(src *GetCommentListReq) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -1063,45 +948,45 @@ func (p *CommentServiceGetVideoCommentListArgs) Field1DeepEqual(src *GetVideoCom
 	return true
 }
 
-var fieldIDToName_CommentServiceGetVideoCommentListArgs = map[int16]string{
+var fieldIDToName_CommentServiceGetCommentListArgs = map[int16]string{
 	1: "req",
 }
 
-type CommentServiceGetVideoCommentListResult struct {
-	Success *GetVideoCommentListResp `thrift:"success,0,optional" frugal:"0,optional,GetVideoCommentListResp" json:"success,omitempty"`
+type CommentServiceGetCommentListResult struct {
+	Success *GetCommentListResp `thrift:"success,0,optional" frugal:"0,optional,GetCommentListResp" json:"success,omitempty"`
 }
 
-func NewCommentServiceGetVideoCommentListResult() *CommentServiceGetVideoCommentListResult {
-	return &CommentServiceGetVideoCommentListResult{}
+func NewCommentServiceGetCommentListResult() *CommentServiceGetCommentListResult {
+	return &CommentServiceGetCommentListResult{}
 }
 
-func (p *CommentServiceGetVideoCommentListResult) InitDefault() {
+func (p *CommentServiceGetCommentListResult) InitDefault() {
 }
 
-var CommentServiceGetVideoCommentListResult_Success_DEFAULT *GetVideoCommentListResp
+var CommentServiceGetCommentListResult_Success_DEFAULT *GetCommentListResp
 
-func (p *CommentServiceGetVideoCommentListResult) GetSuccess() (v *GetVideoCommentListResp) {
+func (p *CommentServiceGetCommentListResult) GetSuccess() (v *GetCommentListResp) {
 	if !p.IsSetSuccess() {
-		return CommentServiceGetVideoCommentListResult_Success_DEFAULT
+		return CommentServiceGetCommentListResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *CommentServiceGetVideoCommentListResult) SetSuccess(x interface{}) {
-	p.Success = x.(*GetVideoCommentListResp)
+func (p *CommentServiceGetCommentListResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetCommentListResp)
 }
 
-func (p *CommentServiceGetVideoCommentListResult) IsSetSuccess() bool {
+func (p *CommentServiceGetCommentListResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *CommentServiceGetVideoCommentListResult) String() string {
+func (p *CommentServiceGetCommentListResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("CommentServiceGetVideoCommentListResult(%+v)", *p)
+	return fmt.Sprintf("CommentServiceGetCommentListResult(%+v)", *p)
 }
 
-func (p *CommentServiceGetVideoCommentListResult) DeepEqual(ano *CommentServiceGetVideoCommentListResult) bool {
+func (p *CommentServiceGetCommentListResult) DeepEqual(ano *CommentServiceGetCommentListResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -1113,7 +998,7 @@ func (p *CommentServiceGetVideoCommentListResult) DeepEqual(ano *CommentServiceG
 	return true
 }
 
-func (p *CommentServiceGetVideoCommentListResult) Field0DeepEqual(src *GetVideoCommentListResp) bool {
+func (p *CommentServiceGetCommentListResult) Field0DeepEqual(src *GetCommentListResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -1121,123 +1006,7 @@ func (p *CommentServiceGetVideoCommentListResult) Field0DeepEqual(src *GetVideoC
 	return true
 }
 
-var fieldIDToName_CommentServiceGetVideoCommentListResult = map[int16]string{
-	0: "success",
-}
-
-type CommentServiceGetCommentReplyListArgs struct {
-	Req *GetCommentReplyListReq `thrift:"req,1" frugal:"1,default,GetCommentReplyListReq" json:"req"`
-}
-
-func NewCommentServiceGetCommentReplyListArgs() *CommentServiceGetCommentReplyListArgs {
-	return &CommentServiceGetCommentReplyListArgs{}
-}
-
-func (p *CommentServiceGetCommentReplyListArgs) InitDefault() {
-}
-
-var CommentServiceGetCommentReplyListArgs_Req_DEFAULT *GetCommentReplyListReq
-
-func (p *CommentServiceGetCommentReplyListArgs) GetReq() (v *GetCommentReplyListReq) {
-	if !p.IsSetReq() {
-		return CommentServiceGetCommentReplyListArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *CommentServiceGetCommentReplyListArgs) SetReq(val *GetCommentReplyListReq) {
-	p.Req = val
-}
-
-func (p *CommentServiceGetCommentReplyListArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *CommentServiceGetCommentReplyListArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("CommentServiceGetCommentReplyListArgs(%+v)", *p)
-}
-
-func (p *CommentServiceGetCommentReplyListArgs) DeepEqual(ano *CommentServiceGetCommentReplyListArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *CommentServiceGetCommentReplyListArgs) Field1DeepEqual(src *GetCommentReplyListReq) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-var fieldIDToName_CommentServiceGetCommentReplyListArgs = map[int16]string{
-	1: "req",
-}
-
-type CommentServiceGetCommentReplyListResult struct {
-	Success *GetCommentReplyListResp `thrift:"success,0,optional" frugal:"0,optional,GetCommentReplyListResp" json:"success,omitempty"`
-}
-
-func NewCommentServiceGetCommentReplyListResult() *CommentServiceGetCommentReplyListResult {
-	return &CommentServiceGetCommentReplyListResult{}
-}
-
-func (p *CommentServiceGetCommentReplyListResult) InitDefault() {
-}
-
-var CommentServiceGetCommentReplyListResult_Success_DEFAULT *GetCommentReplyListResp
-
-func (p *CommentServiceGetCommentReplyListResult) GetSuccess() (v *GetCommentReplyListResp) {
-	if !p.IsSetSuccess() {
-		return CommentServiceGetCommentReplyListResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *CommentServiceGetCommentReplyListResult) SetSuccess(x interface{}) {
-	p.Success = x.(*GetCommentReplyListResp)
-}
-
-func (p *CommentServiceGetCommentReplyListResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *CommentServiceGetCommentReplyListResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("CommentServiceGetCommentReplyListResult(%+v)", *p)
-}
-
-func (p *CommentServiceGetCommentReplyListResult) DeepEqual(ano *CommentServiceGetCommentReplyListResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *CommentServiceGetCommentReplyListResult) Field0DeepEqual(src *GetCommentReplyListResp) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-var fieldIDToName_CommentServiceGetCommentReplyListResult = map[int16]string{
+var fieldIDToName_CommentServiceGetCommentListResult = map[int16]string{
 	0: "success",
 }
 

@@ -16,6 +16,7 @@ struct CommentVideoReq {
 
 struct CommentVideoResp {
     1:required model.BaseResp baseResp
+    2:required i64 commentId
 }
 
 /*对评论进行回复
@@ -31,33 +32,23 @@ struct ReplyCommentReq {
 
 struct ReplyCommentResp {
     1:required model.BaseResp baseResp
+    2:required i64 commentId
 }
 
 /*获取视频评论列表
 */
-struct GetVideoCommentListReq {
+struct GetCommentListReq {
     1: required i64 videoId,
-    2: required i32 page,
-    3: required i32 pageSize
+    2: required i64 page,
+    3: required i64 pageSize
+    4: required i64 CommentTpye//1:视频评论 2:回复评论
 }
 
-struct GetVideoCommentListResp {
+struct GetCommentListResp {
     1:required model.BaseResp baseResp,
     2:required list<model.Comment> commentList
 }
 
-/*获取评论回复列表
-*/
-struct GetCommentReplyListReq {
-    1: required i64 commentId,
-    2: required i32 page,
-    3: required i32 pageSize
-}
-
-struct GetCommentReplyListResp {
-    1:required model.BaseResp baseResp,
-    2:required list<model.Comment> commentList
-}
 
 struct DeleteCommentReq {
     1: required i64 commentId,
@@ -71,7 +62,6 @@ struct DeleteCommentResp {
 service CommentService {
     CommentVideoResp CommentVideo(1:CommentVideoReq req),
     ReplyCommentResp ReplyComment(1:ReplyCommentReq req),
-    GetVideoCommentListResp GetVideoCommentList(1:GetVideoCommentListReq req),
-    GetCommentReplyListResp GetCommentReplyList(1:GetCommentReplyListReq req),
+    GetCommentListResp GetCommentList(1:GetCommentListReq req),
     DeleteCommentResp DeleteComment(1:DeleteCommentReq req)
 }

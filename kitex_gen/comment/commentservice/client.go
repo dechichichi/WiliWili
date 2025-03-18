@@ -13,8 +13,7 @@ import (
 type Client interface {
 	CommentVideo(ctx context.Context, req *comment.CommentVideoReq, callOptions ...callopt.Option) (r *comment.CommentVideoResp, err error)
 	ReplyComment(ctx context.Context, req *comment.ReplyCommentReq, callOptions ...callopt.Option) (r *comment.ReplyCommentResp, err error)
-	GetVideoCommentList(ctx context.Context, req *comment.GetVideoCommentListReq, callOptions ...callopt.Option) (r *comment.GetVideoCommentListResp, err error)
-	GetCommentReplyList(ctx context.Context, req *comment.GetCommentReplyListReq, callOptions ...callopt.Option) (r *comment.GetCommentReplyListResp, err error)
+	GetCommentList(ctx context.Context, req *comment.GetCommentListReq, callOptions ...callopt.Option) (r *comment.GetCommentListResp, err error)
 	DeleteComment(ctx context.Context, req *comment.DeleteCommentReq, callOptions ...callopt.Option) (r *comment.DeleteCommentResp, err error)
 }
 
@@ -57,14 +56,9 @@ func (p *kCommentServiceClient) ReplyComment(ctx context.Context, req *comment.R
 	return p.kClient.ReplyComment(ctx, req)
 }
 
-func (p *kCommentServiceClient) GetVideoCommentList(ctx context.Context, req *comment.GetVideoCommentListReq, callOptions ...callopt.Option) (r *comment.GetVideoCommentListResp, err error) {
+func (p *kCommentServiceClient) GetCommentList(ctx context.Context, req *comment.GetCommentListReq, callOptions ...callopt.Option) (r *comment.GetCommentListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetVideoCommentList(ctx, req)
-}
-
-func (p *kCommentServiceClient) GetCommentReplyList(ctx context.Context, req *comment.GetCommentReplyListReq, callOptions ...callopt.Option) (r *comment.GetCommentReplyListResp, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetCommentReplyList(ctx, req)
+	return p.kClient.GetCommentList(ctx, req)
 }
 
 func (p *kCommentServiceClient) DeleteComment(ctx context.Context, req *comment.DeleteCommentReq, callOptions ...callopt.Option) (r *comment.DeleteCommentResp, err error) {

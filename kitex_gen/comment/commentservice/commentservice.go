@@ -27,17 +27,10 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"GetVideoCommentList": kitex.NewMethodInfo(
-		getVideoCommentListHandler,
-		newCommentServiceGetVideoCommentListArgs,
-		newCommentServiceGetVideoCommentListResult,
-		false,
-		kitex.WithStreamingMode(kitex.StreamingNone),
-	),
-	"GetCommentReplyList": kitex.NewMethodInfo(
-		getCommentReplyListHandler,
-		newCommentServiceGetCommentReplyListArgs,
-		newCommentServiceGetCommentReplyListResult,
+	"GetCommentList": kitex.NewMethodInfo(
+		getCommentListHandler,
+		newCommentServiceGetCommentListArgs,
+		newCommentServiceGetCommentListResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -150,40 +143,22 @@ func newCommentServiceReplyCommentResult() interface{} {
 	return comment.NewCommentServiceReplyCommentResult()
 }
 
-func getVideoCommentListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*comment.CommentServiceGetVideoCommentListArgs)
-	realResult := result.(*comment.CommentServiceGetVideoCommentListResult)
-	success, err := handler.(comment.CommentService).GetVideoCommentList(ctx, realArg.Req)
+func getCommentListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*comment.CommentServiceGetCommentListArgs)
+	realResult := result.(*comment.CommentServiceGetCommentListResult)
+	success, err := handler.(comment.CommentService).GetCommentList(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newCommentServiceGetVideoCommentListArgs() interface{} {
-	return comment.NewCommentServiceGetVideoCommentListArgs()
+func newCommentServiceGetCommentListArgs() interface{} {
+	return comment.NewCommentServiceGetCommentListArgs()
 }
 
-func newCommentServiceGetVideoCommentListResult() interface{} {
-	return comment.NewCommentServiceGetVideoCommentListResult()
-}
-
-func getCommentReplyListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*comment.CommentServiceGetCommentReplyListArgs)
-	realResult := result.(*comment.CommentServiceGetCommentReplyListResult)
-	success, err := handler.(comment.CommentService).GetCommentReplyList(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newCommentServiceGetCommentReplyListArgs() interface{} {
-	return comment.NewCommentServiceGetCommentReplyListArgs()
-}
-
-func newCommentServiceGetCommentReplyListResult() interface{} {
-	return comment.NewCommentServiceGetCommentReplyListResult()
+func newCommentServiceGetCommentListResult() interface{} {
+	return comment.NewCommentServiceGetCommentListResult()
 }
 
 func deleteCommentHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -234,21 +209,11 @@ func (p *kClient) ReplyComment(ctx context.Context, req *comment.ReplyCommentReq
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetVideoCommentList(ctx context.Context, req *comment.GetVideoCommentListReq) (r *comment.GetVideoCommentListResp, err error) {
-	var _args comment.CommentServiceGetVideoCommentListArgs
+func (p *kClient) GetCommentList(ctx context.Context, req *comment.GetCommentListReq) (r *comment.GetCommentListResp, err error) {
+	var _args comment.CommentServiceGetCommentListArgs
 	_args.Req = req
-	var _result comment.CommentServiceGetVideoCommentListResult
-	if err = p.c.Call(ctx, "GetVideoCommentList", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) GetCommentReplyList(ctx context.Context, req *comment.GetCommentReplyListReq) (r *comment.GetCommentReplyListResp, err error) {
-	var _args comment.CommentServiceGetCommentReplyListArgs
-	_args.Req = req
-	var _result comment.CommentServiceGetCommentReplyListResult
-	if err = p.c.Call(ctx, "GetCommentReplyList", &_args, &_result); err != nil {
+	var _result comment.CommentServiceGetCommentListResult
+	if err = p.c.Call(ctx, "GetCommentList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

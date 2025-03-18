@@ -13,8 +13,8 @@ import (
 type Client interface {
 	LikeComment(ctx context.Context, req *like.LikeCommentReq, callOptions ...callopt.Option) (r *like.LikeCommentResp, err error)
 	LikeVideo(ctx context.Context, req *like.LikeVideoReq, callOptions ...callopt.Option) (r *like.LikeVideoResp, err error)
-	CommentLikeList(ctx context.Context, req *like.CommentLikeNumReq, callOptions ...callopt.Option) (r *like.CommentLikeNumResp, err error)
-	VideoLikeList(ctx context.Context, req *like.VideoLikeNumReq, callOptions ...callopt.Option) (r *like.VideoLikeNumResp, err error)
+	CommentLikeNum(ctx context.Context, req *like.CommentLikeNumReq, callOptions ...callopt.Option) (r *like.CommentLikeNumResp, err error)
+	VideoLikeNum(ctx context.Context, req *like.VideoLikeNumReq, callOptions ...callopt.Option) (r *like.VideoLikeNumResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -56,12 +56,12 @@ func (p *kLikeServiceClient) LikeVideo(ctx context.Context, req *like.LikeVideoR
 	return p.kClient.LikeVideo(ctx, req)
 }
 
-func (p *kLikeServiceClient) CommentLikeList(ctx context.Context, req *like.CommentLikeNumReq, callOptions ...callopt.Option) (r *like.CommentLikeNumResp, err error) {
+func (p *kLikeServiceClient) CommentLikeNum(ctx context.Context, req *like.CommentLikeNumReq, callOptions ...callopt.Option) (r *like.CommentLikeNumResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.CommentLikeList(ctx, req)
+	return p.kClient.CommentLikeNum(ctx, req)
 }
 
-func (p *kLikeServiceClient) VideoLikeList(ctx context.Context, req *like.VideoLikeNumReq, callOptions ...callopt.Option) (r *like.VideoLikeNumResp, err error) {
+func (p *kLikeServiceClient) VideoLikeNum(ctx context.Context, req *like.VideoLikeNumReq, callOptions ...callopt.Option) (r *like.VideoLikeNumResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.VideoLikeList(ctx, req)
+	return p.kClient.VideoLikeNum(ctx, req)
 }

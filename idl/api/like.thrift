@@ -25,7 +25,7 @@ struct CommentLikeNumReq{
 }
 
 struct CommentLikeNumResp{
-    1: required i32 like_num,
+    1: required i64 like_num,
 }
 
 struct VideoLikeNumReq{
@@ -33,7 +33,7 @@ struct VideoLikeNumReq{
 }
 
 struct VideoLikeNumResp{
-    1: required i32 like_num,
+    1: required i64 like_num,
 }
 
 
