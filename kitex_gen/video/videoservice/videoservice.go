@@ -20,10 +20,10 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"videoList": kitex.NewMethodInfo(
-		videoListHandler,
-		newVideoServiceVideoListArgs,
-		newVideoServiceVideoListResult,
+	"videoGet": kitex.NewMethodInfo(
+		videoGetHandler,
+		newVideoServiceVideoGetArgs,
+		newVideoServiceVideoGetResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -125,22 +125,22 @@ func newVideoServiceVideoSubmissionResult() interface{} {
 	return video.NewVideoServiceVideoSubmissionResult()
 }
 
-func videoListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*video.VideoServiceVideoListArgs)
-	realResult := result.(*video.VideoServiceVideoListResult)
-	success, err := handler.(video.VideoService).VideoList(ctx, realArg.Req)
+func videoGetHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*video.VideoServiceVideoGetArgs)
+	realResult := result.(*video.VideoServiceVideoGetResult)
+	success, err := handler.(video.VideoService).VideoGet(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newVideoServiceVideoListArgs() interface{} {
-	return video.NewVideoServiceVideoListArgs()
+func newVideoServiceVideoGetArgs() interface{} {
+	return video.NewVideoServiceVideoGetArgs()
 }
 
-func newVideoServiceVideoListResult() interface{} {
-	return video.NewVideoServiceVideoListResult()
+func newVideoServiceVideoGetResult() interface{} {
+	return video.NewVideoServiceVideoGetResult()
 }
 
 func videoSearchHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -199,11 +199,11 @@ func (p *kClient) VideoSubmission(ctx context.Context, req *video.VideoSubmissio
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) VideoList(ctx context.Context, req *video.VideoListReq) (r *video.VideoListResp, err error) {
-	var _args video.VideoServiceVideoListArgs
+func (p *kClient) VideoGet(ctx context.Context, req *video.VideoGetReq) (r *video.VideoGetResp, err error) {
+	var _args video.VideoServiceVideoGetArgs
 	_args.Req = req
-	var _result video.VideoServiceVideoListResult
-	if err = p.c.Call(ctx, "videoList", &_args, &_result); err != nil {
+	var _result video.VideoServiceVideoGetResult
+	if err = p.c.Call(ctx, "videoGet", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

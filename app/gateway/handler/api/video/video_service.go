@@ -26,18 +26,18 @@ func SubmitVideo(ctx context.Context, c *app.RequestContext) {
 	c.JSON(consts.StatusOK, resp)
 }
 
-// GetVideoList .
-// @router api/v1/video/list [GET]
-func GetVideoList(ctx context.Context, c *app.RequestContext) {
+// GetVideo .
+// @router api/v1/video/get [GET]
+func GetVideo(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req video.VideoListReq
+	var req video.VideoGetReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
 
-	resp := new(video.VideoListResp)
+	resp := new(video.VideoGetResp)
 
 	c.JSON(consts.StatusOK, resp)
 }

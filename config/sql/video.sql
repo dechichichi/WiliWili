@@ -1,8 +1,9 @@
 CREATE TABLE `video` (
-                        `id` BIGINT NOT NULL PRIMARY KEY COMMENT '视频ID',
-                        `title` VARCHAR(255) NOT NULL COMMENT '视频标题',
-                        `url` VARCHAR(255) NOT NULL COMMENT '视频地址',
-                        `duration` INT NOT NULL COMMENT '视频时长',
-                        `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                        `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='视频表';
+    `video_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '视频ID',
+    `video_name` VARCHAR(255) NOT NULL COMMENT '视频名称',
+    `video_url` VARCHAR(500) NOT NULL COMMENT '视频链接',
+    `video_duration` VARCHAR(50) NOT NULL COMMENT '视频时长',
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`video_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

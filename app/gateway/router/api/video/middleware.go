@@ -46,3 +46,8 @@ func _getvideotrendingMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _getvideoMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

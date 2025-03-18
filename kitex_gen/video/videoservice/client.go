@@ -12,7 +12,7 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	VideoSubmission(ctx context.Context, req *video.VideoSubmissionReq, callOptions ...callopt.Option) (r *video.VideoSubmissionResp, err error)
-	VideoList(ctx context.Context, req *video.VideoListReq, callOptions ...callopt.Option) (r *video.VideoListResp, err error)
+	VideoGet(ctx context.Context, req *video.VideoGetReq, callOptions ...callopt.Option) (r *video.VideoGetResp, err error)
 	VideoSearch(ctx context.Context, req *video.VideoSearchReq, callOptions ...callopt.Option) (r *video.VideoSearchResp, err error)
 	VideoTrending(ctx context.Context, req *video.VideoTrendingReq, callOptions ...callopt.Option) (r *video.VideoTrendingResp, err error)
 }
@@ -51,9 +51,9 @@ func (p *kVideoServiceClient) VideoSubmission(ctx context.Context, req *video.Vi
 	return p.kClient.VideoSubmission(ctx, req)
 }
 
-func (p *kVideoServiceClient) VideoList(ctx context.Context, req *video.VideoListReq, callOptions ...callopt.Option) (r *video.VideoListResp, err error) {
+func (p *kVideoServiceClient) VideoGet(ctx context.Context, req *video.VideoGetReq, callOptions ...callopt.Option) (r *video.VideoGetResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.VideoList(ctx, req)
+	return p.kClient.VideoGet(ctx, req)
 }
 
 func (p *kVideoServiceClient) VideoSearch(ctx context.Context, req *video.VideoSearchReq, callOptions ...callopt.Option) (r *video.VideoSearchResp, err error) {
