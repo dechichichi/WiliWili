@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"wiliwili/app/user/domain/model"
 	"wiliwili/config"
+	"wiliwili/pkg/constants"
 )
 
 func (uc *useCase) UserRegister(ctx context.Context, user *model.User) (int64, error) {
@@ -58,7 +59,7 @@ func (uc *useCase) UserAvatarUpload(ctx context.Context, uid int64, avatar []byt
 	if err != nil {
 		return nil, fmt.Errorf("upload avatar failed: %v", err)
 	}
-	url = fmt.Sprintf("%s/%d", config.Minio.Addr, uid)
+	url = fmt.Sprintf("%s/%s/%d", config.Minio.Addr,constants.ImageBucket, uid)
 	image := &model.Image{
 		Uid: uid,
 		Url: url,
