@@ -1,8 +1,9 @@
 package constants
 
 const (
-	MinioAccseeKey = "wiliwili"
-	MinioSecretKey = "wiliwili"
-	ImageBucket    = "avatar"
-	VideoBucket    = "video"
+	ImageBucket  = "avatar"
+	VideoBucket  = "video"
+	Location     = "us-east-1"
+	ImageType    = "image/jpeg"
+	VideoType    = "video/mp4"
 )

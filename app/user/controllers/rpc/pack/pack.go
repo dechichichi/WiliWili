@@ -24,7 +24,7 @@ func BuildUserProfile(user *domainmodel.UserProfile) *model.UserProfile {
 
 func BuildImage(image *domainmodel.Image) *model.Image {
 	return &model.Image{
-		ImageId:  image.Imageid,
+		ImageId:  image.ImageID,
 		ImageUrl: image.Url,
 	}
 }

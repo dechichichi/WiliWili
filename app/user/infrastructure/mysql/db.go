@@ -19,7 +19,7 @@ func NewUserDB(client *gorm.DB) repository.UserDB {
 	return &userDB{client: client}
 }
 
-func (db *userDB) IsUserExist(ctx context.Context, username string) (error) {
+func (db *userDB) IsUserExist(ctx context.Context, username string) error {
 	var user model.User
 	if err := db.client.Where("username = ?", username).First(&user).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -48,10 +48,28 @@ func (db *userDB) CreateUser(ctx context.Context, user *model.User) error {
 	return nil
 }
 
-func (db *userDB) StoreImage(ctx context.Context, uid int64, image *model.Image) error {
-	err := db.client.Where("uid = ?", uid).Create(image).Error
-	if err != nil {
-		return fmt.Errorf("failed to store image: %w", err)
+func (db *userDB) StoreImage(ctx context.Context, image *model.Image) error {
+	var existingImage model.Image
+	result := db.client.Where("uid = ?", image.Uid).First(&existingImage)
+
+	if result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			// 如果不存在，创建新的记录
+			err := db.client.Create(image).Error
+			if err != nil {
+				return fmt.Errorf("failed to create image: %w", err)
+			}
+		} else {
+			return fmt.Errorf("failed to check image existence: %w", result.Error)
+		}
+	} else {
+		// 如果存在，更新记录
+		image.ImageID = existingImage.ImageID
+		err := db.client.Model(&model.Image{}).Where("image_id = ?", image.ImageID).Updates(image).Error
+		if err != nil {
+			return fmt.Errorf("failed to update image: %w", err)
+		}
 	}
+
 	return nil
 }

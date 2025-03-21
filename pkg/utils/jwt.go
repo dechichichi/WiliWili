@@ -50,7 +50,7 @@ func CreateAllToken(uid int64) (string, string, error) {
 	}
 	refreshToken, err := CreateToken(constants.TypeRefreshToken, uid)
 	if err != nil {
-		return "", "", errno.Errorf(errno.ErrTokenGenCode, "failed to generate token: %w", err)
+		return "", "", err
 	}
 	return accessToken, refreshToken, nil
 }

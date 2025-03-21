@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"time"
 	"wiliwili/app/user/domain/model"
 	logincontext "wiliwili/pkg/base/context"
 	"wiliwili/pkg/constants"
@@ -29,15 +28,12 @@ func (svc *UserService) NewId() int64 {
 	return node.Generate().Int64()
 }
 
-func (svc *UserService) UploadloadAvatar(avatar []byte, imageID string) (string, error) {
-	if err := utils.MinioClientGlobal.UploadFile(constants.ImageBucket, imageID, avatar); err != nil {
-		return "", err
-	}
-	url, err := utils.MinioClientGlobal.Client.PresignedGetObject(constants.ImageBucket, imageID, 24*time.Hour, nil)
+func (svc *UserService) UploadloadAvatar(avatar []byte, imageID string) error {
+	err := utils.MinioClientGlobal.UploadFile(constants.ImageBucket, imageID, constants.Location, constants.ImageType, avatar)
 	if err != nil {
-		return "", err
+		return err
 	}
-	return url.String(), nil
+	return nil
 }
 
 func (svc *UserService) IndentifyUser(ctx context.Context, uid int64) error {

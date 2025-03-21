@@ -1,7 +1,7 @@
 package model
 
 type User struct {
-	Username  string `json:"username" gorm:"table:users;primaryKey"`
+	Username  string `json:"username" gorm:"primaryKey"`
 	Password  string `json:"password"`
 	Email     string `json:"email"`
 	Gender    string `json:"gender"`
@@ -21,6 +21,15 @@ type UserProfile struct {
 }
 
 type Image struct {
-	Imageid int64  `json:"imageid"`
+	Uid     int64  `json:"uid"`
+	ImageID int64  `json:"image_id" gorm:"column:image_id"`
 	Url     string `json:"url"`
+}
+
+func (User) TableName() string {
+	return "users"
+}
+
+func (Image) TableName() string {
+	return "images"
 }

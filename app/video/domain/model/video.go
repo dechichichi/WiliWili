@@ -4,7 +4,7 @@ import "time"
 
 // Video 定义了视频的基本信息
 type Video struct {
-	VideoID      string    `json:"video_id" gorm:"table:video;primaryKey;column:video_id"`
+	VideoID      string    `json:"video_id" gorm:"primaryKey;column:video_id"`
 	VideoName    string    `json:"video_name" gorm:"column:video_name"`
 	VideoURL     string    `json:"video_url" gorm:"column:video_url"`
 	VideoDuration string   `json:"video_duration" gorm:"column:video_duration"`
@@ -23,4 +23,8 @@ type VideoProfile struct {
 	VideoName    string `json:"video_name"`
 	VideoURL     string `json:"video_url"`
 	VideoDuration string `json:"video_duration"`
+}
+
+func (Video) TableName() string {
+	return "video"
 }

@@ -9,6 +9,6 @@ func (c *UserDBCache) GetImage(ctx context.Context, imageid int64) (*model.Image
 	panic("implement me")
 }
 
-func (c *UserDBCache) StoreImage(ctx context.Context, imageid int64, image *model.Image) error {
+func (c *UserDBCache) StoreImage(ctx context.Context, image *model.Image) error {
 	panic("implement me")
 }

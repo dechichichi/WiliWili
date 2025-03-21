@@ -3,6 +3,8 @@
 package user
 
 import (
+	"wiliwili/app/gateway/mw"
+
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -26,7 +28,9 @@ func _userMw() []app.HandlerFunc {
 }
 
 func _uploadavatarMw() []app.HandlerFunc {
-	return nil
+	return []app.HandlerFunc{
+		mw.Auth(),
+	}
 }
 
 func _loginMw() []app.HandlerFunc {

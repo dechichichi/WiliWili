@@ -3,6 +3,7 @@ package utils
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -15,36 +16,35 @@ type MinioClient struct {
 	Client *minio.Client
 }
 
-func NewMinioClient(endpoint, accessKeyID, secretAccessKey string, useSSL bool) error {
+func InitMinioClient(endpoint, accessKeyID, secretAccessKey string) error {
 	// 初始化 MinIO 客户端
-	client, err := minio.New(endpoint, accessKeyID, secretAccessKey, useSSL)
+	client, err := minio.New(endpoint, accessKeyID, secretAccessKey, false)
 	if err != nil {
-		return fmt.Errorf("failed to create MinIO client: %v", err)
+		log.Fatalf("Failed to create MinIO client: %v", err)
 	}
-	// 创建 MinioClient 实例
-	minioClient := &MinioClient{
-		Client: client,
-	}
-	MinioClientGlobal = minioClient
+	// 设置全局客户端实例
+	MinioClientGlobal = &MinioClient{Client: client}
 	return nil
 }
 
-// UploadFile 上传文件
-func (m *MinioClient) UploadFile(bucketName, objectName string, file []byte) error {
-	// 将 []byte 转换为 io.Reader
+func (m *MinioClient) UploadFile(bucketName, objectName, Location, ContentType string, file []byte) error {
 	reader := bytes.NewReader(file)
-	// 获取文件大小
-	fileSize := int64(len(file))
-	// 设置 PutObjectOptions
-	options := minio.PutObjectOptions{
-		ContentType: "application/octet-stream", // 根据需要设置 MIME 类型
+	exist, _ := m.Client.BucketExists(bucketName)
+	if !exist {
+		err := m.Client.MakeBucket(bucketName, Location)
+		if err != nil {
+			return  fmt.Errorf("Failed to create bucket %s: %v", bucketName, err)
+		}
 	}
 	// 调用 PutObject 方法
-	_, err := m.Client.PutObject(bucketName, objectName, reader, fileSize, options)
+	options := minio.PutObjectOptions{ContentType: ContentType}
+	n, err := m.Client.PutObject(bucketName, objectName, reader, -1, options)
 	if err != nil {
-		return fmt.Errorf("Failed to upload %s: %v", objectName, err)
+		log.Printf("Failed to upload %s: %v", objectName, err)
+		return  fmt.Errorf("Failed to upload %s: %v", objectName, err)
 	}
-	return nil
+	log.Printf("Successfully uploaded %s of size %d", objectName, n)
+	return  nil
 }
 
 // DownloadFile 下载文件

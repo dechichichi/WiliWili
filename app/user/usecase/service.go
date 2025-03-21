@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"wiliwili/app/user/domain/model"
+	"wiliwili/config"
 )
 
 func (uc *useCase) UserRegister(ctx context.Context, user *model.User) (int64, error) {
@@ -48,26 +49,24 @@ func (uc *useCase) UserProfile(ctx context.Context, uid int64) (*model.UserProfi
 
 func (uc *useCase) UserAvatarUpload(ctx context.Context, uid int64, avatar []byte) (*model.Image, error) {
 	//检查用户是否有权限
-	//err := uc.svc.IndentifyUser(ctx, uid)
-	//if err != nil {
-	//	return nil, err
-	//}
-	var url string
-	url, err := uc.svc.UploadloadAvatar(avatar, fmt.Sprintf("%d", uid))
-	if err != nil {
-		return nil, fmt.Errorf("上传图片失败:%v", err)
-	}
-	image := &model.Image{
-		Imageid: uc.svc.NewId(),
-		Url:     url,
-	}
-	//上传图片
-	err = uc.db.StoreImage(ctx, uid, image)
+	err := uc.svc.IndentifyUser(ctx, uid)
 	if err != nil {
 		return nil, err
 	}
-	if image == nil {
-		return nil, fmt.Errorf("上传图片失败:%v", err)
+	var url string
+	err = uc.svc.UploadloadAvatar(avatar, fmt.Sprintf("%d", uid))
+	if err != nil {
+		return nil, fmt.Errorf("upload avatar failed: %v", err)
+	}
+	url = fmt.Sprintf("%s/%d", config.Minio.Addr, uid)
+	image := &model.Image{
+		Uid: uid,
+		Url: url,
+	}
+	//上传图片
+	err = uc.db.StoreImage(ctx, image)
+	if err != nil {
+		return nil, err
 	}
 	return image, nil
 }
