@@ -88,6 +88,35 @@ func CheckImageFileType(header *multipart.FileHeader) (string, bool) {
 	}
 }
 
+func CheckVideoFileType(header *multipart.FileHeader) (string, bool) {
+	file, err := header.Open()
+	if err != nil {
+		return "", false
+	}
+	defer func() {
+		// 捕获并处理关闭文件时可能发生的错误
+		if err := file.Close(); err != nil {
+			logger.Errorf("utils.CheckImageFileType: failed to close file: %v", err.Error())
+		}
+	}()
+
+	buffer := make([]byte, constants.CheckFileTypeBufferSize)
+	_, err = file.Read(buffer)
+	if err != nil {
+		return "", false
+	}
+
+	kind, _ := filetype.Match(buffer)
+
+	// 检查是否为mp4
+	switch kind {
+	case types.Get("mp4"):
+		return "mp4", true
+	default:
+		return "", false
+	}
+}
+
 func FileToBytes(file *multipart.FileHeader) ([]byte, error) {
 	if file == nil {
 		return nil, errors.New("file is nil")

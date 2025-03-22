@@ -5,25 +5,34 @@ package like
 import (
 	"context"
 
+	api "wiliwili/app/gateway/model/api/like"
+	"wiliwili/app/gateway/pack"
+	"wiliwili/app/gateway/rpc"
+	"wiliwili/kitex_gen/like"
+
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	like "wiliwili/app/gateway/model/api/like"
 )
 
 // LikeComment .
 // @router api/v1/like/likecomment [POST]
 func LikeComment(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req like.LikeCommentReq
+	var req api.LikeCommentReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-
-	resp := new(like.LikeCommentResp)
-
-	c.JSON(consts.StatusOK, resp)
+	resp, err := rpc.LikeComment(ctx, &like.LikeCommentReq{
+		CommentId: req.CommentID,
+		UserId:    req.UserID,
+		IsLike:    req.IsLike,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	pack.RespData(c, resp)
 }
 
 // LikeVideo .
@@ -33,13 +42,19 @@ func LikeVideo(ctx context.Context, c *app.RequestContext) {
 	var req like.LikeVideoReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-
-	resp := new(like.LikeVideoResp)
-
-	c.JSON(consts.StatusOK, resp)
+	resp, err := rpc.LikeVideo(ctx, &like.LikeVideoReq{
+		VideoId: req.VideoId,
+		UserId:  req.UserId,
+		IsLike:  req.IsLike,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	pack.RespData(c, resp)
 }
 
 // GetCommentLikeNum .
@@ -49,13 +64,17 @@ func GetCommentLikeNum(ctx context.Context, c *app.RequestContext) {
 	var req like.CommentLikeNumReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-
-	resp := new(like.CommentLikeNumResp)
-
-	c.JSON(consts.StatusOK, resp)
+	resp, err := rpc.GetCommentLikeNum(ctx, &like.CommentLikeNumReq{
+		CommentId: req.CommentId,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	pack.RespData(c, resp)
 }
 
 // GetVideoLikeNum .
@@ -65,11 +84,15 @@ func GetVideoLikeNum(ctx context.Context, c *app.RequestContext) {
 	var req like.VideoLikeNumReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-
-	resp := new(like.VideoLikeNumResp)
-
-	c.JSON(consts.StatusOK, resp)
+	resp, err := rpc.GetVideoLikeNum(ctx, &like.VideoLikeNumReq{
+		VideoId: req.VideoId,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	pack.RespData(c, resp)
 }

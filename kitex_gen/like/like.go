@@ -11,7 +11,7 @@ import (
 type LikeCommentReq struct {
 	CommentId int64 `thrift:"commentId,1,required" frugal:"1,required,i64" json:"commentId"`
 	UserId    int64 `thrift:"userId,2,required" frugal:"2,required,i64" json:"userId"`
-	LikeType  int64 `thrift:"likeType,3,required" frugal:"3,required,i64" json:"likeType"`
+	IsLike    bool  `thrift:"IsLike,3,required" frugal:"3,required,bool" json:"IsLike"`
 }
 
 func NewLikeCommentReq() *LikeCommentReq {
@@ -29,8 +29,8 @@ func (p *LikeCommentReq) GetUserId() (v int64) {
 	return p.UserId
 }
 
-func (p *LikeCommentReq) GetLikeType() (v int64) {
-	return p.LikeType
+func (p *LikeCommentReq) GetIsLike() (v bool) {
+	return p.IsLike
 }
 func (p *LikeCommentReq) SetCommentId(val int64) {
 	p.CommentId = val
@@ -38,8 +38,8 @@ func (p *LikeCommentReq) SetCommentId(val int64) {
 func (p *LikeCommentReq) SetUserId(val int64) {
 	p.UserId = val
 }
-func (p *LikeCommentReq) SetLikeType(val int64) {
-	p.LikeType = val
+func (p *LikeCommentReq) SetIsLike(val bool) {
+	p.IsLike = val
 }
 
 func (p *LikeCommentReq) String() string {
@@ -61,7 +61,7 @@ func (p *LikeCommentReq) DeepEqual(ano *LikeCommentReq) bool {
 	if !p.Field2DeepEqual(ano.UserId) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.LikeType) {
+	if !p.Field3DeepEqual(ano.IsLike) {
 		return false
 	}
 	return true
@@ -81,9 +81,9 @@ func (p *LikeCommentReq) Field2DeepEqual(src int64) bool {
 	}
 	return true
 }
-func (p *LikeCommentReq) Field3DeepEqual(src int64) bool {
+func (p *LikeCommentReq) Field3DeepEqual(src bool) bool {
 
-	if p.LikeType != src {
+	if p.IsLike != src {
 		return false
 	}
 	return true
@@ -92,7 +92,7 @@ func (p *LikeCommentReq) Field3DeepEqual(src int64) bool {
 var fieldIDToName_LikeCommentReq = map[int16]string{
 	1: "commentId",
 	2: "userId",
-	3: "likeType",
+	3: "IsLike",
 }
 
 type LikeCommentResp struct {
@@ -154,9 +154,9 @@ var fieldIDToName_LikeCommentResp = map[int16]string{
 }
 
 type LikeVideoReq struct {
-	VideoId  int64 `thrift:"videoId,1,required" frugal:"1,required,i64" json:"videoId"`
-	UserId   int64 `thrift:"userId,2,required" frugal:"2,required,i64" json:"userId"`
-	LikeType int64 `thrift:"likeType,3,required" frugal:"3,required,i64" json:"likeType"`
+	VideoId int64 `thrift:"videoId,1,required" frugal:"1,required,i64" json:"videoId"`
+	UserId  int64 `thrift:"userId,2,required" frugal:"2,required,i64" json:"userId"`
+	IsLike  bool  `thrift:"IsLike,3,required" frugal:"3,required,bool" json:"IsLike"`
 }
 
 func NewLikeVideoReq() *LikeVideoReq {
@@ -174,8 +174,8 @@ func (p *LikeVideoReq) GetUserId() (v int64) {
 	return p.UserId
 }
 
-func (p *LikeVideoReq) GetLikeType() (v int64) {
-	return p.LikeType
+func (p *LikeVideoReq) GetIsLike() (v bool) {
+	return p.IsLike
 }
 func (p *LikeVideoReq) SetVideoId(val int64) {
 	p.VideoId = val
@@ -183,8 +183,8 @@ func (p *LikeVideoReq) SetVideoId(val int64) {
 func (p *LikeVideoReq) SetUserId(val int64) {
 	p.UserId = val
 }
-func (p *LikeVideoReq) SetLikeType(val int64) {
-	p.LikeType = val
+func (p *LikeVideoReq) SetIsLike(val bool) {
+	p.IsLike = val
 }
 
 func (p *LikeVideoReq) String() string {
@@ -206,7 +206,7 @@ func (p *LikeVideoReq) DeepEqual(ano *LikeVideoReq) bool {
 	if !p.Field2DeepEqual(ano.UserId) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.LikeType) {
+	if !p.Field3DeepEqual(ano.IsLike) {
 		return false
 	}
 	return true
@@ -226,9 +226,9 @@ func (p *LikeVideoReq) Field2DeepEqual(src int64) bool {
 	}
 	return true
 }
-func (p *LikeVideoReq) Field3DeepEqual(src int64) bool {
+func (p *LikeVideoReq) Field3DeepEqual(src bool) bool {
 
-	if p.LikeType != src {
+	if p.IsLike != src {
 		return false
 	}
 	return true
@@ -237,7 +237,7 @@ func (p *LikeVideoReq) Field3DeepEqual(src int64) bool {
 var fieldIDToName_LikeVideoReq = map[int16]string{
 	1: "videoId",
 	2: "userId",
-	3: "likeType",
+	3: "IsLike",
 }
 
 type LikeVideoResp struct {

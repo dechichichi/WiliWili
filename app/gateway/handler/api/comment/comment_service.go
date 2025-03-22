@@ -5,87 +5,127 @@ package comment
 import (
 	"context"
 
+	api "wiliwili/app/gateway/model/api/comment"
+	"wiliwili/app/gateway/pack"
+	"wiliwili/app/gateway/rpc"
+	"wiliwili/kitex_gen/comment"
+	"wiliwili/pkg/constants"
+
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	comment "wiliwili/app/gateway/model/api/comment"
 )
 
 // CommentVideo .
 // @router api/v1/comment/commentvideo [POST]
 func CommentVideo(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req comment.CommentVideoReq
+	var req api.CommentVideoReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
 
-	resp := new(comment.CommentVideoResp)
-
-	c.JSON(consts.StatusOK, resp)
+	resp, err := rpc.CommentVideo(ctx, &comment.CommentVideoReq{
+		VideoId: req.VideoID,
+		Content: req.Content,
+		UserId:  req.UserID,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	pack.RespData(c, resp)
 }
 
 // ReplyComment .
 // @router api/v1/comment/commentreply [POST]
 func ReplyComment(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req comment.ReplyCommentReq
+	var req api.ReplyCommentReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
 
-	resp := new(comment.ReplyCommentResp)
-
-	c.JSON(consts.StatusOK, resp)
+	resp, err := rpc.ReplyComment(ctx, &comment.ReplyCommentReq{
+		CommentId: req.CommentID,
+		Content:   req.Content,
+		UserId:    req.UserID,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	pack.RespData(c, resp)
 }
 
 // GetVideoCommentList .
 // @router api/v1/comment/videocommentlist [GET]
 func GetVideoCommentList(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req comment.GetVideoCommentListReq
+	var req api.GetVideoCommentListReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
 
-	resp := new(comment.GetVideoCommentListResp)
-
-	c.JSON(consts.StatusOK, resp)
+	resp, err := rpc.GetCommentList(ctx, &comment.GetCommentListReq{
+		Id:          req.VideoID,
+		Page:        req.PageNum,
+		PageSize:    req.PageSize,
+		CommentTpye: constants.CommentTypeVideo,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	pack.RespData(c, resp)
 }
 
 // GetCommentReplyList .
 // @router api/v1/comment/commentreplylist [GET]
 func GetCommentReplyList(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req comment.GetCommentReplyListReq
+	var req api.GetCommentReplyListReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
 
-	resp := new(comment.GetCommentReplyListResp)
-
-	c.JSON(consts.StatusOK, resp)
+	resp, err := rpc.GetCommentList(ctx, &comment.GetCommentListReq{
+		Id:          req.CommentID,
+		Page:        req.PageNum,
+		PageSize:    req.PageSize,
+		CommentTpye: constants.CommentTypeReply,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	pack.RespData(c, resp)
 }
 
 // DeleteComment .
 // @router api/v1/comment/deletecomment [DELETE]
 func DeleteComment(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req comment.DeleteCommentReq
+	var req api.DeleteCommentReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
 
-	resp := new(comment.DeleteCommentResp)
-
-	c.JSON(consts.StatusOK, resp)
+	resp, err := rpc.DeleteComment(ctx, &comment.DeleteCommentReq{
+		CommentId: req.CommentID,
+		UserId:    req.UserID,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	pack.RespData(c, resp)
 }

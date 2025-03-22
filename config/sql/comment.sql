@@ -5,6 +5,7 @@ CREATE TABLE `comments` (
     `be_comment_id` BIGINT NOT NULL COMMENT '被评论对象的ID(视频ID或评论ID)',
     `comment` TEXT NOT NULL COMMENT '评论内容',
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '评论时间',
+    `likes_count`INT NOT NULL DEFAULT 0 COMMENT '点赞数',
     PRIMARY KEY (`comment_id`),
     INDEX `idx_user_id` (`user_id`),  -- 为用户ID添加索引，便于查询
     INDEX `idx_be_comment_id` (`be_comment_id`),  -- 为被评论对象ID添加索引

@@ -79,7 +79,8 @@ type Video struct {
 	VideoId       string `thrift:"video_id,1,required" frugal:"1,required,string" json:"video_id"`
 	VideoName     string `thrift:"video_name,2,required" frugal:"2,required,string" json:"video_name"`
 	VideoUrl      string `thrift:"video_url,3,required" frugal:"3,required,string" json:"video_url"`
-	VideoDuration int32  `thrift:"video_duration,4,required" frugal:"4,required,i32" json:"video_duration"`
+	VideoDuration string `thrift:"video_duration,4,required" frugal:"4,required,string" json:"video_duration"`
+	LikesCount    int64  `thrift:"likes_count,5,required" frugal:"5,required,i64" json:"likes_count"`
 }
 
 func NewVideo() *Video {
@@ -101,8 +102,12 @@ func (p *Video) GetVideoUrl() (v string) {
 	return p.VideoUrl
 }
 
-func (p *Video) GetVideoDuration() (v int32) {
+func (p *Video) GetVideoDuration() (v string) {
 	return p.VideoDuration
+}
+
+func (p *Video) GetLikesCount() (v int64) {
+	return p.LikesCount
 }
 func (p *Video) SetVideoId(val string) {
 	p.VideoId = val
@@ -113,8 +118,11 @@ func (p *Video) SetVideoName(val string) {
 func (p *Video) SetVideoUrl(val string) {
 	p.VideoUrl = val
 }
-func (p *Video) SetVideoDuration(val int32) {
+func (p *Video) SetVideoDuration(val string) {
 	p.VideoDuration = val
+}
+func (p *Video) SetLikesCount(val int64) {
+	p.LikesCount = val
 }
 
 func (p *Video) String() string {
@@ -142,6 +150,9 @@ func (p *Video) DeepEqual(ano *Video) bool {
 	if !p.Field4DeepEqual(ano.VideoDuration) {
 		return false
 	}
+	if !p.Field5DeepEqual(ano.LikesCount) {
+		return false
+	}
 	return true
 }
 
@@ -166,9 +177,16 @@ func (p *Video) Field3DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *Video) Field4DeepEqual(src int32) bool {
+func (p *Video) Field4DeepEqual(src string) bool {
 
-	if p.VideoDuration != src {
+	if strings.Compare(p.VideoDuration, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Video) Field5DeepEqual(src int64) bool {
+
+	if p.LikesCount != src {
 		return false
 	}
 	return true
@@ -179,6 +197,7 @@ var fieldIDToName_Video = map[int16]string{
 	2: "video_name",
 	3: "video_url",
 	4: "video_duration",
+	5: "likes_count",
 }
 
 type UserInfo struct {

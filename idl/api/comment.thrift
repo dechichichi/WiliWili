@@ -24,8 +24,8 @@ struct ReplyCommentResp{
 
 struct GetVideoCommentListReq{
     1: required i64 video_id,
-    2: required i32 page,
-    3: required i32 page_size,
+    2: required i64 page_num,
+    3: required i64 page_size,
 }
 
 struct Comment{
@@ -42,8 +42,8 @@ struct GetVideoCommentListResp{
 
 struct GetCommentReplyListReq{
     1: required i64 comment_id,
-    2: required i32 page,
-    3: required i32 page_size,
+    2: required i64 page_num,
+    3: required i64 page_size,
 }
 
 struct GetCommentReplyListResp{

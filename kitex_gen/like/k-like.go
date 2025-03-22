@@ -35,7 +35,7 @@ func (p *LikeCommentReq) FastRead(buf []byte) (int, error) {
 	var fieldId int16
 	var issetCommentId bool = false
 	var issetUserId bool = false
-	var issetLikeType bool = false
+	var issetIsLike bool = false
 	for {
 		fieldTypeId, fieldId, l, err = thrift.Binary.ReadFieldBegin(buf[offset:])
 		offset += l
@@ -77,13 +77,13 @@ func (p *LikeCommentReq) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.BOOL {
 				l, err = p.FastReadField3(buf[offset:])
 				offset += l
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetLikeType = true
+				issetIsLike = true
 			} else {
 				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -110,7 +110,7 @@ func (p *LikeCommentReq) FastRead(buf []byte) (int, error) {
 		goto RequiredFieldNotSetError
 	}
 
-	if !issetLikeType {
+	if !issetIsLike {
 		fieldId = 3
 		goto RequiredFieldNotSetError
 	}
@@ -156,14 +156,14 @@ func (p *LikeCommentReq) FastReadField2(buf []byte) (int, error) {
 func (p *LikeCommentReq) FastReadField3(buf []byte) (int, error) {
 	offset := 0
 
-	var _field int64
-	if v, l, err := thrift.Binary.ReadI64(buf[offset:]); err != nil {
+	var _field bool
+	if v, l, err := thrift.Binary.ReadBool(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
 		_field = v
 	}
-	p.LikeType = _field
+	p.IsLike = _field
 	return offset, nil
 }
 
@@ -209,8 +209,8 @@ func (p *LikeCommentReq) fastWriteField2(buf []byte, w thrift.NocopyWriter) int 
 
 func (p *LikeCommentReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 3)
-	offset += thrift.Binary.WriteI64(buf[offset:], p.LikeType)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 3)
+	offset += thrift.Binary.WriteBool(buf[offset:], p.IsLike)
 	return offset
 }
 
@@ -231,7 +231,7 @@ func (p *LikeCommentReq) field2Length() int {
 func (p *LikeCommentReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I64Length()
+	l += thrift.Binary.BoolLength()
 	return l
 }
 
@@ -349,7 +349,7 @@ func (p *LikeVideoReq) FastRead(buf []byte) (int, error) {
 	var fieldId int16
 	var issetVideoId bool = false
 	var issetUserId bool = false
-	var issetLikeType bool = false
+	var issetIsLike bool = false
 	for {
 		fieldTypeId, fieldId, l, err = thrift.Binary.ReadFieldBegin(buf[offset:])
 		offset += l
@@ -391,13 +391,13 @@ func (p *LikeVideoReq) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.BOOL {
 				l, err = p.FastReadField3(buf[offset:])
 				offset += l
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetLikeType = true
+				issetIsLike = true
 			} else {
 				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -424,7 +424,7 @@ func (p *LikeVideoReq) FastRead(buf []byte) (int, error) {
 		goto RequiredFieldNotSetError
 	}
 
-	if !issetLikeType {
+	if !issetIsLike {
 		fieldId = 3
 		goto RequiredFieldNotSetError
 	}
@@ -470,14 +470,14 @@ func (p *LikeVideoReq) FastReadField2(buf []byte) (int, error) {
 func (p *LikeVideoReq) FastReadField3(buf []byte) (int, error) {
 	offset := 0
 
-	var _field int64
-	if v, l, err := thrift.Binary.ReadI64(buf[offset:]); err != nil {
+	var _field bool
+	if v, l, err := thrift.Binary.ReadBool(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
 		_field = v
 	}
-	p.LikeType = _field
+	p.IsLike = _field
 	return offset, nil
 }
 
@@ -523,8 +523,8 @@ func (p *LikeVideoReq) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
 
 func (p *LikeVideoReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 3)
-	offset += thrift.Binary.WriteI64(buf[offset:], p.LikeType)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 3)
+	offset += thrift.Binary.WriteBool(buf[offset:], p.IsLike)
 	return offset
 }
 
@@ -545,7 +545,7 @@ func (p *LikeVideoReq) field2Length() int {
 func (p *LikeVideoReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I64Length()
+	l += thrift.Binary.BoolLength()
 	return l
 }
 

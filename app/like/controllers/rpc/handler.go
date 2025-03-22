@@ -19,7 +19,7 @@ func (l *LikeHandler) LikeComment(ctx context.Context, req *like.LikeCommentReq)
 		UserID:    req.UserId,
 	}
 
-	if err = l.useCase.LikeComment(ctx, comment_like, req.LikeType); err != nil {
+	if err = l.useCase.LikeComment(ctx, comment_like, req.IsLike); err != nil {
 		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
@@ -33,7 +33,7 @@ func (l *LikeHandler) LikeVideo(ctx context.Context, req *like.LikeVideoReq) (r 
 		VideoID: req.VideoId,
 		UserID:  req.UserId,
 	}
-	if err = l.useCase.LikeVideo(ctx, video_like, req.LikeType); err != nil {
+	if err = l.useCase.LikeVideo(ctx, video_like, req.IsLike); err != nil {
 		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}

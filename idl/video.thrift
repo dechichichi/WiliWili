@@ -8,8 +8,9 @@ include "model.thrift"
 *@author video 视频信息
 */
 struct VideoSubmissionReq{
-1:required string userid
-2:required model.Video video
+1:required string video_name
+2:required string video_duration
+3:required binary video
 }
 
 /*struct VideoSubmissionResp 视频提交响应
@@ -18,6 +19,7 @@ struct VideoSubmissionReq{
 struct VideoSubmissionResp{
 1:required model.BaseResp baseresp
 2:required string video_id
+3:required string video_url
 }
 
 /*struct VideoGetReq 视频请求
@@ -26,7 +28,7 @@ struct VideoSubmissionResp{
 *@author page_size 页大小
 */
 struct VideoGetReq{
-required string videoid
+required string video_id
 }
 
 /*struct VideoListResp 视频列表响应
@@ -34,7 +36,7 @@ required string videoid
 */
 struct VideoGetResp{
     1:required model.BaseResp baseresp
-2: required model.Video video,
+    2: required model.Video video,
 }
 
 /*struct VideoSearchReq 视频搜索请求
@@ -44,8 +46,8 @@ struct VideoGetResp{
 */
 struct VideoSearchReq{
     1:required string keyword
-    2:required i32 page_num
-    3:required i32 page_size
+    2:required i64 page_num
+    3:required i64 page_size
 }
 /*struct VideoSearchResp 视频搜索响应
 *@author videos 视频列表
@@ -60,15 +62,16 @@ struct VideoSearchResp{
 *@author page_size 页大小
 */
 struct VideoTrendingReq{
-    1:required i32 page_num
-    2:required i32 page_size
+    1:required i64 page_num
+    2:required i64 page_size
 }
 
 /*struct VideoTrendingResp 视频热门榜响应
 *@author video_ids 视频列表
 */
 struct VideoTrendingResp{
-    1:required list<model.Video> videos
+    1:required model.BaseResp baseresp
+    2:required list<model.Video> videos
 }
 
 service VideoService {    

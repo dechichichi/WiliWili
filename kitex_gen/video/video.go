@@ -3,6 +3,7 @@
 package video
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"strings"
@@ -10,8 +11,9 @@ import (
 )
 
 type VideoSubmissionReq struct {
-	Userid string       `thrift:"userid,1,required" frugal:"1,required,string" json:"userid"`
-	Video  *model.Video `thrift:"video,2,required" frugal:"2,required,model.Video" json:"video"`
+	VideoName     string `thrift:"video_name,1,required" frugal:"1,required,string" json:"video_name"`
+	VideoDuration string `thrift:"video_duration,2,required" frugal:"2,required,string" json:"video_duration"`
+	Video         []byte `thrift:"video,3,required" frugal:"3,required,binary" json:"video"`
 }
 
 func NewVideoSubmissionReq() *VideoSubmissionReq {
@@ -21,27 +23,25 @@ func NewVideoSubmissionReq() *VideoSubmissionReq {
 func (p *VideoSubmissionReq) InitDefault() {
 }
 
-func (p *VideoSubmissionReq) GetUserid() (v string) {
-	return p.Userid
+func (p *VideoSubmissionReq) GetVideoName() (v string) {
+	return p.VideoName
 }
 
-var VideoSubmissionReq_Video_DEFAULT *model.Video
+func (p *VideoSubmissionReq) GetVideoDuration() (v string) {
+	return p.VideoDuration
+}
 
-func (p *VideoSubmissionReq) GetVideo() (v *model.Video) {
-	if !p.IsSetVideo() {
-		return VideoSubmissionReq_Video_DEFAULT
-	}
+func (p *VideoSubmissionReq) GetVideo() (v []byte) {
 	return p.Video
 }
-func (p *VideoSubmissionReq) SetUserid(val string) {
-	p.Userid = val
+func (p *VideoSubmissionReq) SetVideoName(val string) {
+	p.VideoName = val
 }
-func (p *VideoSubmissionReq) SetVideo(val *model.Video) {
+func (p *VideoSubmissionReq) SetVideoDuration(val string) {
+	p.VideoDuration = val
+}
+func (p *VideoSubmissionReq) SetVideo(val []byte) {
 	p.Video = val
-}
-
-func (p *VideoSubmissionReq) IsSetVideo() bool {
-	return p.Video != nil
 }
 
 func (p *VideoSubmissionReq) String() string {
@@ -57,10 +57,13 @@ func (p *VideoSubmissionReq) DeepEqual(ano *VideoSubmissionReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Userid) {
+	if !p.Field1DeepEqual(ano.VideoName) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Video) {
+	if !p.Field2DeepEqual(ano.VideoDuration) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.Video) {
 		return false
 	}
 	return true
@@ -68,27 +71,36 @@ func (p *VideoSubmissionReq) DeepEqual(ano *VideoSubmissionReq) bool {
 
 func (p *VideoSubmissionReq) Field1DeepEqual(src string) bool {
 
-	if strings.Compare(p.Userid, src) != 0 {
+	if strings.Compare(p.VideoName, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *VideoSubmissionReq) Field2DeepEqual(src *model.Video) bool {
+func (p *VideoSubmissionReq) Field2DeepEqual(src string) bool {
 
-	if !p.Video.DeepEqual(src) {
+	if strings.Compare(p.VideoDuration, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *VideoSubmissionReq) Field3DeepEqual(src []byte) bool {
+
+	if bytes.Compare(p.Video, src) != 0 {
 		return false
 	}
 	return true
 }
 
 var fieldIDToName_VideoSubmissionReq = map[int16]string{
-	1: "userid",
-	2: "video",
+	1: "video_name",
+	2: "video_duration",
+	3: "video",
 }
 
 type VideoSubmissionResp struct {
 	Baseresp *model.BaseResp `thrift:"baseresp,1,required" frugal:"1,required,model.BaseResp" json:"baseresp"`
 	VideoId  string          `thrift:"video_id,2,required" frugal:"2,required,string" json:"video_id"`
+	VideoUrl string          `thrift:"video_url,3,required" frugal:"3,required,string" json:"video_url"`
 }
 
 func NewVideoSubmissionResp() *VideoSubmissionResp {
@@ -110,11 +122,18 @@ func (p *VideoSubmissionResp) GetBaseresp() (v *model.BaseResp) {
 func (p *VideoSubmissionResp) GetVideoId() (v string) {
 	return p.VideoId
 }
+
+func (p *VideoSubmissionResp) GetVideoUrl() (v string) {
+	return p.VideoUrl
+}
 func (p *VideoSubmissionResp) SetBaseresp(val *model.BaseResp) {
 	p.Baseresp = val
 }
 func (p *VideoSubmissionResp) SetVideoId(val string) {
 	p.VideoId = val
+}
+func (p *VideoSubmissionResp) SetVideoUrl(val string) {
+	p.VideoUrl = val
 }
 
 func (p *VideoSubmissionResp) IsSetBaseresp() bool {
@@ -140,6 +159,9 @@ func (p *VideoSubmissionResp) DeepEqual(ano *VideoSubmissionResp) bool {
 	if !p.Field2DeepEqual(ano.VideoId) {
 		return false
 	}
+	if !p.Field3DeepEqual(ano.VideoUrl) {
+		return false
+	}
 	return true
 }
 
@@ -157,14 +179,22 @@ func (p *VideoSubmissionResp) Field2DeepEqual(src string) bool {
 	}
 	return true
 }
+func (p *VideoSubmissionResp) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.VideoUrl, src) != 0 {
+		return false
+	}
+	return true
+}
 
 var fieldIDToName_VideoSubmissionResp = map[int16]string{
 	1: "baseresp",
 	2: "video_id",
+	3: "video_url",
 }
 
 type VideoGetReq struct {
-	Videoid string `thrift:"videoid,1,required" frugal:"1,required,string" json:"videoid"`
+	VideoId string `thrift:"video_id,1,required" frugal:"1,required,string" json:"video_id"`
 }
 
 func NewVideoGetReq() *VideoGetReq {
@@ -174,11 +204,11 @@ func NewVideoGetReq() *VideoGetReq {
 func (p *VideoGetReq) InitDefault() {
 }
 
-func (p *VideoGetReq) GetVideoid() (v string) {
-	return p.Videoid
+func (p *VideoGetReq) GetVideoId() (v string) {
+	return p.VideoId
 }
-func (p *VideoGetReq) SetVideoid(val string) {
-	p.Videoid = val
+func (p *VideoGetReq) SetVideoId(val string) {
+	p.VideoId = val
 }
 
 func (p *VideoGetReq) String() string {
@@ -194,7 +224,7 @@ func (p *VideoGetReq) DeepEqual(ano *VideoGetReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Videoid) {
+	if !p.Field1DeepEqual(ano.VideoId) {
 		return false
 	}
 	return true
@@ -202,14 +232,14 @@ func (p *VideoGetReq) DeepEqual(ano *VideoGetReq) bool {
 
 func (p *VideoGetReq) Field1DeepEqual(src string) bool {
 
-	if strings.Compare(p.Videoid, src) != 0 {
+	if strings.Compare(p.VideoId, src) != 0 {
 		return false
 	}
 	return true
 }
 
 var fieldIDToName_VideoGetReq = map[int16]string{
-	1: "videoid",
+	1: "video_id",
 }
 
 type VideoGetResp struct {
@@ -300,8 +330,8 @@ var fieldIDToName_VideoGetResp = map[int16]string{
 
 type VideoSearchReq struct {
 	Keyword  string `thrift:"keyword,1,required" frugal:"1,required,string" json:"keyword"`
-	PageNum  int32  `thrift:"page_num,2,required" frugal:"2,required,i32" json:"page_num"`
-	PageSize int32  `thrift:"page_size,3,required" frugal:"3,required,i32" json:"page_size"`
+	PageNum  int64  `thrift:"page_num,2,required" frugal:"2,required,i64" json:"page_num"`
+	PageSize int64  `thrift:"page_size,3,required" frugal:"3,required,i64" json:"page_size"`
 }
 
 func NewVideoSearchReq() *VideoSearchReq {
@@ -315,20 +345,20 @@ func (p *VideoSearchReq) GetKeyword() (v string) {
 	return p.Keyword
 }
 
-func (p *VideoSearchReq) GetPageNum() (v int32) {
+func (p *VideoSearchReq) GetPageNum() (v int64) {
 	return p.PageNum
 }
 
-func (p *VideoSearchReq) GetPageSize() (v int32) {
+func (p *VideoSearchReq) GetPageSize() (v int64) {
 	return p.PageSize
 }
 func (p *VideoSearchReq) SetKeyword(val string) {
 	p.Keyword = val
 }
-func (p *VideoSearchReq) SetPageNum(val int32) {
+func (p *VideoSearchReq) SetPageNum(val int64) {
 	p.PageNum = val
 }
-func (p *VideoSearchReq) SetPageSize(val int32) {
+func (p *VideoSearchReq) SetPageSize(val int64) {
 	p.PageSize = val
 }
 
@@ -364,14 +394,14 @@ func (p *VideoSearchReq) Field1DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *VideoSearchReq) Field2DeepEqual(src int32) bool {
+func (p *VideoSearchReq) Field2DeepEqual(src int64) bool {
 
 	if p.PageNum != src {
 		return false
 	}
 	return true
 }
-func (p *VideoSearchReq) Field3DeepEqual(src int32) bool {
+func (p *VideoSearchReq) Field3DeepEqual(src int64) bool {
 
 	if p.PageSize != src {
 		return false
@@ -469,8 +499,8 @@ var fieldIDToName_VideoSearchResp = map[int16]string{
 }
 
 type VideoTrendingReq struct {
-	PageNum  int32 `thrift:"page_num,1,required" frugal:"1,required,i32" json:"page_num"`
-	PageSize int32 `thrift:"page_size,2,required" frugal:"2,required,i32" json:"page_size"`
+	PageNum  int64 `thrift:"page_num,1,required" frugal:"1,required,i64" json:"page_num"`
+	PageSize int64 `thrift:"page_size,2,required" frugal:"2,required,i64" json:"page_size"`
 }
 
 func NewVideoTrendingReq() *VideoTrendingReq {
@@ -480,17 +510,17 @@ func NewVideoTrendingReq() *VideoTrendingReq {
 func (p *VideoTrendingReq) InitDefault() {
 }
 
-func (p *VideoTrendingReq) GetPageNum() (v int32) {
+func (p *VideoTrendingReq) GetPageNum() (v int64) {
 	return p.PageNum
 }
 
-func (p *VideoTrendingReq) GetPageSize() (v int32) {
+func (p *VideoTrendingReq) GetPageSize() (v int64) {
 	return p.PageSize
 }
-func (p *VideoTrendingReq) SetPageNum(val int32) {
+func (p *VideoTrendingReq) SetPageNum(val int64) {
 	p.PageNum = val
 }
-func (p *VideoTrendingReq) SetPageSize(val int32) {
+func (p *VideoTrendingReq) SetPageSize(val int64) {
 	p.PageSize = val
 }
 
@@ -516,14 +546,14 @@ func (p *VideoTrendingReq) DeepEqual(ano *VideoTrendingReq) bool {
 	return true
 }
 
-func (p *VideoTrendingReq) Field1DeepEqual(src int32) bool {
+func (p *VideoTrendingReq) Field1DeepEqual(src int64) bool {
 
 	if p.PageNum != src {
 		return false
 	}
 	return true
 }
-func (p *VideoTrendingReq) Field2DeepEqual(src int32) bool {
+func (p *VideoTrendingReq) Field2DeepEqual(src int64) bool {
 
 	if p.PageSize != src {
 		return false
@@ -537,7 +567,8 @@ var fieldIDToName_VideoTrendingReq = map[int16]string{
 }
 
 type VideoTrendingResp struct {
-	Videos []*model.Video `thrift:"videos,1,required" frugal:"1,required,list<model.Video>" json:"videos"`
+	Baseresp *model.BaseResp `thrift:"baseresp,1,required" frugal:"1,required,model.BaseResp" json:"baseresp"`
+	Videos   []*model.Video  `thrift:"videos,2,required" frugal:"2,required,list<model.Video>" json:"videos"`
 }
 
 func NewVideoTrendingResp() *VideoTrendingResp {
@@ -547,11 +578,27 @@ func NewVideoTrendingResp() *VideoTrendingResp {
 func (p *VideoTrendingResp) InitDefault() {
 }
 
+var VideoTrendingResp_Baseresp_DEFAULT *model.BaseResp
+
+func (p *VideoTrendingResp) GetBaseresp() (v *model.BaseResp) {
+	if !p.IsSetBaseresp() {
+		return VideoTrendingResp_Baseresp_DEFAULT
+	}
+	return p.Baseresp
+}
+
 func (p *VideoTrendingResp) GetVideos() (v []*model.Video) {
 	return p.Videos
 }
+func (p *VideoTrendingResp) SetBaseresp(val *model.BaseResp) {
+	p.Baseresp = val
+}
 func (p *VideoTrendingResp) SetVideos(val []*model.Video) {
 	p.Videos = val
+}
+
+func (p *VideoTrendingResp) IsSetBaseresp() bool {
+	return p.Baseresp != nil
 }
 
 func (p *VideoTrendingResp) String() string {
@@ -567,13 +614,23 @@ func (p *VideoTrendingResp) DeepEqual(ano *VideoTrendingResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Videos) {
+	if !p.Field1DeepEqual(ano.Baseresp) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Videos) {
 		return false
 	}
 	return true
 }
 
-func (p *VideoTrendingResp) Field1DeepEqual(src []*model.Video) bool {
+func (p *VideoTrendingResp) Field1DeepEqual(src *model.BaseResp) bool {
+
+	if !p.Baseresp.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *VideoTrendingResp) Field2DeepEqual(src []*model.Video) bool {
 
 	if len(p.Videos) != len(src) {
 		return false
@@ -588,7 +645,8 @@ func (p *VideoTrendingResp) Field1DeepEqual(src []*model.Video) bool {
 }
 
 var fieldIDToName_VideoTrendingResp = map[int16]string{
-	1: "videos",
+	1: "baseresp",
+	2: "videos",
 }
 
 type VideoService interface {

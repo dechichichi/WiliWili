@@ -910,8 +910,8 @@ func (p *ReplyCommentResp) String() string {
 
 type GetVideoCommentListReq struct {
 	VideoID  int64 `thrift:"video_id,1,required" form:"video_id,required" json:"video_id,required" query:"video_id,required"`
-	Page     int32 `thrift:"page,2,required" form:"page,required" json:"page,required" query:"page,required"`
-	PageSize int32 `thrift:"page_size,3,required" form:"page_size,required" json:"page_size,required" query:"page_size,required"`
+	PageNum  int64 `thrift:"page_num,2,required" form:"page_num,required" json:"page_num,required" query:"page_num,required"`
+	PageSize int64 `thrift:"page_size,3,required" form:"page_size,required" json:"page_size,required" query:"page_size,required"`
 }
 
 func NewGetVideoCommentListReq() *GetVideoCommentListReq {
@@ -925,17 +925,17 @@ func (p *GetVideoCommentListReq) GetVideoID() (v int64) {
 	return p.VideoID
 }
 
-func (p *GetVideoCommentListReq) GetPage() (v int32) {
-	return p.Page
+func (p *GetVideoCommentListReq) GetPageNum() (v int64) {
+	return p.PageNum
 }
 
-func (p *GetVideoCommentListReq) GetPageSize() (v int32) {
+func (p *GetVideoCommentListReq) GetPageSize() (v int64) {
 	return p.PageSize
 }
 
 var fieldIDToName_GetVideoCommentListReq = map[int16]string{
 	1: "video_id",
-	2: "page",
+	2: "page_num",
 	3: "page_size",
 }
 
@@ -943,7 +943,7 @@ func (p *GetVideoCommentListReq) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetVideoID bool = false
-	var issetPage bool = false
+	var issetPageNum bool = false
 	var issetPageSize bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
@@ -970,16 +970,16 @@ func (p *GetVideoCommentListReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 2:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
-				issetPage = true
+				issetPageNum = true
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
 		case 3:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -1005,7 +1005,7 @@ func (p *GetVideoCommentListReq) Read(iprot thrift.TProtocol) (err error) {
 		goto RequiredFieldNotSetError
 	}
 
-	if !issetPage {
+	if !issetPageNum {
 		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
@@ -1045,19 +1045,19 @@ func (p *GetVideoCommentListReq) ReadField1(iprot thrift.TProtocol) error {
 }
 func (p *GetVideoCommentListReq) ReadField2(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field int64
+	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
 		_field = v
 	}
-	p.Page = _field
+	p.PageNum = _field
 	return nil
 }
 func (p *GetVideoCommentListReq) ReadField3(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field int64
+	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -1119,10 +1119,10 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 func (p *GetVideoCommentListReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("page", thrift.I32, 2); err != nil {
+	if err = oprot.WriteFieldBegin("page_num", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.Page); err != nil {
+	if err := oprot.WriteI64(p.PageNum); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1135,10 +1135,10 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 func (p *GetVideoCommentListReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("page_size", thrift.I32, 3); err != nil {
+	if err = oprot.WriteFieldBegin("page_size", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.PageSize); err != nil {
+	if err := oprot.WriteI64(p.PageSize); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1683,8 +1683,8 @@ func (p *GetVideoCommentListResp) String() string {
 
 type GetCommentReplyListReq struct {
 	CommentID int64 `thrift:"comment_id,1,required" form:"comment_id,required" json:"comment_id,required" query:"comment_id,required"`
-	Page      int32 `thrift:"page,2,required" form:"page,required" json:"page,required" query:"page,required"`
-	PageSize  int32 `thrift:"page_size,3,required" form:"page_size,required" json:"page_size,required" query:"page_size,required"`
+	PageNum   int64 `thrift:"page_num,2,required" form:"page_num,required" json:"page_num,required" query:"page_num,required"`
+	PageSize  int64 `thrift:"page_size,3,required" form:"page_size,required" json:"page_size,required" query:"page_size,required"`
 }
 
 func NewGetCommentReplyListReq() *GetCommentReplyListReq {
@@ -1698,17 +1698,17 @@ func (p *GetCommentReplyListReq) GetCommentID() (v int64) {
 	return p.CommentID
 }
 
-func (p *GetCommentReplyListReq) GetPage() (v int32) {
-	return p.Page
+func (p *GetCommentReplyListReq) GetPageNum() (v int64) {
+	return p.PageNum
 }
 
-func (p *GetCommentReplyListReq) GetPageSize() (v int32) {
+func (p *GetCommentReplyListReq) GetPageSize() (v int64) {
 	return p.PageSize
 }
 
 var fieldIDToName_GetCommentReplyListReq = map[int16]string{
 	1: "comment_id",
-	2: "page",
+	2: "page_num",
 	3: "page_size",
 }
 
@@ -1716,7 +1716,7 @@ func (p *GetCommentReplyListReq) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetCommentID bool = false
-	var issetPage bool = false
+	var issetPageNum bool = false
 	var issetPageSize bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
@@ -1743,16 +1743,16 @@ func (p *GetCommentReplyListReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 2:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
-				issetPage = true
+				issetPageNum = true
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
 		case 3:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -1778,7 +1778,7 @@ func (p *GetCommentReplyListReq) Read(iprot thrift.TProtocol) (err error) {
 		goto RequiredFieldNotSetError
 	}
 
-	if !issetPage {
+	if !issetPageNum {
 		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
@@ -1818,19 +1818,19 @@ func (p *GetCommentReplyListReq) ReadField1(iprot thrift.TProtocol) error {
 }
 func (p *GetCommentReplyListReq) ReadField2(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field int64
+	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
 		_field = v
 	}
-	p.Page = _field
+	p.PageNum = _field
 	return nil
 }
 func (p *GetCommentReplyListReq) ReadField3(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field int64
+	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -1892,10 +1892,10 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 func (p *GetCommentReplyListReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("page", thrift.I32, 2); err != nil {
+	if err = oprot.WriteFieldBegin("page_num", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.Page); err != nil {
+	if err := oprot.WriteI64(p.PageNum); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1908,10 +1908,10 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 func (p *GetCommentReplyListReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("page_size", thrift.I32, 3); err != nil {
+	if err = oprot.WriteFieldBegin("page_size", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.PageSize); err != nil {
+	if err := oprot.WriteI64(p.PageSize); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {

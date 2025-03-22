@@ -1,7 +1,7 @@
 namespace go api.video
 
 struct Video {
-    1:required string video_id
+    1:required i64 video_id
     2:required string video_name
     3:required string video_url
     4:required string video_duration
@@ -14,7 +14,8 @@ struct VideoSubmissionReq {
 
 struct VideoSubmissionResp {
     1:required bool success
-    2:required string video_id
+    2:required i64 video_id
+    3:required string video_url
 }
 
 struct VideoGetReq{
@@ -28,7 +29,7 @@ struct VideoGetResp{
 struct VideoSearchReq{
     1:required string keyword
     2:required i64 page_size
-    
+    3:required i64 page_num
 }
 
 struct VideoSearchResp{

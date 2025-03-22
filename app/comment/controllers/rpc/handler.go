@@ -52,7 +52,7 @@ func (c *CommentHandler) ReplyComment(ctx context.Context, req *comment.ReplyCom
 
 func (c *CommentHandler) GetCommentList(ctx context.Context, req *comment.GetCommentListReq) (r *comment.GetCommentListResp, err error) {
 	r = new(comment.GetCommentListResp)
-	commentList, err := c.useCase.GetCommentList(ctx, req.VideoId, req.Page, req.PageSize, req.CommentTpye)
+	commentList, err := c.useCase.GetCommentList(ctx, req.Id, req.Page, req.PageSize, req.CommentTpye)
 	if err != nil {
 		r.BaseResp = base.BuildBaseResp(err)
 		return

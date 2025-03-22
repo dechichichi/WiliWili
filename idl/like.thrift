@@ -8,7 +8,7 @@ include "model.thrift"
 struct LikeCommentReq {
     1:required i64 commentId // 评论ID
     2:required i64 userId // 用户ID
-    3:required i64 likeType // 点赞类型 1:点赞 2:取消点赞
+    3:required bool IsLike // 点赞类型 1:点赞 2:取消点赞
 }
 
 struct LikeCommentResp {
@@ -24,7 +24,7 @@ struct LikeCommentResp {
 struct LikeVideoReq {
     1:required i64 videoId // 视频ID
     2:required i64 userId // 用户ID
-    3:required i64 likeType // 点赞类型 1:点赞 2:取消点赞
+    3:required bool IsLike // 点赞类型 1:点赞 2:取消点赞
 }
 struct LikeVideoResp {
     1:required model.BaseResp baseResp;

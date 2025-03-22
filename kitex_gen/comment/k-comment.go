@@ -763,7 +763,7 @@ func (p *GetCommentListReq) FastRead(buf []byte) (int, error) {
 	var l int
 	var fieldTypeId thrift.TType
 	var fieldId int16
-	var issetVideoId bool = false
+	var issetId bool = false
 	var issetPage bool = false
 	var issetPageSize bool = false
 	var issetCommentTpye bool = false
@@ -784,7 +784,7 @@ func (p *GetCommentListReq) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
-				issetVideoId = true
+				issetId = true
 			} else {
 				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -846,7 +846,7 @@ func (p *GetCommentListReq) FastRead(buf []byte) (int, error) {
 		}
 	}
 
-	if !issetVideoId {
+	if !issetId {
 		fieldId = 1
 		goto RequiredFieldNotSetError
 	}
@@ -886,7 +886,7 @@ func (p *GetCommentListReq) FastReadField1(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.VideoId = _field
+	p.Id = _field
 	return offset, nil
 }
 
@@ -963,7 +963,7 @@ func (p *GetCommentListReq) BLength() int {
 func (p *GetCommentListReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 1)
-	offset += thrift.Binary.WriteI64(buf[offset:], p.VideoId)
+	offset += thrift.Binary.WriteI64(buf[offset:], p.Id)
 	return offset
 }
 

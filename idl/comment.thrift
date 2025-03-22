@@ -35,10 +35,9 @@ struct ReplyCommentResp {
     2:required i64 commentId
 }
 
-/*获取视频评论列表
-*/
+//获取评论列表
 struct GetCommentListReq {
-    1: required i64 videoId,
+    1: required i64 Id,
     2: required i64 page,
     3: required i64 pageSize
     4: required i64 CommentTpye//1:视频评论 2:回复评论

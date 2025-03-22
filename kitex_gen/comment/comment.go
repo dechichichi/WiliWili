@@ -338,7 +338,7 @@ var fieldIDToName_ReplyCommentResp = map[int16]string{
 }
 
 type GetCommentListReq struct {
-	VideoId     int64 `thrift:"videoId,1,required" frugal:"1,required,i64" json:"videoId"`
+	Id          int64 `thrift:"Id,1,required" frugal:"1,required,i64" json:"Id"`
 	Page        int64 `thrift:"page,2,required" frugal:"2,required,i64" json:"page"`
 	PageSize    int64 `thrift:"pageSize,3,required" frugal:"3,required,i64" json:"pageSize"`
 	CommentTpye int64 `thrift:"CommentTpye,4,required" frugal:"4,required,i64" json:"CommentTpye"`
@@ -351,8 +351,8 @@ func NewGetCommentListReq() *GetCommentListReq {
 func (p *GetCommentListReq) InitDefault() {
 }
 
-func (p *GetCommentListReq) GetVideoId() (v int64) {
-	return p.VideoId
+func (p *GetCommentListReq) GetId() (v int64) {
+	return p.Id
 }
 
 func (p *GetCommentListReq) GetPage() (v int64) {
@@ -366,8 +366,8 @@ func (p *GetCommentListReq) GetPageSize() (v int64) {
 func (p *GetCommentListReq) GetCommentTpye() (v int64) {
 	return p.CommentTpye
 }
-func (p *GetCommentListReq) SetVideoId(val int64) {
-	p.VideoId = val
+func (p *GetCommentListReq) SetId(val int64) {
+	p.Id = val
 }
 func (p *GetCommentListReq) SetPage(val int64) {
 	p.Page = val
@@ -392,7 +392,7 @@ func (p *GetCommentListReq) DeepEqual(ano *GetCommentListReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.VideoId) {
+	if !p.Field1DeepEqual(ano.Id) {
 		return false
 	}
 	if !p.Field2DeepEqual(ano.Page) {
@@ -409,7 +409,7 @@ func (p *GetCommentListReq) DeepEqual(ano *GetCommentListReq) bool {
 
 func (p *GetCommentListReq) Field1DeepEqual(src int64) bool {
 
-	if p.VideoId != src {
+	if p.Id != src {
 		return false
 	}
 	return true
@@ -437,7 +437,7 @@ func (p *GetCommentListReq) Field4DeepEqual(src int64) bool {
 }
 
 var fieldIDToName_GetCommentListReq = map[int16]string{
-	1: "videoId",
+	1: "Id",
 	2: "page",
 	3: "pageSize",
 	4: "CommentTpye",
