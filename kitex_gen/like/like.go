@@ -5,13 +5,13 @@ package like
 import (
 	"context"
 	"fmt"
+	"strings"
 	"wiliwili/kitex_gen/model"
 )
 
 type LikeCommentReq struct {
-	CommentId int64 `thrift:"commentId,1,required" frugal:"1,required,i64" json:"commentId"`
-	UserId    int64 `thrift:"userId,2,required" frugal:"2,required,i64" json:"userId"`
-	IsLike    bool  `thrift:"IsLike,3,required" frugal:"3,required,bool" json:"IsLike"`
+	CommentId string `thrift:"commentId,1,required" frugal:"1,required,string" json:"commentId"`
+	IsLike    bool   `thrift:"IsLike,2,required" frugal:"2,required,bool" json:"IsLike"`
 }
 
 func NewLikeCommentReq() *LikeCommentReq {
@@ -21,22 +21,15 @@ func NewLikeCommentReq() *LikeCommentReq {
 func (p *LikeCommentReq) InitDefault() {
 }
 
-func (p *LikeCommentReq) GetCommentId() (v int64) {
+func (p *LikeCommentReq) GetCommentId() (v string) {
 	return p.CommentId
-}
-
-func (p *LikeCommentReq) GetUserId() (v int64) {
-	return p.UserId
 }
 
 func (p *LikeCommentReq) GetIsLike() (v bool) {
 	return p.IsLike
 }
-func (p *LikeCommentReq) SetCommentId(val int64) {
+func (p *LikeCommentReq) SetCommentId(val string) {
 	p.CommentId = val
-}
-func (p *LikeCommentReq) SetUserId(val int64) {
-	p.UserId = val
 }
 func (p *LikeCommentReq) SetIsLike(val bool) {
 	p.IsLike = val
@@ -58,30 +51,20 @@ func (p *LikeCommentReq) DeepEqual(ano *LikeCommentReq) bool {
 	if !p.Field1DeepEqual(ano.CommentId) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.UserId) {
-		return false
-	}
-	if !p.Field3DeepEqual(ano.IsLike) {
+	if !p.Field2DeepEqual(ano.IsLike) {
 		return false
 	}
 	return true
 }
 
-func (p *LikeCommentReq) Field1DeepEqual(src int64) bool {
+func (p *LikeCommentReq) Field1DeepEqual(src string) bool {
 
-	if p.CommentId != src {
+	if strings.Compare(p.CommentId, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *LikeCommentReq) Field2DeepEqual(src int64) bool {
-
-	if p.UserId != src {
-		return false
-	}
-	return true
-}
-func (p *LikeCommentReq) Field3DeepEqual(src bool) bool {
+func (p *LikeCommentReq) Field2DeepEqual(src bool) bool {
 
 	if p.IsLike != src {
 		return false
@@ -91,8 +74,7 @@ func (p *LikeCommentReq) Field3DeepEqual(src bool) bool {
 
 var fieldIDToName_LikeCommentReq = map[int16]string{
 	1: "commentId",
-	2: "userId",
-	3: "IsLike",
+	2: "IsLike",
 }
 
 type LikeCommentResp struct {
@@ -154,9 +136,8 @@ var fieldIDToName_LikeCommentResp = map[int16]string{
 }
 
 type LikeVideoReq struct {
-	VideoId int64 `thrift:"videoId,1,required" frugal:"1,required,i64" json:"videoId"`
-	UserId  int64 `thrift:"userId,2,required" frugal:"2,required,i64" json:"userId"`
-	IsLike  bool  `thrift:"IsLike,3,required" frugal:"3,required,bool" json:"IsLike"`
+	VideoId string `thrift:"videoId,1,required" frugal:"1,required,string" json:"videoId"`
+	IsLike  bool   `thrift:"IsLike,2,required" frugal:"2,required,bool" json:"IsLike"`
 }
 
 func NewLikeVideoReq() *LikeVideoReq {
@@ -166,22 +147,15 @@ func NewLikeVideoReq() *LikeVideoReq {
 func (p *LikeVideoReq) InitDefault() {
 }
 
-func (p *LikeVideoReq) GetVideoId() (v int64) {
+func (p *LikeVideoReq) GetVideoId() (v string) {
 	return p.VideoId
-}
-
-func (p *LikeVideoReq) GetUserId() (v int64) {
-	return p.UserId
 }
 
 func (p *LikeVideoReq) GetIsLike() (v bool) {
 	return p.IsLike
 }
-func (p *LikeVideoReq) SetVideoId(val int64) {
+func (p *LikeVideoReq) SetVideoId(val string) {
 	p.VideoId = val
-}
-func (p *LikeVideoReq) SetUserId(val int64) {
-	p.UserId = val
 }
 func (p *LikeVideoReq) SetIsLike(val bool) {
 	p.IsLike = val
@@ -203,30 +177,20 @@ func (p *LikeVideoReq) DeepEqual(ano *LikeVideoReq) bool {
 	if !p.Field1DeepEqual(ano.VideoId) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.UserId) {
-		return false
-	}
-	if !p.Field3DeepEqual(ano.IsLike) {
+	if !p.Field2DeepEqual(ano.IsLike) {
 		return false
 	}
 	return true
 }
 
-func (p *LikeVideoReq) Field1DeepEqual(src int64) bool {
+func (p *LikeVideoReq) Field1DeepEqual(src string) bool {
 
-	if p.VideoId != src {
+	if strings.Compare(p.VideoId, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *LikeVideoReq) Field2DeepEqual(src int64) bool {
-
-	if p.UserId != src {
-		return false
-	}
-	return true
-}
-func (p *LikeVideoReq) Field3DeepEqual(src bool) bool {
+func (p *LikeVideoReq) Field2DeepEqual(src bool) bool {
 
 	if p.IsLike != src {
 		return false
@@ -236,8 +200,7 @@ func (p *LikeVideoReq) Field3DeepEqual(src bool) bool {
 
 var fieldIDToName_LikeVideoReq = map[int16]string{
 	1: "videoId",
-	2: "userId",
-	3: "IsLike",
+	2: "IsLike",
 }
 
 type LikeVideoResp struct {
@@ -299,7 +262,7 @@ var fieldIDToName_LikeVideoResp = map[int16]string{
 }
 
 type CommentLikeNumReq struct {
-	CommentId int64 `thrift:"commentId,1,required" frugal:"1,required,i64" json:"commentId"`
+	CommentId string `thrift:"commentId,1,required" frugal:"1,required,string" json:"commentId"`
 }
 
 func NewCommentLikeNumReq() *CommentLikeNumReq {
@@ -309,10 +272,10 @@ func NewCommentLikeNumReq() *CommentLikeNumReq {
 func (p *CommentLikeNumReq) InitDefault() {
 }
 
-func (p *CommentLikeNumReq) GetCommentId() (v int64) {
+func (p *CommentLikeNumReq) GetCommentId() (v string) {
 	return p.CommentId
 }
-func (p *CommentLikeNumReq) SetCommentId(val int64) {
+func (p *CommentLikeNumReq) SetCommentId(val string) {
 	p.CommentId = val
 }
 
@@ -335,9 +298,9 @@ func (p *CommentLikeNumReq) DeepEqual(ano *CommentLikeNumReq) bool {
 	return true
 }
 
-func (p *CommentLikeNumReq) Field1DeepEqual(src int64) bool {
+func (p *CommentLikeNumReq) Field1DeepEqual(src string) bool {
 
-	if p.CommentId != src {
+	if strings.Compare(p.CommentId, src) != 0 {
 		return false
 	}
 	return true
@@ -425,7 +388,7 @@ var fieldIDToName_CommentLikeNumResp = map[int16]string{
 }
 
 type VideoLikeNumReq struct {
-	VideoId int64 `thrift:"videoId,1,required" frugal:"1,required,i64" json:"videoId"`
+	VideoId string `thrift:"videoId,1,required" frugal:"1,required,string" json:"videoId"`
 }
 
 func NewVideoLikeNumReq() *VideoLikeNumReq {
@@ -435,10 +398,10 @@ func NewVideoLikeNumReq() *VideoLikeNumReq {
 func (p *VideoLikeNumReq) InitDefault() {
 }
 
-func (p *VideoLikeNumReq) GetVideoId() (v int64) {
+func (p *VideoLikeNumReq) GetVideoId() (v string) {
 	return p.VideoId
 }
-func (p *VideoLikeNumReq) SetVideoId(val int64) {
+func (p *VideoLikeNumReq) SetVideoId(val string) {
 	p.VideoId = val
 }
 
@@ -461,9 +424,9 @@ func (p *VideoLikeNumReq) DeepEqual(ano *VideoLikeNumReq) bool {
 	return true
 }
 
-func (p *VideoLikeNumReq) Field1DeepEqual(src int64) bool {
+func (p *VideoLikeNumReq) Field1DeepEqual(src string) bool {
 
-	if p.VideoId != src {
+	if strings.Compare(p.VideoId, src) != 0 {
 		return false
 	}
 	return true

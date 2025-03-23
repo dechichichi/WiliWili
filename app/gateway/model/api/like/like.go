@@ -9,9 +9,8 @@ import (
 )
 
 type LikeCommentReq struct {
-	CommentID int64 `thrift:"comment_id,1,required" form:"comment_id,required" json:"comment_id,required" query:"comment_id,required"`
-	UserID    int64 `thrift:"user_id,2,required" form:"user_id,required" json:"user_id,required" query:"user_id,required"`
-	IsLike    bool  `thrift:"is_like,3,required" form:"is_like,required" json:"is_like,required" query:"is_like,required"`
+	CommentID string `thrift:"comment_id,1,required" form:"comment_id,required" json:"comment_id,required" query:"comment_id,required"`
+	IsLike    bool   `thrift:"is_like,2,required" form:"is_like,required" json:"is_like,required" query:"is_like,required"`
 }
 
 func NewLikeCommentReq() *LikeCommentReq {
@@ -21,12 +20,8 @@ func NewLikeCommentReq() *LikeCommentReq {
 func (p *LikeCommentReq) InitDefault() {
 }
 
-func (p *LikeCommentReq) GetCommentID() (v int64) {
+func (p *LikeCommentReq) GetCommentID() (v string) {
 	return p.CommentID
-}
-
-func (p *LikeCommentReq) GetUserID() (v int64) {
-	return p.UserID
 }
 
 func (p *LikeCommentReq) GetIsLike() (v bool) {
@@ -35,15 +30,13 @@ func (p *LikeCommentReq) GetIsLike() (v bool) {
 
 var fieldIDToName_LikeCommentReq = map[int16]string{
 	1: "comment_id",
-	2: "user_id",
-	3: "is_like",
+	2: "is_like",
 }
 
 func (p *LikeCommentReq) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetCommentID bool = false
-	var issetUserID bool = false
 	var issetIsLike bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
@@ -61,7 +54,7 @@ func (p *LikeCommentReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -70,17 +63,8 @@ func (p *LikeCommentReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 2:
-			if fieldTypeId == thrift.I64 {
-				if err = p.ReadField2(iprot); err != nil {
-					goto ReadFieldError
-				}
-				issetUserID = true
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 3:
 			if fieldTypeId == thrift.BOOL {
-				if err = p.ReadField3(iprot); err != nil {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 				issetIsLike = true
@@ -105,13 +89,8 @@ func (p *LikeCommentReq) Read(iprot thrift.TProtocol) (err error) {
 		goto RequiredFieldNotSetError
 	}
 
-	if !issetUserID {
-		fieldId = 2
-		goto RequiredFieldNotSetError
-	}
-
 	if !issetIsLike {
-		fieldId = 3
+		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return nil
@@ -134,8 +113,8 @@ RequiredFieldNotSetError:
 
 func (p *LikeCommentReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field int64
-	if v, err := iprot.ReadI64(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -144,17 +123,6 @@ func (p *LikeCommentReq) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *LikeCommentReq) ReadField2(iprot thrift.TProtocol) error {
-
-	var _field int64
-	if v, err := iprot.ReadI64(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.UserID = _field
-	return nil
-}
-func (p *LikeCommentReq) ReadField3(iprot thrift.TProtocol) error {
 
 	var _field bool
 	if v, err := iprot.ReadBool(); err != nil {
@@ -180,10 +148,6 @@ func (p *LikeCommentReq) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 2
 			goto WriteFieldError
 		}
-		if err = p.writeField3(oprot); err != nil {
-			fieldId = 3
-			goto WriteFieldError
-		}
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -203,10 +167,10 @@ WriteStructEndError:
 }
 
 func (p *LikeCommentReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("comment_id", thrift.I64, 1); err != nil {
+	if err = oprot.WriteFieldBegin("comment_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.CommentID); err != nil {
+	if err := oprot.WriteString(p.CommentID); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -219,23 +183,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 func (p *LikeCommentReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI64(p.UserID); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
-}
-func (p *LikeCommentReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("is_like", thrift.BOOL, 3); err != nil {
+	if err = oprot.WriteFieldBegin("is_like", thrift.BOOL, 2); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteBool(p.IsLike); err != nil {
@@ -246,9 +194,9 @@ func (p *LikeCommentReq) writeField3(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
 func (p *LikeCommentReq) String() string {
@@ -407,9 +355,8 @@ func (p *LikeCommentResp) String() string {
 }
 
 type LikeVideoReq struct {
-	VideoID int64 `thrift:"video_id,1,required" form:"video_id,required" json:"video_id,required" query:"video_id,required"`
-	UserID  int64 `thrift:"user_id,2,required" form:"user_id,required" json:"user_id,required" query:"user_id,required"`
-	IsLike  bool  `thrift:"is_like,3,required" form:"is_like,required" json:"is_like,required" query:"is_like,required"`
+	VideoID string `thrift:"video_id,1,required" form:"video_id,required" json:"video_id,required" query:"video_id,required"`
+	IsLike  bool   `thrift:"is_like,2,required" form:"is_like,required" json:"is_like,required" query:"is_like,required"`
 }
 
 func NewLikeVideoReq() *LikeVideoReq {
@@ -419,12 +366,8 @@ func NewLikeVideoReq() *LikeVideoReq {
 func (p *LikeVideoReq) InitDefault() {
 }
 
-func (p *LikeVideoReq) GetVideoID() (v int64) {
+func (p *LikeVideoReq) GetVideoID() (v string) {
 	return p.VideoID
-}
-
-func (p *LikeVideoReq) GetUserID() (v int64) {
-	return p.UserID
 }
 
 func (p *LikeVideoReq) GetIsLike() (v bool) {
@@ -433,15 +376,13 @@ func (p *LikeVideoReq) GetIsLike() (v bool) {
 
 var fieldIDToName_LikeVideoReq = map[int16]string{
 	1: "video_id",
-	2: "user_id",
-	3: "is_like",
+	2: "is_like",
 }
 
 func (p *LikeVideoReq) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetVideoID bool = false
-	var issetUserID bool = false
 	var issetIsLike bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
@@ -459,7 +400,7 @@ func (p *LikeVideoReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -468,17 +409,8 @@ func (p *LikeVideoReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 2:
-			if fieldTypeId == thrift.I64 {
-				if err = p.ReadField2(iprot); err != nil {
-					goto ReadFieldError
-				}
-				issetUserID = true
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 3:
 			if fieldTypeId == thrift.BOOL {
-				if err = p.ReadField3(iprot); err != nil {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 				issetIsLike = true
@@ -503,13 +435,8 @@ func (p *LikeVideoReq) Read(iprot thrift.TProtocol) (err error) {
 		goto RequiredFieldNotSetError
 	}
 
-	if !issetUserID {
-		fieldId = 2
-		goto RequiredFieldNotSetError
-	}
-
 	if !issetIsLike {
-		fieldId = 3
+		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return nil
@@ -532,8 +459,8 @@ RequiredFieldNotSetError:
 
 func (p *LikeVideoReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field int64
-	if v, err := iprot.ReadI64(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -542,17 +469,6 @@ func (p *LikeVideoReq) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *LikeVideoReq) ReadField2(iprot thrift.TProtocol) error {
-
-	var _field int64
-	if v, err := iprot.ReadI64(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.UserID = _field
-	return nil
-}
-func (p *LikeVideoReq) ReadField3(iprot thrift.TProtocol) error {
 
 	var _field bool
 	if v, err := iprot.ReadBool(); err != nil {
@@ -578,10 +494,6 @@ func (p *LikeVideoReq) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 2
 			goto WriteFieldError
 		}
-		if err = p.writeField3(oprot); err != nil {
-			fieldId = 3
-			goto WriteFieldError
-		}
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -601,10 +513,10 @@ WriteStructEndError:
 }
 
 func (p *LikeVideoReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("video_id", thrift.I64, 1); err != nil {
+	if err = oprot.WriteFieldBegin("video_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.VideoID); err != nil {
+	if err := oprot.WriteString(p.VideoID); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -617,23 +529,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 func (p *LikeVideoReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI64(p.UserID); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
-}
-func (p *LikeVideoReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("is_like", thrift.BOOL, 3); err != nil {
+	if err = oprot.WriteFieldBegin("is_like", thrift.BOOL, 2); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteBool(p.IsLike); err != nil {
@@ -644,9 +540,9 @@ func (p *LikeVideoReq) writeField3(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
 func (p *LikeVideoReq) String() string {
@@ -805,7 +701,7 @@ func (p *LikeVideoResp) String() string {
 }
 
 type CommentLikeNumReq struct {
-	CommentID int64 `thrift:"comment_id,1,required" form:"comment_id,required" json:"comment_id,required" query:"comment_id,required"`
+	CommentID string `thrift:"comment_id,1,required" form:"comment_id,required" json:"comment_id,required" query:"comment_id,required"`
 }
 
 func NewCommentLikeNumReq() *CommentLikeNumReq {
@@ -815,7 +711,7 @@ func NewCommentLikeNumReq() *CommentLikeNumReq {
 func (p *CommentLikeNumReq) InitDefault() {
 }
 
-func (p *CommentLikeNumReq) GetCommentID() (v int64) {
+func (p *CommentLikeNumReq) GetCommentID() (v string) {
 	return p.CommentID
 }
 
@@ -843,7 +739,7 @@ func (p *CommentLikeNumReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -888,8 +784,8 @@ RequiredFieldNotSetError:
 
 func (p *CommentLikeNumReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field int64
-	if v, err := iprot.ReadI64(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -927,10 +823,10 @@ WriteStructEndError:
 }
 
 func (p *CommentLikeNumReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("comment_id", thrift.I64, 1); err != nil {
+	if err = oprot.WriteFieldBegin("comment_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.CommentID); err != nil {
+	if err := oprot.WriteString(p.CommentID); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1099,7 +995,7 @@ func (p *CommentLikeNumResp) String() string {
 }
 
 type VideoLikeNumReq struct {
-	VideoID int64 `thrift:"video_id,1,required" form:"video_id,required" json:"video_id,required" query:"video_id,required"`
+	VideoID string `thrift:"video_id,1,required" form:"video_id,required" json:"video_id,required" query:"video_id,required"`
 }
 
 func NewVideoLikeNumReq() *VideoLikeNumReq {
@@ -1109,7 +1005,7 @@ func NewVideoLikeNumReq() *VideoLikeNumReq {
 func (p *VideoLikeNumReq) InitDefault() {
 }
 
-func (p *VideoLikeNumReq) GetVideoID() (v int64) {
+func (p *VideoLikeNumReq) GetVideoID() (v string) {
 	return p.VideoID
 }
 
@@ -1137,7 +1033,7 @@ func (p *VideoLikeNumReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -1182,8 +1078,8 @@ RequiredFieldNotSetError:
 
 func (p *VideoLikeNumReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field int64
-	if v, err := iprot.ReadI64(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -1221,10 +1117,10 @@ WriteStructEndError:
 }
 
 func (p *VideoLikeNumReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("video_id", thrift.I64, 1); err != nil {
+	if err = oprot.WriteFieldBegin("video_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.VideoID); err != nil {
+	if err := oprot.WriteString(p.VideoID); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {

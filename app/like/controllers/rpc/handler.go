@@ -16,7 +16,6 @@ func (l *LikeHandler) LikeComment(ctx context.Context, req *like.LikeCommentReq)
 	r = new(like.LikeCommentResp)
 	comment_like := &model.CommentLike{
 		CommentID: req.CommentId,
-		UserID:    req.UserId,
 	}
 
 	if err = l.useCase.LikeComment(ctx, comment_like, req.IsLike); err != nil {
@@ -31,7 +30,6 @@ func (l *LikeHandler) LikeVideo(ctx context.Context, req *like.LikeVideoReq) (r 
 	r = new(like.LikeVideoResp)
 	video_like := &model.VideoLike{
 		VideoID: req.VideoId,
-		UserID:  req.UserId,
 	}
 	if err = l.useCase.LikeVideo(ctx, video_like, req.IsLike); err != nil {
 		r.BaseResp = base.BuildBaseResp(err)

@@ -18,4 +18,5 @@ func Init() {
 	InitUserRPC()
 	InitVideoRPC()
 	InitCommentRPC()
+	InitLikeRPC()
 }

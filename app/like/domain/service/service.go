@@ -6,13 +6,10 @@ import (
 	"wiliwili/pkg/errno"
 )
 
-func (svc *LikeService) IndentifyUser(ctx context.Context, uid int64) error {
+func (svc *LikeService) CheckUser(ctx context.Context) (int64, error) {
 	id, err := logincontext.GetLoginData(ctx)
 	if err != nil {
-		return err
+		return 0, errno.Errorf(errno.ErrUserNotHavePermission, "用户未登录")
 	}
-	if uid != id {
-		return errno.Errorf(errno.ErrUserNotHavePermission, "用户没有权限,id:%d,uid:%d", id, uid)
-	}
-	return nil
+	return id, nil
 }

@@ -31,8 +31,8 @@ struct Image{
 }
 
 struct Comment{
-    1: required i64 comment_id
-    2: required i64 user_id
+    1: required string comment_id
+    2: required string user_id
     3: required string content
     4: required i64 create_time
 }

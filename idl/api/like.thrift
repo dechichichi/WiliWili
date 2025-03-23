@@ -1,9 +1,8 @@
 namespace go api.like
 
 struct LikeCommentReq{
-    1: required i64 comment_id,
-    2: required i64 user_id,
-    3: required bool is_like,
+    1: required string comment_id,
+    2: required bool is_like,
 }
 
 struct LikeCommentResp{
@@ -11,9 +10,8 @@ struct LikeCommentResp{
 }
 
 struct LikeVideoReq{
-    1: required i64 video_id,
-    2: required i64 user_id,
-    3: required bool is_like,
+    1: required string video_id,
+    2: required bool is_like,
 }
 
 struct LikeVideoResp{
@@ -21,7 +19,7 @@ struct LikeVideoResp{
 }
 
 struct CommentLikeNumReq{
-    1: required i64 comment_id,
+    1: required string comment_id,
 }
 
 struct CommentLikeNumResp{
@@ -29,7 +27,7 @@ struct CommentLikeNumResp{
 }
 
 struct VideoLikeNumReq{
-    1: required i64 video_id,
+    1: required string video_id,
 }
 
 struct VideoLikeNumResp{

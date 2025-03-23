@@ -19,7 +19,6 @@ func (c *CommentHandler) CommentVideo(ctx context.Context, req *comment.CommentV
 	comment := &model.Comment{
 		BeCommentID:    req.VideoId,
 		CommentType:    constants.CommentTypeVideo,
-		UserID:         req.UserId,
 		CommentContent: req.Content,
 	}
 	commentid, err := c.useCase.CommentVideo(ctx, comment)
@@ -37,7 +36,6 @@ func (c *CommentHandler) ReplyComment(ctx context.Context, req *comment.ReplyCom
 	comment := &model.Comment{
 		BeCommentID:    req.CommentId,
 		CommentType:    constants.CommentTypeReply,
-		UserID:         req.UserId,
 		CommentContent: req.Content,
 	}
 	commentid, err := c.useCase.ReplyComment(ctx, comment)
@@ -64,7 +62,7 @@ func (c *CommentHandler) GetCommentList(ctx context.Context, req *comment.GetCom
 
 func (c *CommentHandler) DeleteComment(ctx context.Context, req *comment.DeleteCommentReq) (r *comment.DeleteCommentResp, err error) {
 	r = new(comment.DeleteCommentResp)
-	err = c.useCase.DeleteComment(ctx, req.UserId, req.CommentId)
+	err = c.useCase.DeleteComment(ctx, req.CommentId)
 	if err != nil {
 		r.BaseResp = base.BuildBaseResp(err)
 	}

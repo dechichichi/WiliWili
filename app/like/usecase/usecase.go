@@ -10,8 +10,8 @@ import (
 type LikeUseCase interface {
 	LikeComment(ctx context.Context, comment_like *model.CommentLike, islike bool) error
 	LikeVideo(ctx context.Context, video_like *model.VideoLike, islike bool) error
-	CommentLikeNum(ctx context.Context, comment_id int64) (int64, error)
-	VideoLikeNum(ctx context.Context, video_id int64) (int64, error)
+	CommentLikeNum(ctx context.Context, comment_id string) (int64, error)
+	VideoLikeNum(ctx context.Context, video_id string) (int64, error)
 }
 
 type useCase struct {

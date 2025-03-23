@@ -25,7 +25,6 @@ func LikeComment(ctx context.Context, c *app.RequestContext) {
 	}
 	resp, err := rpc.LikeComment(ctx, &like.LikeCommentReq{
 		CommentId: req.CommentID,
-		UserId:    req.UserID,
 		IsLike:    req.IsLike,
 	})
 	if err != nil {
@@ -47,7 +46,6 @@ func LikeVideo(ctx context.Context, c *app.RequestContext) {
 	}
 	resp, err := rpc.LikeVideo(ctx, &like.LikeVideoReq{
 		VideoId: req.VideoId,
-		UserId:  req.UserId,
 		IsLike:  req.IsLike,
 	})
 	if err != nil {

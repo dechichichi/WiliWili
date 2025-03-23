@@ -8,10 +8,10 @@ import (
 )
 
 type CommentUseCase interface {
-	CommentVideo(ctx context.Context, comment *model.Comment) (int64, error)
-	ReplyComment(ctx context.Context, comment *model.Comment) (int64,error)
-	GetCommentList(ctx context.Context, videoID int64, page, pageSize ,commenttype int64) ([]*model.Comment, error)
-	DeleteComment(ctx context.Context, commentID int64, userID int64) error
+	CommentVideo(ctx context.Context, comment *model.Comment) (string, error)
+	ReplyComment(ctx context.Context, comment *model.Comment) (string,error)
+	GetCommentList(ctx context.Context, videoID string, page, pageSize ,commenttype int64) ([]*model.Comment, error)
+	DeleteComment(ctx context.Context, commentID string) error
 }
 
 type useCase struct {

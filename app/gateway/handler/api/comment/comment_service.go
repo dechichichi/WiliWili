@@ -28,7 +28,6 @@ func CommentVideo(ctx context.Context, c *app.RequestContext) {
 	resp, err := rpc.CommentVideo(ctx, &comment.CommentVideoReq{
 		VideoId: req.VideoID,
 		Content: req.Content,
-		UserId:  req.UserID,
 	})
 	if err != nil {
 		pack.RespError(c, err)
@@ -51,7 +50,6 @@ func ReplyComment(ctx context.Context, c *app.RequestContext) {
 	resp, err := rpc.ReplyComment(ctx, &comment.ReplyCommentReq{
 		CommentId: req.CommentID,
 		Content:   req.Content,
-		UserId:    req.UserID,
 	})
 	if err != nil {
 		pack.RespError(c, err)
@@ -121,7 +119,6 @@ func DeleteComment(ctx context.Context, c *app.RequestContext) {
 
 	resp, err := rpc.DeleteComment(ctx, &comment.DeleteCommentReq{
 		CommentId: req.CommentID,
-		UserId:    req.UserID,
 	})
 	if err != nil {
 		pack.RespError(c, err)

@@ -443,8 +443,8 @@ var fieldIDToName_Image = map[int16]string{
 }
 
 type Comment struct {
-	CommentId  int64  `thrift:"comment_id,1,required" frugal:"1,required,i64" json:"comment_id"`
-	UserId     int64  `thrift:"user_id,2,required" frugal:"2,required,i64" json:"user_id"`
+	CommentId  string `thrift:"comment_id,1,required" frugal:"1,required,string" json:"comment_id"`
+	UserId     string `thrift:"user_id,2,required" frugal:"2,required,string" json:"user_id"`
 	Content    string `thrift:"content,3,required" frugal:"3,required,string" json:"content"`
 	CreateTime int64  `thrift:"create_time,4,required" frugal:"4,required,i64" json:"create_time"`
 }
@@ -456,11 +456,11 @@ func NewComment() *Comment {
 func (p *Comment) InitDefault() {
 }
 
-func (p *Comment) GetCommentId() (v int64) {
+func (p *Comment) GetCommentId() (v string) {
 	return p.CommentId
 }
 
-func (p *Comment) GetUserId() (v int64) {
+func (p *Comment) GetUserId() (v string) {
 	return p.UserId
 }
 
@@ -471,10 +471,10 @@ func (p *Comment) GetContent() (v string) {
 func (p *Comment) GetCreateTime() (v int64) {
 	return p.CreateTime
 }
-func (p *Comment) SetCommentId(val int64) {
+func (p *Comment) SetCommentId(val string) {
 	p.CommentId = val
 }
-func (p *Comment) SetUserId(val int64) {
+func (p *Comment) SetUserId(val string) {
 	p.UserId = val
 }
 func (p *Comment) SetContent(val string) {
@@ -512,16 +512,16 @@ func (p *Comment) DeepEqual(ano *Comment) bool {
 	return true
 }
 
-func (p *Comment) Field1DeepEqual(src int64) bool {
+func (p *Comment) Field1DeepEqual(src string) bool {
 
-	if p.CommentId != src {
+	if strings.Compare(p.CommentId, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *Comment) Field2DeepEqual(src int64) bool {
+func (p *Comment) Field2DeepEqual(src string) bool {
 
-	if p.UserId != src {
+	if strings.Compare(p.UserId, src) != 0 {
 		return false
 	}
 	return true
