@@ -18,7 +18,7 @@ OUTPUT_PATH = $(DIR)/output
 API_PATH= $(DIR)/cmd/api
 
 # 服务名
-SERVICES := gateway user commodity order cart payment assistant
+SERVICES := gateway user video like comment chat
 service = $(word 1, $@)
 
 EnvironmentStartEnv=WILIWILI_ENVIRONMENT_STARTED

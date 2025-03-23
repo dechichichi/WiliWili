@@ -65,7 +65,6 @@ func GetVideo(ctx context.Context, c *app.RequestContext) {
 		pack.RespError(c, err)
 		return
 	}
-
 	resp, err := rpc.GetVideo(ctx, &video.VideoGetReq{
 		VideoId: req.VideoID,
 	})

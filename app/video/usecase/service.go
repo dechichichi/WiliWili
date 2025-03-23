@@ -19,7 +19,8 @@ func (uc *useCase) SubmitVideo(ctx context.Context, video *model.Video, data []b
 	if err != nil {
 		return "", "", err
 	}
-	url := fmt.Sprintf("%s/%s/%d", config.Minio.Addr, constants.VideoBucket, videoid)
+	url := fmt.Sprintf("%s/%s/%s", config.Minio.Addr, constants.VideoBucket, videoid)
+	video.VideoID = videoid
 	video.VideoURL = url
 	err = uc.db.StoreVideo(ctx, video)
 	if err != nil {

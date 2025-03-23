@@ -9,7 +9,7 @@ import (
 )
 
 func rootMw() []app.HandlerFunc {
-	return []app.HandlerFunc{mw.Auth()}
+	return nil
 }
 
 func _apiMw() []app.HandlerFunc {
@@ -39,7 +39,7 @@ func _searchvideoMw() []app.HandlerFunc {
 
 func _submitvideoMw() []app.HandlerFunc {
 	// your code...
-	return nil
+	return []app.HandlerFunc{mw.Auth()}
 }
 
 func _getvideotrendingMw() []app.HandlerFunc {

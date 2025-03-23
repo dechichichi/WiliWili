@@ -3,7 +3,16 @@ package rpc
 import (
 	"context"
 	"wiliwili/kitex_gen/video"
+	"wiliwili/pkg/base/client"
 )
+
+func InitVideoRPC() {
+	c, err := client.InitVideoRPC()
+	if err != nil {
+		panic(err)
+	}
+	videoClient = *c
+}
 
 func SubmitVideo(ctx context.Context, req *video.VideoSubmissionReq) (reponse *video.VideoSubmissionResp, err error) {
 	resp, err := videoClient.VideoSubmission(ctx, req)

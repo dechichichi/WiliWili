@@ -16,4 +16,5 @@ var (
 
 func Init() {
 	InitUserRPC()
+	InitVideoRPC()
 }

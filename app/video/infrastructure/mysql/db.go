@@ -26,7 +26,7 @@ func (v *videoDB) StoreVideo(ctx context.Context, video *model.Video) error {
 
 func (v *videoDB) GetVideo(ctx context.Context, videoid string) (*model.VideoProfile, error) {
 	var video model.VideoProfile
-	err := v.client.First(&video, videoid).Error
+	err := v.client.WithContext(ctx).Where("video_id = ?", videoid).First(&video).Error
 	if err != nil {
 		return nil, err
 	}

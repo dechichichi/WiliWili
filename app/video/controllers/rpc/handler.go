@@ -29,7 +29,11 @@ func (u *VideoHandler) VideoSubmission(ctx context.Context, req *video.VideoSubm
 func (u *VideoHandler) VideoGet(ctx context.Context, req *video.VideoGetReq) (r *video.VideoGetResp, err error) {
 	r = new(video.VideoGetResp)
 	video, err := u.useCase.GetVideo(ctx, req.VideoId)
-	r.Baseresp = base.BuildBaseResp(err)
+	if err != nil {
+		r.Baseresp = base.BuildBaseResp(err)
+		return
+	}
+	r.Baseresp = base.BuildBaseResp(nil)
 	r.Video = pack.ToVideoProfile(video)
 	return
 }
