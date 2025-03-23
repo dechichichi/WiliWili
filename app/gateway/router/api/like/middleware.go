@@ -3,6 +3,8 @@
 package like
 
 import (
+	"wiliwili/app/gateway/mw"
+
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -33,12 +35,16 @@ func _getcommentlikenumMw() []app.HandlerFunc {
 
 func _likecommentMw() []app.HandlerFunc {
 	// your code...
-	return nil
+	return []app.HandlerFunc{
+		mw.Auth(),
+	}
 }
 
 func _likevideoMw() []app.HandlerFunc {
 	// your code...
-	return nil
+	return []app.HandlerFunc{
+		mw.Auth(),
+	}
 }
 
 func _getvideolikenumMw() []app.HandlerFunc {
