@@ -1,59 +1,53 @@
 namespace go api.comment
 
 struct CommentVideoReq{
-    1: required i64 video_id,
+    1: required string video_id,
     2: required string content,
-    3: required i64 user_id,
 }
 
 struct CommentVideoResp{
-    1: required bool success,
-    2:required i64 comment_id,
+    1:required string comment_id,
 }
 
 struct ReplyCommentReq{
-    1: required i64 comment_id,
+    1: required string comment_id,
     2: required string content,
-    3: required i64 user_id,
+    3: required string user_id,
 }
 
 struct ReplyCommentResp{
-    1: required bool success,
-    2:required i64 comment_id,
+    1:required string comment_id,
 }
 
 struct GetVideoCommentListReq{
-    1: required i64 video_id,
+    1: required string video_id,
     2: required i64 page_num,
     3: required i64 page_size,
 }
 
 struct Comment{
-    1: required i64 comment_id
-    2: required i64 user_id
+    1: required string comment_id
+    2: required string user_id
     3: required string content
     4: required i64 create_time
 }
 
 struct GetVideoCommentListResp{
-    1: required bool success,
-    2: required list<Comment> comment_list,
+    1: required list<Comment> comment_list,
 }
 
 struct GetCommentReplyListReq{
-    1: required i64 comment_id,
+    1: required string comment_id,
     2: required i64 page_num,
     3: required i64 page_size,
 }
 
 struct GetCommentReplyListResp{
-    1: required bool success,
-    2: required list<Comment> comment_list,
+    1: required list<Comment> comment_list,
 }
 
 struct DeleteCommentReq{
-    1: required i64 comment_id,
-    2: required i64 user_id,
+    1: required string comment_id,
 }
 
 struct DeleteCommentResp{

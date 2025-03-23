@@ -3,6 +3,8 @@
 package comment
 
 import (
+	"wiliwili/app/gateway/mw"
+
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -28,7 +30,9 @@ func _commentMw() []app.HandlerFunc {
 
 func _replycommentMw() []app.HandlerFunc {
 	// your code...
-	return nil
+	return []app.HandlerFunc{
+		mw.Auth(),
+	}
 }
 
 func _getcommentreplylistMw() []app.HandlerFunc {
@@ -37,13 +41,15 @@ func _getcommentreplylistMw() []app.HandlerFunc {
 }
 
 func _commentvideoMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		mw.Auth(),
+	}
 }
 
 func _deletecommentMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		mw.Auth(),
+	}
 }
 
 func _getvideocommentlistMw() []app.HandlerFunc {

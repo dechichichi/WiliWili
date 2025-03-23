@@ -10,9 +10,8 @@ import (
 )
 
 type CommentVideoReq struct {
-	VideoId int64  `thrift:"videoId,1,required" frugal:"1,required,i64" json:"videoId"`
+	VideoId string `thrift:"videoId,1,required" frugal:"1,required,string" json:"videoId"`
 	Content string `thrift:"content,2,required" frugal:"2,required,string" json:"content"`
-	UserId  int64  `thrift:"userId,3,required" frugal:"3,required,i64" json:"userId"`
 }
 
 func NewCommentVideoReq() *CommentVideoReq {
@@ -22,25 +21,18 @@ func NewCommentVideoReq() *CommentVideoReq {
 func (p *CommentVideoReq) InitDefault() {
 }
 
-func (p *CommentVideoReq) GetVideoId() (v int64) {
+func (p *CommentVideoReq) GetVideoId() (v string) {
 	return p.VideoId
 }
 
 func (p *CommentVideoReq) GetContent() (v string) {
 	return p.Content
 }
-
-func (p *CommentVideoReq) GetUserId() (v int64) {
-	return p.UserId
-}
-func (p *CommentVideoReq) SetVideoId(val int64) {
+func (p *CommentVideoReq) SetVideoId(val string) {
 	p.VideoId = val
 }
 func (p *CommentVideoReq) SetContent(val string) {
 	p.Content = val
-}
-func (p *CommentVideoReq) SetUserId(val int64) {
-	p.UserId = val
 }
 
 func (p *CommentVideoReq) String() string {
@@ -62,15 +54,12 @@ func (p *CommentVideoReq) DeepEqual(ano *CommentVideoReq) bool {
 	if !p.Field2DeepEqual(ano.Content) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.UserId) {
-		return false
-	}
 	return true
 }
 
-func (p *CommentVideoReq) Field1DeepEqual(src int64) bool {
+func (p *CommentVideoReq) Field1DeepEqual(src string) bool {
 
-	if p.VideoId != src {
+	if strings.Compare(p.VideoId, src) != 0 {
 		return false
 	}
 	return true
@@ -82,23 +71,15 @@ func (p *CommentVideoReq) Field2DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *CommentVideoReq) Field3DeepEqual(src int64) bool {
-
-	if p.UserId != src {
-		return false
-	}
-	return true
-}
 
 var fieldIDToName_CommentVideoReq = map[int16]string{
 	1: "videoId",
 	2: "content",
-	3: "userId",
 }
 
 type CommentVideoResp struct {
 	BaseResp  *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
-	CommentId int64           `thrift:"commentId,2,required" frugal:"2,required,i64" json:"commentId"`
+	CommentId string          `thrift:"commentId,2,required" frugal:"2,required,string" json:"commentId"`
 }
 
 func NewCommentVideoResp() *CommentVideoResp {
@@ -117,13 +98,13 @@ func (p *CommentVideoResp) GetBaseResp() (v *model.BaseResp) {
 	return p.BaseResp
 }
 
-func (p *CommentVideoResp) GetCommentId() (v int64) {
+func (p *CommentVideoResp) GetCommentId() (v string) {
 	return p.CommentId
 }
 func (p *CommentVideoResp) SetBaseResp(val *model.BaseResp) {
 	p.BaseResp = val
 }
-func (p *CommentVideoResp) SetCommentId(val int64) {
+func (p *CommentVideoResp) SetCommentId(val string) {
 	p.CommentId = val
 }
 
@@ -160,9 +141,9 @@ func (p *CommentVideoResp) Field1DeepEqual(src *model.BaseResp) bool {
 	}
 	return true
 }
-func (p *CommentVideoResp) Field2DeepEqual(src int64) bool {
+func (p *CommentVideoResp) Field2DeepEqual(src string) bool {
 
-	if p.CommentId != src {
+	if strings.Compare(p.CommentId, src) != 0 {
 		return false
 	}
 	return true
@@ -174,9 +155,8 @@ var fieldIDToName_CommentVideoResp = map[int16]string{
 }
 
 type ReplyCommentReq struct {
-	CommentId int64  `thrift:"commentId,1,required" frugal:"1,required,i64" json:"commentId"`
+	CommentId string `thrift:"commentId,1,required" frugal:"1,required,string" json:"commentId"`
 	Content   string `thrift:"content,2,required" frugal:"2,required,string" json:"content"`
-	UserId    int64  `thrift:"userId,3,required" frugal:"3,required,i64" json:"userId"`
 }
 
 func NewReplyCommentReq() *ReplyCommentReq {
@@ -186,25 +166,18 @@ func NewReplyCommentReq() *ReplyCommentReq {
 func (p *ReplyCommentReq) InitDefault() {
 }
 
-func (p *ReplyCommentReq) GetCommentId() (v int64) {
+func (p *ReplyCommentReq) GetCommentId() (v string) {
 	return p.CommentId
 }
 
 func (p *ReplyCommentReq) GetContent() (v string) {
 	return p.Content
 }
-
-func (p *ReplyCommentReq) GetUserId() (v int64) {
-	return p.UserId
-}
-func (p *ReplyCommentReq) SetCommentId(val int64) {
+func (p *ReplyCommentReq) SetCommentId(val string) {
 	p.CommentId = val
 }
 func (p *ReplyCommentReq) SetContent(val string) {
 	p.Content = val
-}
-func (p *ReplyCommentReq) SetUserId(val int64) {
-	p.UserId = val
 }
 
 func (p *ReplyCommentReq) String() string {
@@ -226,15 +199,12 @@ func (p *ReplyCommentReq) DeepEqual(ano *ReplyCommentReq) bool {
 	if !p.Field2DeepEqual(ano.Content) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.UserId) {
-		return false
-	}
 	return true
 }
 
-func (p *ReplyCommentReq) Field1DeepEqual(src int64) bool {
+func (p *ReplyCommentReq) Field1DeepEqual(src string) bool {
 
-	if p.CommentId != src {
+	if strings.Compare(p.CommentId, src) != 0 {
 		return false
 	}
 	return true
@@ -246,23 +216,15 @@ func (p *ReplyCommentReq) Field2DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *ReplyCommentReq) Field3DeepEqual(src int64) bool {
-
-	if p.UserId != src {
-		return false
-	}
-	return true
-}
 
 var fieldIDToName_ReplyCommentReq = map[int16]string{
 	1: "commentId",
 	2: "content",
-	3: "userId",
 }
 
 type ReplyCommentResp struct {
 	BaseResp  *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
-	CommentId int64           `thrift:"commentId,2,required" frugal:"2,required,i64" json:"commentId"`
+	CommentId string          `thrift:"commentId,2,required" frugal:"2,required,string" json:"commentId"`
 }
 
 func NewReplyCommentResp() *ReplyCommentResp {
@@ -281,13 +243,13 @@ func (p *ReplyCommentResp) GetBaseResp() (v *model.BaseResp) {
 	return p.BaseResp
 }
 
-func (p *ReplyCommentResp) GetCommentId() (v int64) {
+func (p *ReplyCommentResp) GetCommentId() (v string) {
 	return p.CommentId
 }
 func (p *ReplyCommentResp) SetBaseResp(val *model.BaseResp) {
 	p.BaseResp = val
 }
-func (p *ReplyCommentResp) SetCommentId(val int64) {
+func (p *ReplyCommentResp) SetCommentId(val string) {
 	p.CommentId = val
 }
 
@@ -324,9 +286,9 @@ func (p *ReplyCommentResp) Field1DeepEqual(src *model.BaseResp) bool {
 	}
 	return true
 }
-func (p *ReplyCommentResp) Field2DeepEqual(src int64) bool {
+func (p *ReplyCommentResp) Field2DeepEqual(src string) bool {
 
-	if p.CommentId != src {
+	if strings.Compare(p.CommentId, src) != 0 {
 		return false
 	}
 	return true
@@ -338,10 +300,10 @@ var fieldIDToName_ReplyCommentResp = map[int16]string{
 }
 
 type GetCommentListReq struct {
-	Id          int64 `thrift:"Id,1,required" frugal:"1,required,i64" json:"Id"`
-	Page        int64 `thrift:"page,2,required" frugal:"2,required,i64" json:"page"`
-	PageSize    int64 `thrift:"pageSize,3,required" frugal:"3,required,i64" json:"pageSize"`
-	CommentTpye int64 `thrift:"CommentTpye,4,required" frugal:"4,required,i64" json:"CommentTpye"`
+	Id          string `thrift:"Id,1,required" frugal:"1,required,string" json:"Id"`
+	Page        int64  `thrift:"page,2,required" frugal:"2,required,i64" json:"page"`
+	PageSize    int64  `thrift:"pageSize,3,required" frugal:"3,required,i64" json:"pageSize"`
+	CommentTpye int64  `thrift:"CommentTpye,4,required" frugal:"4,required,i64" json:"CommentTpye"`
 }
 
 func NewGetCommentListReq() *GetCommentListReq {
@@ -351,7 +313,7 @@ func NewGetCommentListReq() *GetCommentListReq {
 func (p *GetCommentListReq) InitDefault() {
 }
 
-func (p *GetCommentListReq) GetId() (v int64) {
+func (p *GetCommentListReq) GetId() (v string) {
 	return p.Id
 }
 
@@ -366,7 +328,7 @@ func (p *GetCommentListReq) GetPageSize() (v int64) {
 func (p *GetCommentListReq) GetCommentTpye() (v int64) {
 	return p.CommentTpye
 }
-func (p *GetCommentListReq) SetId(val int64) {
+func (p *GetCommentListReq) SetId(val string) {
 	p.Id = val
 }
 func (p *GetCommentListReq) SetPage(val int64) {
@@ -407,9 +369,9 @@ func (p *GetCommentListReq) DeepEqual(ano *GetCommentListReq) bool {
 	return true
 }
 
-func (p *GetCommentListReq) Field1DeepEqual(src int64) bool {
+func (p *GetCommentListReq) Field1DeepEqual(src string) bool {
 
-	if p.Id != src {
+	if strings.Compare(p.Id, src) != 0 {
 		return false
 	}
 	return true
@@ -527,8 +489,7 @@ var fieldIDToName_GetCommentListResp = map[int16]string{
 }
 
 type DeleteCommentReq struct {
-	CommentId int64 `thrift:"commentId,1,required" frugal:"1,required,i64" json:"commentId"`
-	UserId    int64 `thrift:"userId,2,required" frugal:"2,required,i64" json:"userId"`
+	CommentId string `thrift:"commentId,1,required" frugal:"1,required,string" json:"commentId"`
 }
 
 func NewDeleteCommentReq() *DeleteCommentReq {
@@ -538,18 +499,11 @@ func NewDeleteCommentReq() *DeleteCommentReq {
 func (p *DeleteCommentReq) InitDefault() {
 }
 
-func (p *DeleteCommentReq) GetCommentId() (v int64) {
+func (p *DeleteCommentReq) GetCommentId() (v string) {
 	return p.CommentId
 }
-
-func (p *DeleteCommentReq) GetUserId() (v int64) {
-	return p.UserId
-}
-func (p *DeleteCommentReq) SetCommentId(val int64) {
+func (p *DeleteCommentReq) SetCommentId(val string) {
 	p.CommentId = val
-}
-func (p *DeleteCommentReq) SetUserId(val int64) {
-	p.UserId = val
 }
 
 func (p *DeleteCommentReq) String() string {
@@ -568,22 +522,12 @@ func (p *DeleteCommentReq) DeepEqual(ano *DeleteCommentReq) bool {
 	if !p.Field1DeepEqual(ano.CommentId) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.UserId) {
-		return false
-	}
 	return true
 }
 
-func (p *DeleteCommentReq) Field1DeepEqual(src int64) bool {
+func (p *DeleteCommentReq) Field1DeepEqual(src string) bool {
 
-	if p.CommentId != src {
-		return false
-	}
-	return true
-}
-func (p *DeleteCommentReq) Field2DeepEqual(src int64) bool {
-
-	if p.UserId != src {
+	if strings.Compare(p.CommentId, src) != 0 {
 		return false
 	}
 	return true
@@ -591,7 +535,6 @@ func (p *DeleteCommentReq) Field2DeepEqual(src int64) bool {
 
 var fieldIDToName_DeleteCommentReq = map[int16]string{
 	1: "commentId",
-	2: "userId",
 }
 
 type DeleteCommentResp struct {

@@ -3,7 +3,16 @@ package rpc
 import (
 	"context"
 	"wiliwili/kitex_gen/comment"
+	"wiliwili/pkg/base/client"
 )
+
+func InitCommentRPC() {
+	c, err := client.InitCommentRPC()
+	if err != nil {
+		panic(err)
+	}
+	commentClient = *c
+}
 
 func CommentVideo(ctx context.Context, req *comment.CommentVideoReq) (response *comment.CommentVideoResp, err error) {
 	resp, err := commentClient.CommentVideo(ctx, req)

@@ -9,14 +9,13 @@ include "model.thrift"
 @param userId 用户ID
 */
 struct CommentVideoReq {
-    1: required i64 videoId,
+    1: required string videoId,
     2: required string content,
-    3: required i64 userId
 }
 
 struct CommentVideoResp {
     1:required model.BaseResp baseResp
-    2:required i64 commentId
+    2:required string commentId
 }
 
 /*对评论进行回复
@@ -25,19 +24,18 @@ struct CommentVideoResp {
 @param userId 用户ID
 */
 struct ReplyCommentReq {
-    1: required i64 commentId,
+    1: required string commentId,
     2: required string content,
-    3: required i64 userId
 }
 
 struct ReplyCommentResp {
     1:required model.BaseResp baseResp
-    2:required i64 commentId
+    2:required string commentId
 }
 
 //获取评论列表
 struct GetCommentListReq {
-    1: required i64 Id,
+    1: required string Id,
     2: required i64 page,
     3: required i64 pageSize
     4: required i64 CommentTpye//1:视频评论 2:回复评论
@@ -50,8 +48,7 @@ struct GetCommentListResp {
 
 
 struct DeleteCommentReq {
-    1: required i64 commentId,
-    2: required i64 userId
+    1: required string commentId
 }
 
 struct DeleteCommentResp {
