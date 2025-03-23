@@ -12,7 +12,6 @@ struct CommentVideoResp{
 struct ReplyCommentReq{
     1: required string comment_id,
     2: required string content,
-    3: required string user_id,
 }
 
 struct ReplyCommentResp{

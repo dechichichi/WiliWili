@@ -76,14 +76,26 @@ services:
    addr:
    - 0.0.0.0:20002
 
+  comment:
+   name: comment
+   load-blance: false
+   addr:
+   - 0.0.0.0:20003
+  
+  like:
+   name: like
+   load-blance: false
+   addr:
+   - 0.0.0.0:20004
+
   networking:
    name: networking
    load-blance: false
    addr:
-   - 0.0.0.0:20003
+   - 0.0.0.0:20005
 
   interactive:
     name: interactive
     load-blance: false
     addr:
-    - 0.0.0.0:20004
+    - 0.0.0.0:20006

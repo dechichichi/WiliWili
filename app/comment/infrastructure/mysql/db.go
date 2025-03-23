@@ -40,7 +40,7 @@ func (db *commentDB) DeleteComment(ctx context.Context, commentID string, uid st
 	// 查询评论是否存在，并且 UserID 是否与传入的 uid 相等
 	var comment model.Comment
 	if err := db.client.Table(model.Comment{}.TableName()).
-		Where("id = ? AND user_id = ?", commentID, uid).
+		Where("comment_id = ? AND user_id = ?", commentID, uid).
 		First(&comment).Error; err != nil {
 		// 如果查询不到，说明评论不存在或者用户ID不匹配，返回错误
 		return err
@@ -48,7 +48,7 @@ func (db *commentDB) DeleteComment(ctx context.Context, commentID string, uid st
 
 	// 如果查询到评论，且用户ID匹配，则进行删除操作
 	if err := db.client.Table(model.Comment{}.TableName()).
-		Where("id = ?", commentID).
+		Where("comment_id = ?", commentID).
 		Delete(&model.Comment{}).Error; err != nil {
 		return err
 	}

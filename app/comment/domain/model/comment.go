@@ -6,12 +6,13 @@ import (
 
 // Comment 表示评论信息
 type Comment struct {
-	CommentID      string    `json:"comment_id" gorm:"primaryKey;autoIncrement:true"` // 评论ID
-	CommentType    int       `json:"comment_type" gorm:"notNull"`                     // 评论类型 (1: 评论视频, 2: 评论评论)
-	UserID         string    `json:"user_id" gorm:"notNull"`                          // 用户ID
-	BeCommentID    string    `json:"be_comment_id" gorm:"notNull"`                    // 被评论对象的ID (视频ID或评论ID)
-	CommentContent string    `json:"comment" gorm:"type:TEXT;notNull"`                // 评论内容
-	CreatedAt      time.Time `json:"created_at" gorm:"autoCreateTime"`                // 评论时间
+    CommentID      string    `json:"comment_id" gorm:"primaryKey"`
+    CommentType    int       `json:"comment_type" gorm:"notNull"`
+    UserID         string    `json:"user_id" gorm:"notNull"`
+    BeCommentID    string    `json:"be_comment_id" gorm:"notNull"`
+    CommentContent string    `json:"comment" gorm:"column:comment;type:TEXT;notNull"` 
+    CreatedAt      time.Time `json:"created_at" gorm:"autoCreateTime"`
+    LikesCount     int       `json:"likes_count" gorm:"notNull;default:0"`
 }
 
 func (Comment) TableName() string {
