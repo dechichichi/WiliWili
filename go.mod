@@ -11,6 +11,7 @@ require (
 	github.com/cloudwego/gopkg v0.1.4
 	github.com/cloudwego/hertz v0.9.6
 	github.com/cloudwego/kitex v0.12.3
+	github.com/gorilla/websocket v1.4.2
 	github.com/h2non/filetype v1.1.3
 	github.com/kitex-contrib/obs-opentelemetry v0.2.9
 	github.com/kitex-contrib/registry-etcd v0.2.5
