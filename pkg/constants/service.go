@@ -8,4 +8,5 @@ const (
 	CommentServiceName     = "comment"
 	UserServiceName        = "user"
 	VideoServiceName       = "video"
+	ChatServiceName       = "chat"
 )
