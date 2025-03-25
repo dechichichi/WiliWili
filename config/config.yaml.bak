@@ -88,14 +88,20 @@ services:
    addr:
    - 0.0.0.0:20004
 
+  chat:
+   name: chat
+   load-blance: false
+   addr:
+   - 0.0.0.0:20005
+
   networking:
    name: networking
    load-blance: false
    addr:
-   - 0.0.0.0:20005
+   - 0.0.0.0:20006
 
   interactive:
     name: interactive
     load-blance: false
     addr:
-    - 0.0.0.0:20006
+    - 0.0.0.0:20007

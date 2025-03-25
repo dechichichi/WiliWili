@@ -7,12 +7,33 @@ package main
 import (
 	"flag"
 	"log"
+	"net"
 	"net/http"
+	"wiliwili/config"
+	"wiliwili/pkg/utils"
+
+	"github.com/bytedance/gopkg/util/logger"
+	etcd "github.com/kitex-contrib/registry-etcd"
 )
 
 var addr = flag.String("addr", ":8080", "http service address")
 
 func serveHome(w http.ResponseWriter, r *http.Request) {
+	r, err := etcd.NewEtcdRegistry([]string{config.Etcd.Addr})
+	if err != nil {
+		panic(err)
+	}
+	listenAddr, err := utils.GetAvailablePort()
+	if err != nil {
+		logger.Fatalf("Comment: get available port failed, err: %v", err)
+	}
+	addr, err := net.ResolveTCPAddr("tcp", listenAddr)
+	if err != nil {
+		logger.Fatalf("Comment: resolve tcp addr failed, err: %v", err)
+	}
+	if err = svr.Run(); err != nil {
+		logger.Fatalf("Comment: run server failed, err: %v", err)
+	}
 	log.Println(r.URL)
 	if r.URL.Path != "/" {
 		http.Error(w, "Not found", http.StatusNotFound)
