@@ -57,6 +57,7 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		pack.RespError(c, err)
 		return
 	}
+	//utils.UserOnline(fmt.Sprintf("%d", resp.UserInfo.Uid), c)
 	accessToken, refreshToken, err := utils.CreateAllToken(resp.UserInfo.Uid)
 	if err != nil {
 		pack.RespError(c, err)

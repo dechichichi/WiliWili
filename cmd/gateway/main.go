@@ -1,33 +1,29 @@
 package main
 
 import (
-	"wiliwili/app/gateway/router"
-	"wiliwili/config"
-	"wiliwili/pkg/constants"
-	"wiliwili/pkg/utils"
+	"log"
+	"net/http"
 
-	"wiliwili/app/gateway/rpc"
+	"wiliwili/app/gateway/router"
+	"wiliwili/pkg/constants"
 
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
-var serviceName = constants.GateWayServiceName
-
-func init() {
-	config.Init(serviceName)
-	rpc.Init()
-}
-
 func main() {
-	listenAddr, err := utils.GetAvailablePort()
-	if err != nil {
-		panic(err)
-	}
+	listenAddr := ":8080"
 	h := server.New(
 		server.WithHostPorts(listenAddr),
 		server.WithHandleMethodNotAllowed(true),
 		server.WithMaxRequestBodySize(constants.ServerMaxRequestBodySize),
 	)
 	router.GeneratedRegister(h)
+
+	// 启动 HTTP 服务器
+	go func() {
+		log.Println("WebSocket 服务器启动，监听端口:8080")
+		log.Fatal(http.ListenAndServe(":8080", nil))
+	}()
+
 	h.Spin()
 }
