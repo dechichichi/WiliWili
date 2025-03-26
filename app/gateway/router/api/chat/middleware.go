@@ -3,15 +3,12 @@
 package chat
 
 import (
-	"wiliwili/app/gateway/mw"
-
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
 func rootMw() []app.HandlerFunc {
-	return []app.HandlerFunc{
-		mw.Auth(),
-	}
+	// your code...
+	return nil
 }
 
 func _apiMw() []app.HandlerFunc {

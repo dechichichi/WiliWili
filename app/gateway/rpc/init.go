@@ -1,6 +1,7 @@
 package rpc
 
 import (
+	"wiliwili/kitex_gen/chat/chatservice"
 	"wiliwili/kitex_gen/comment/commentservice"
 	"wiliwili/kitex_gen/like/likeservice"
 	"wiliwili/kitex_gen/user/userservice"
@@ -11,11 +12,13 @@ var (
 	userClient    userservice.Client
 	videoClient   videoservice.Client
 	likeClient    likeservice.Client
+	chatClient    chatservice.Client
 	commentClient commentservice.Client
 )
 
 func Init() {
-	InitUserRPC()
+	InitLikeRPC()
+	InitChatRPC()
 	InitVideoRPC()
 	InitCommentRPC()
 	InitLikeRPC()

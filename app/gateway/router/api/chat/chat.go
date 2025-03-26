@@ -21,7 +21,7 @@ func Register(r *server.Hertz) {
 		_api := root.Group("/api", _apiMw()...)
 		{
 			_v1 := _api.Group("/v1", _v1Mw()...)
-			_v1.GET("/home", append(_chatMw(), chat.Echo)...)
+			_v1.GET("/chat", append(_chatMw(), chat.Chat)...)
 		}
 	}
 }

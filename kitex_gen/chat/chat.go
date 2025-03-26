@@ -9,8 +9,8 @@ import (
 )
 
 type ChatReq struct {
-	Uid string `thrift:"uid,1,required" frugal:"1,required,string" json:"uid"`
-	Msg string `thrift:"msg,2,required" frugal:"2,required,string" json:"msg"`
+	TargetUid string `thrift:"target_uid,1,required" frugal:"1,required,string" json:"target_uid"`
+	Content   string `thrift:"content,2,required" frugal:"2,required,string" json:"content"`
 }
 
 func NewChatReq() *ChatReq {
@@ -20,18 +20,18 @@ func NewChatReq() *ChatReq {
 func (p *ChatReq) InitDefault() {
 }
 
-func (p *ChatReq) GetUid() (v string) {
-	return p.Uid
+func (p *ChatReq) GetTargetUid() (v string) {
+	return p.TargetUid
 }
 
-func (p *ChatReq) GetMsg() (v string) {
-	return p.Msg
+func (p *ChatReq) GetContent() (v string) {
+	return p.Content
 }
-func (p *ChatReq) SetUid(val string) {
-	p.Uid = val
+func (p *ChatReq) SetTargetUid(val string) {
+	p.TargetUid = val
 }
-func (p *ChatReq) SetMsg(val string) {
-	p.Msg = val
+func (p *ChatReq) SetContent(val string) {
+	p.Content = val
 }
 
 func (p *ChatReq) String() string {
@@ -47,10 +47,10 @@ func (p *ChatReq) DeepEqual(ano *ChatReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Uid) {
+	if !p.Field1DeepEqual(ano.TargetUid) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Msg) {
+	if !p.Field2DeepEqual(ano.Content) {
 		return false
 	}
 	return true
@@ -58,28 +58,25 @@ func (p *ChatReq) DeepEqual(ano *ChatReq) bool {
 
 func (p *ChatReq) Field1DeepEqual(src string) bool {
 
-	if strings.Compare(p.Uid, src) != 0 {
+	if strings.Compare(p.TargetUid, src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *ChatReq) Field2DeepEqual(src string) bool {
 
-	if strings.Compare(p.Msg, src) != 0 {
+	if strings.Compare(p.Content, src) != 0 {
 		return false
 	}
 	return true
 }
 
 var fieldIDToName_ChatReq = map[int16]string{
-	1: "uid",
-	2: "msg",
+	1: "target_uid",
+	2: "content",
 }
 
 type ChatResp struct {
-	Uid       string `thrift:"uid,1,required" frugal:"1,required,string" json:"uid"`
-	Msg       string `thrift:"msg,2,required" frugal:"2,required,string" json:"msg"`
-	Timestamp string `thrift:"timestamp,3,required" frugal:"3,required,string" json:"timestamp"`
 }
 
 func NewChatResp() *ChatResp {
@@ -87,27 +84,6 @@ func NewChatResp() *ChatResp {
 }
 
 func (p *ChatResp) InitDefault() {
-}
-
-func (p *ChatResp) GetUid() (v string) {
-	return p.Uid
-}
-
-func (p *ChatResp) GetMsg() (v string) {
-	return p.Msg
-}
-
-func (p *ChatResp) GetTimestamp() (v string) {
-	return p.Timestamp
-}
-func (p *ChatResp) SetUid(val string) {
-	p.Uid = val
-}
-func (p *ChatResp) SetMsg(val string) {
-	p.Msg = val
-}
-func (p *ChatResp) SetTimestamp(val string) {
-	p.Timestamp = val
 }
 
 func (p *ChatResp) String() string {
@@ -123,45 +99,10 @@ func (p *ChatResp) DeepEqual(ano *ChatResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Uid) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.Msg) {
-		return false
-	}
-	if !p.Field3DeepEqual(ano.Timestamp) {
-		return false
-	}
 	return true
 }
 
-func (p *ChatResp) Field1DeepEqual(src string) bool {
-
-	if strings.Compare(p.Uid, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *ChatResp) Field2DeepEqual(src string) bool {
-
-	if strings.Compare(p.Msg, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *ChatResp) Field3DeepEqual(src string) bool {
-
-	if strings.Compare(p.Timestamp, src) != 0 {
-		return false
-	}
-	return true
-}
-
-var fieldIDToName_ChatResp = map[int16]string{
-	1: "uid",
-	2: "msg",
-	3: "timestamp",
-}
+var fieldIDToName_ChatResp = map[int16]string{}
 
 type ChatService interface {
 	Chat(ctx context.Context, req *ChatReq) (r *ChatResp, err error)
