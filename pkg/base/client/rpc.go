@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"wiliwili/config"
-	"wiliwili/kitex_gen/chat/chatservice"
 	"wiliwili/kitex_gen/comment/commentservice"
 	"wiliwili/kitex_gen/like/likeservice"
 	"wiliwili/kitex_gen/user/userservice"
@@ -53,8 +52,4 @@ func InitLikeRPC() (*likeservice.Client, error) {
 
 func InitCommentRPC() (*commentservice.Client, error) {
 	return initRPCClient(constants.CommentServiceName, commentservice.NewClient)
-}
-
-func InitChatRPC() (*chatservice.Client, error) {
-	return initRPCClient(constants.ChatServiceName, chatservice.NewClient)
 }
