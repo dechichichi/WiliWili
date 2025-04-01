@@ -9,7 +9,8 @@ struct Video {
     1:required string video_id
     2:required string video_name
     3:required string video_url
-    4:required i32 video_duration
+    4:required string video_duration
+    5:required i64 likes_count
 }
 
 struct UserInfo {
@@ -27,4 +28,11 @@ struct UserProfile {
 struct Image{
     1: required i64 image_id
     2: required string image_url
+}
+
+struct Comment{
+    1: required string comment_id
+    2: required string user_id
+    3: required string content
+    4: required i64 create_time
 }

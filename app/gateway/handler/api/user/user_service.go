@@ -4,13 +4,16 @@ package user
 
 import (
 	"context"
+	"wiliwili/app/gateway/pack"
 	"wiliwili/app/gateway/rpc"
+	"wiliwili/pkg/constants"
+	"wiliwili/pkg/errno"
+	"wiliwili/pkg/utils"
 
 	api "wiliwili/app/gateway/model/api/user"
 	"wiliwili/kitex_gen/user"
 
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
 )
 
 // RegisterUser .
@@ -20,7 +23,7 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	var req api.RegiterUserReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
 	resp, err := rpc.RegisterUser(ctx, &user.UserRegisterReq{
@@ -30,10 +33,10 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 		Gender:   req.Gender,
 	})
 	if err != nil {
-		c.String(consts.StatusInternalServerError, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-	c.JSON(consts.StatusOK, resp)
+	pack.RespData(c, resp)
 }
 
 // Login .
@@ -43,19 +46,26 @@ func Login(ctx context.Context, c *app.RequestContext) {
 	var req api.LoginRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-
 	resp, err := rpc.Login(ctx, &user.UserLoginReq{
 		Uid:      req.ID,
 		Password: req.Password,
 	})
 	if err != nil {
-		c.String(consts.StatusInternalServerError, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-	c.JSON(consts.StatusOK, resp)
+	//utils.UserOnline(fmt.Sprintf("%d", resp.UserInfo.Uid), c)
+	accessToken, refreshToken, err := utils.CreateAllToken(resp.UserInfo.Uid)
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	c.Header(constants.AccessTokenHeader, accessToken)
+	c.Header(constants.RefreshTokenHeader, refreshToken)
+	pack.RespData(c, resp)
 }
 
 // GetProfile .
@@ -66,7 +76,7 @@ func GetProfile(ctx context.Context, c *app.RequestContext) {
 	var req api.ProfileReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
 
@@ -74,10 +84,10 @@ func GetProfile(ctx context.Context, c *app.RequestContext) {
 		Uid: req.UserId,
 	})
 	if err != nil {
-		c.String(consts.StatusInternalServerError, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-	c.JSON(consts.StatusOK, resp)
+	pack.RespData(c, resp)
 }
 
 // UploadAvatar .
@@ -87,16 +97,35 @@ func UploadAvatar(ctx context.Context, c *app.RequestContext) {
 	var req api.UserAvatarUploadReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-
+	file, err := c.FormFile("avatar")
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+	if file == nil {
+		pack.RespError(c, errno.Errorf(errno.ErrInvalidParams, "avatar file is required"))
+		return
+	}
+	_, ok := utils.CheckImageFileType(file)
+	if !ok {
+		pack.RespError(c, errno.Errorf(errno.ErrInvalidParams, "invalid image file type"))
+		return
+	}
+	data, err := utils.FileToBytes(file)
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
 	resp, err := rpc.UploadAvatar(ctx, &user.UserAvatarUploadReq{
-		Avatar: req.Avatar,
+		Uid:    req.UserId,
+		Avatar: data,
 	})
 	if err != nil {
-		c.String(consts.StatusInternalServerError, err.Error())
+		pack.RespError(c, err)
 		return
 	}
-	c.JSON(consts.StatusOK, resp)
+	pack.RespData(c, resp)
 }

@@ -4,60 +4,70 @@ import (
 	"context"
 	"fmt"
 	"wiliwili/app/user/domain/model"
+	"wiliwili/config"
+	"wiliwili/pkg/constants"
 )
 
 func (uc *useCase) UserRegister(ctx context.Context, user *model.User) (int64, error) {
-	exist, err := uc.db.IsUserExist(ctx, user.Username)
+	err := uc.db.IsUserExist(ctx, user.Username)
 	if err != nil {
-		return 0, fmt.Errorf("failed to check user exist: %w", err)
+		return 0, err
 	}
-	if exist {
-		return 0, fmt.Errorf("user already exist,%w", err)
-	}
-	uid, err := uc.cache.NewUserId(ctx)
-	if err != nil {
-		return 0, fmt.Errorf("failed to get new user id: %w", err)
-	}
-	user.Uid = uid
+	user.Uid = uc.svc.NewId()
 	err = uc.db.CreateUser(ctx, user)
 	if err != nil {
-		return 0, fmt.Errorf("failed to create user: %w", err)
+		return 0, err
 	}
-	return uid, nil
+	return user.Uid, nil
 }
 
 func (uc *useCase) UserLogin(ctx context.Context, user *model.User) (*model.UserInfo, error) {
-	theuser, err := uc.db.GEtUserById(ctx, user.Uid)
-	if user == nil {
-		return nil, fmt.Errorf("user not exist")
-	}
+	tuser, err := uc.db.GEtUserById(ctx, user.Uid)
 	if err != nil {
-		return nil, fmt.Errorf("failed to get user by id: %w", err)
+		return nil, err
 	}
-	userInfo, err := uc.svc.CheckPassword(ctx, theuser, user.Password)
+	userInfo, err := uc.svc.CheckPassword(ctx, tuser, user.Password)
 	if err != nil {
-		return nil, fmt.Errorf("failed to check password: %w", err)
+		return nil, err
 	}
+
 	return userInfo, nil
 }
 
 func (uc *useCase) UserProfile(ctx context.Context, uid int64) (*model.UserProfile, error) {
-	userprofile, err := uc.cache.GetUserProFile(ctx, uid)
-	if err == nil {
-		userprofile, err = uc.db.GetUserProFile(ctx, uid)
-		if err != nil {
-			return nil, fmt.Errorf("failed to get user profile: %w", err)
-		}
-	}
-	err = uc.cache.StoreUserProFile(ctx, uid, userprofile)
+	user, err := uc.db.GEtUserById(ctx, uid)
 	if err != nil {
-		return nil, fmt.Errorf("failed to store user profile: %w", err)
+		return nil, err
 	}
-	return userprofile, nil
+	userProfile := &model.UserProfile{
+		Username:  user.Username,
+		Email:     user.Email,
+		Gender:    user.Gender,
+		Signature: user.Signature,
+	}
+	return userProfile, nil
 }
 
-func (uc *useCase) UserAvatarUpload(ctx context.Context, avatar []byte) (*model.Image, error) {
+func (uc *useCase) UserAvatarUpload(ctx context.Context, uid int64, avatar []byte) (*model.Image, error) {
 	//检查用户是否有权限
-
-	panic("implement me")
+	err := uc.svc.IndentifyUser(ctx, uid)
+	if err != nil {
+		return nil, err
+	}
+	var url string
+	err = uc.svc.UploadloadAvatar(avatar, fmt.Sprintf("%d", uid))
+	if err != nil {
+		return nil, fmt.Errorf("upload avatar failed: %v", err)
+	}
+	url = fmt.Sprintf("%s/%s/%d", config.Minio.Addr,constants.ImageBucket, uid)
+	image := &model.Image{
+		Uid: uid,
+		Url: url,
+	}
+	//上传图片
+	err = uc.db.StoreImage(ctx, image)
+	if err != nil {
+		return nil, err
+	}
+	return image, nil
 }

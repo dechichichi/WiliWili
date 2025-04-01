@@ -9,7 +9,7 @@ import (
 	"wiliwili/kitex_gen/user"
 	"wiliwili/pkg/base/client"
 
-	"github.com/west2-online/DomTok/pkg/constants"
+	"wiliwili/pkg/constants"
 )
 
 func InjectUserHandler() user.UserService {
@@ -17,7 +17,7 @@ func InjectUserHandler() user.UserService {
 	if err != nil {
 		panic(err)
 	}
-	redisCache, err := client.NewRedisClient(constants.RedisDBCommodity)
+	redisCache, err := client.NewRedisClient(constants.RedisDBUSer)
 	if err != nil {
 		panic(err)
 	}

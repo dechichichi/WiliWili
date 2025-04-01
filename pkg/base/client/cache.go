@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"wiliwili/config"
 
+	"wiliwili/pkg/errno"
+
 	"github.com/redis/go-redis/v9"
-	"github.com/west2-online/DomTok/pkg/errno"
-	"github.com/west2-online/DomTok/pkg/logger"
 )
 
 // NewRedisClient 传入dbName，具体参考 constants 包
@@ -21,12 +21,10 @@ func NewRedisClient(db int) (*redis.Client, error) {
 		Password: config.Redis.Password,
 		DB:       db,
 	})
-	l := logger.GetRedisLogger()
-	redis.SetLogger(l)
-	client.AddHook(l)
+
 	_, err := client.Ping(context.TODO()).Result()
 	if err != nil {
-		return nil, errno.NewErrNo(errno.InternalRedisErrorCode, fmt.Sprintf("client.NewRedisClient: ping redis failed: %v", err))
+		return nil, errno.Errorf(errno.RedisConnectFailed, fmt.Sprintf("redis connect failed, err: %v", err))
 	}
 	return client, nil
 }

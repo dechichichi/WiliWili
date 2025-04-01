@@ -503,6 +503,7 @@ var fieldIDToName_UserProfileResp = map[int16]string{
 
 type UserAvatarUploadReq struct {
 	Avatar []byte `thrift:"avatar,1,required" frugal:"1,required,binary" json:"avatar"`
+	Uid    int64  `thrift:"Uid,2,required" frugal:"2,required,i64" json:"Uid"`
 }
 
 func NewUserAvatarUploadReq() *UserAvatarUploadReq {
@@ -515,8 +516,15 @@ func (p *UserAvatarUploadReq) InitDefault() {
 func (p *UserAvatarUploadReq) GetAvatar() (v []byte) {
 	return p.Avatar
 }
+
+func (p *UserAvatarUploadReq) GetUid() (v int64) {
+	return p.Uid
+}
 func (p *UserAvatarUploadReq) SetAvatar(val []byte) {
 	p.Avatar = val
+}
+func (p *UserAvatarUploadReq) SetUid(val int64) {
+	p.Uid = val
 }
 
 func (p *UserAvatarUploadReq) String() string {
@@ -535,6 +543,9 @@ func (p *UserAvatarUploadReq) DeepEqual(ano *UserAvatarUploadReq) bool {
 	if !p.Field1DeepEqual(ano.Avatar) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.Uid) {
+		return false
+	}
 	return true
 }
 
@@ -545,9 +556,17 @@ func (p *UserAvatarUploadReq) Field1DeepEqual(src []byte) bool {
 	}
 	return true
 }
+func (p *UserAvatarUploadReq) Field2DeepEqual(src int64) bool {
+
+	if p.Uid != src {
+		return false
+	}
+	return true
+}
 
 var fieldIDToName_UserAvatarUploadReq = map[int16]string{
 	1: "avatar",
+	2: "Uid",
 }
 
 type UserAvatarUploadResp struct {

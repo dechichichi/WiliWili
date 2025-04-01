@@ -9,7 +9,6 @@ import (
 )
 
 func rootMw() []app.HandlerFunc {
-	mw.Auth()
 	return nil
 }
 
@@ -29,8 +28,9 @@ func _userMw() []app.HandlerFunc {
 }
 
 func _uploadavatarMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		mw.Auth(),
+	}
 }
 
 func _loginMw() []app.HandlerFunc {

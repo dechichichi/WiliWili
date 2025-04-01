@@ -1,27 +1,61 @@
 server:
   private-key: | # PKCS#8
-    -----BEGIN PRIVATE KEY-----
-    MC4CAQAwBQYDK2VwBCIEIJi1JE7fq4xFZTXiOWvK9PDEDVIOgsF0dMF46BMgT9jY
-    -----END PRIVATE KEY-----
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpAIBAAKCAQEA1BfyVwiTBC7U7sDbuxaIffAapRfBPV9ANNa3sw7T0tvXgbqQ
+    T/iSSs5aNDmKnfHuEh5ipZcjYk1vUl6lUnvuNHbhg6xSNbAilQLJSslkNZ0Zv0pP
+    w84YIeSBxHTAuhbi7C6C7GjT9c3RxiomuvPlmxUTST6+YuxkyVZMVM51PEPGs0zc
+    0xiReuog+66Gk+WqC+edtZHjM5S1DGJQ0PWYCfZ6s+ZyobNA1ySjjTRel1m6KNAb
+    qODShKwVbhJVDkrL1muwze723oZTXYQqJkUT/otOXQL4T2bMfdWZBXtZnqr/FaEl
+    CVHWcrXo8byJ+rQYMqlqXr0TErpvE5F3JLz11wIDAQABAoIBAClCQ011CIx+w8Ny
+    VwxtFL5TEAvftCLJPcdJodC+aKyTQbgl397+vw64V8njC7kwEB0MNip6XVLJN4ex
+    i72hCDTCj5o60n9JNWEBesEGrmzTk+engB7aH82wEyJxh/BrdVd2sNdmiR0/HbjM
+    CF7EBX2Guwq7nvPFgtG77PtuclX3ipufyK82ox9nsKEQUjizNgW5Mqs0i/OQB5vz
+    8rm/mcvbOdrr0wBST7h/nN2JNPiPpxIOE9KliBYDAQ+ecfUZdWgL1OJ9riMxX8z/
+    zZ0C8o+Bw3l939huOrCkPEPwExviUmTF94vZxOyI9EtDyiW6nk9UzLATYEIXK/A0
+    ShTBOEkCgYEA392w3BGRdoZ/gEFsEUVGEVM++g24yO8OJkZGT9697dCeuJgTiVQf
+    /6JAtLkP9KL0WyVN2DBd4660ncY3MeDjw2czmQUQzxHlKyf+94b07cHCxKVWK2Eq
+    k0HVooNenUQdD86/+I0O5Lw14ELMMg3L4zuhwQhYXl5HStHv96GQ9qUCgYEA8omo
+    r/Q+Tvsv7uyPnrYv+jYIrJAmOg1YnHgBzkUzmQvhl9t+dNYIXEc8nncrnMglr0yo
+    RwfLlnkN/ubv7cDsAz5hN9iPG6ImaHpIPhyfAxu+x4nn2VqgKMqcC/NBmgmvADj0
+    91t8DmavPtWxCwIyUkhkVI/r25IGJZL4azDHDcsCgYEAwFdFQY+Gn4NnwNZ091HB
+    pdkUXtuzTFC4o4H1n2INZWq9NHTVNESnSYgqeBwY7WOk9zrR61GDGcBdRsGrYpuK
+    lbTxzCNiEceaUr4Gfr3havXzVemIY7UUU3lZCEw+2nhPT+mfXvozNavPzmMV9luM
+    NixiCewVoN73+fzuZKDYYFECgYEAvoIuxHcfcj6P+iZK8am9qdZDnfhkbnkJP25s
+    TK/Cxda1TukUPYXZb1JtZTPKSA5Wu4mFLLYMzpcrzSttDt3ZBPs8tfcfAd+uN6bF
+    lDQ7Gt/yTR4fxXUQFLqBNEnRH8O3eH9Eu/9aRJ2Xzc1gkXsaN9OxK1MZOpFKzrzQ
+    8LGRyV0CgYAkdnC+X9hKYQE/DHLSiCreEZSdfZMlOU1bP3n910XjT1Drgz/VCdLm
+    pAhtglACbOItEjXJTWh+q6Ycq4KK19Y8s2yf8NfqogoD6YDQvoHVVm+Ho+lYGJ4W
+    8TwiFWKhAiWvrmhhozuS7T1ElYRkUPU1cKIiRtrsKFuzAZ5W92rLnQ==
+    -----END RSA PRIVATE KEY-----
   public-key: |
     -----BEGIN PUBLIC KEY-----
-    MCowBQYDK2VwAyEAe8QtuyTwO7YgDmZegsPpPPGuMZkjg6209OoArIOVOz0=
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1BfyVwiTBC7U7sDbuxaI
+    ffAapRfBPV9ANNa3sw7T0tvXgbqQT/iSSs5aNDmKnfHuEh5ipZcjYk1vUl6lUnvu
+    NHbhg6xSNbAilQLJSslkNZ0Zv0pPw84YIeSBxHTAuhbi7C6C7GjT9c3RxiomuvPl
+    mxUTST6+YuxkyVZMVM51PEPGs0zc0xiReuog+66Gk+WqC+edtZHjM5S1DGJQ0PWY
+    CfZ6s+ZyobNA1ySjjTRel1m6KNAbqODShKwVbhJVDkrL1muwze723oZTXYQqJkUT
+    /otOXQL4T2bMfdWZBXtZnqr/FaElCVHWcrXo8byJ+rQYMqlqXr0TErpvE5F3JLz1
+    1wIDAQAB
     -----END PUBLIC KEY-----
   version: "1.0"
-  name: "DomTok"
+  name: "WiLiWiLi"
   log-level: "INFO" # OPTIONS: TRACE, DEBUG, INFO(default), NOTICE, WARN, ERROR, FATAL
 
 mysql:
   addr: 127.0.0.1:3306
   database: wiliwili
   username: root
-  password: wiliwili
+  password: root
   charset: utf8mb4
 
 redis:
   addr: 127.0.0.1:6379
   password: wiliwili
-  
+
+minio:
+  addr: 127.0.0.1:9001
+  accesskeyid: admin
+  secretkey: admin_123456
 
 services:
   gateway:
@@ -42,14 +76,32 @@ services:
    addr:
    - 0.0.0.0:20002
 
+  comment:
+   name: comment
+   load-blance: false
+   addr:
+   - 0.0.0.0:20003
+  
+  like:
+   name: like
+   load-blance: false
+   addr:
+   - 0.0.0.0:20004
+
+  chat:
+   name: chat
+   load-blance: false
+   addr:
+   - 0.0.0.0:20005
+
   networking:
    name: networking
    load-blance: false
    addr:
-   - 0.0.0.0:20003
+   - 0.0.0.0:20006
 
   interactive:
     name: interactive
     load-blance: false
     addr:
-    - 0.0.0.0:20004
+    - 0.0.0.0:20007

@@ -60,6 +60,7 @@ struct  UserProfileResp {
 */
 struct  UserAvatarUploadReq {
     1: required binary avatar;
+    2: required i64 Uid;
 }
 
 

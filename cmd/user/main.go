@@ -6,6 +6,7 @@ import (
 	"wiliwili/config"
 	"wiliwili/kitex_gen/user/userservice"
 	"wiliwili/pkg/constants"
+	"wiliwili/pkg/middleware"
 	"wiliwili/pkg/utils"
 
 	"github.com/bytedance/gopkg/util/logger"
@@ -18,12 +19,11 @@ import (
 
 var serviceName = constants.UserServiceName
 
-func Init() {
+func init() {
 	config.Init(serviceName)
 }
 
 func main() {
-	Init()
 	r, err := etcd.NewEtcdRegistry([]string{config.Etcd.Addr})
 	if err != nil {
 		panic(err)
@@ -35,6 +35,10 @@ func main() {
 	addr, err := net.ResolveTCPAddr("tcp", listenAddr)
 	if err != nil {
 		logger.Fatalf("User: resolve tcp addr failed, err: %v", err)
+	}
+	err = utils.InitMinioClient(config.Minio.Addr, config.Minio.AccessKeyID, config.Minio.AccessKey)
+	if err != nil {
+		logger.Fatalf("User: new minio client failed, err: %v", err)
 	}
 	svr := userservice.NewServer(
 		// 注入依赖
@@ -50,6 +54,7 @@ func main() {
 			MaxConnections: constants.MaxConnections,
 			MaxQPS:         constants.MaxQPS,
 		}),
+		server.WithMiddleware(middleware.Respond()),
 	)
 	if err = svr.Run(); err != nil {
 		logger.Fatalf("User: run server failed, err: %v", err)

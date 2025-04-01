@@ -19,6 +19,7 @@ type config struct {
 	Redis   redis
 	Service service
 	Etcd    etcd
+	Minio   minio
 	Server  server
 }
 type mysql struct {
@@ -35,4 +36,11 @@ type redis struct {
 }
 type etcd struct {
 	Addr string
+}
+
+type minio struct {
+	Addr        string
+	AccessKey   string
+	AccessKeyID string
+	SecretKey   string
 }

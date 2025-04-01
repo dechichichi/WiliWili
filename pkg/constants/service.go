@@ -1,9 +1,12 @@
 package constants
 
+
 // Service Name
 const (
-	InteractiveServiceName = "interactive"
-	NetworingServiceName   = "networking"
+	GateWayServiceName     = "gateway"
+	LikeServiceName        = "like"
+	CommentServiceName     = "comment"
 	UserServiceName        = "user"
 	VideoServiceName       = "video"
+	ChatServiceName       = "chat"
 )

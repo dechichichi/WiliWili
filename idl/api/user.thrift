@@ -24,7 +24,7 @@ struct LoginResponse{
 }
 
 struct ProfileReq{
-    1:i64 userId,
+    1:required i64 userId,
 }
 
 struct ProfileResp{
@@ -35,7 +35,7 @@ struct ProfileResp{
 }
 
 struct  UserAvatarUploadReq {
-    1: required binary avatar;
+    1: required i64 userId;
 }
 
 struct UserAvatarUploadResp {

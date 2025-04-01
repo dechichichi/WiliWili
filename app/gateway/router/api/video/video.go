@@ -23,7 +23,7 @@ func Register(r *server.Hertz) {
 			_v1 := _api.Group("/v1", _v1Mw()...)
 			{
 				_video := _v1.Group("/video", _videoMw()...)
-				_video.GET("/list", append(_getvideolistMw(), video.GetVideoList)...)
+				_video.GET("/get", append(_getvideoMw(), video.GetVideo)...)
 				_video.GET("/search", append(_searchvideoMw(), video.SearchVideo)...)
 				_video.POST("/submit", append(_submitvideoMw(), video.SubmitVideo)...)
 				_video.GET("/trending", append(_getvideotrendingMw(), video.GetVideoTrending)...)

@@ -1,6 +1,9 @@
 package main
 
 import (
+	"log"
+	"net/http"
+
 	"wiliwili/app/gateway/router"
 	"wiliwili/pkg/constants"
 
@@ -15,5 +18,12 @@ func main() {
 		server.WithMaxRequestBodySize(constants.ServerMaxRequestBodySize),
 	)
 	router.GeneratedRegister(h)
+
+	// 启动 HTTP 服务器
+	go func() {
+		log.Println("WebSocket 服务器启动，监听端口:8080")
+		log.Fatal(http.ListenAndServe(":8080", nil))
+	}()
+
 	h.Spin()
 }

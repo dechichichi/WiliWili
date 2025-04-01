@@ -11,9 +11,13 @@ require (
 	github.com/cloudwego/gopkg v0.1.4
 	github.com/cloudwego/hertz v0.9.6
 	github.com/cloudwego/kitex v0.12.3
+	github.com/gorilla/websocket v1.4.2
+	github.com/h2non/filetype v1.1.3
 	github.com/kitex-contrib/obs-opentelemetry v0.2.9
 	github.com/kitex-contrib/registry-etcd v0.2.5
-	github.com/west2-online/DomTok v0.0.0-20250307130123-24e8dddf9200
+	github.com/minio/minio-go v6.0.14+incompatible
+	github.com/teris-io/shortid v0.0.0-20220617161101-71ec9f2aa569
+	google.golang.org/grpc v1.70.0
 	gorm.io/gorm v1.25.12
 )
 
@@ -31,6 +35,7 @@ require (
 	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
+	github.com/go-ini/ini v1.67.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
@@ -91,11 +96,11 @@ require (
 	google.golang.org/genproto v0.0.0-20250127172529-29210b9bc287 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250127172529-29210b9bc287 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250127172529-29210b9bc287 // indirect
-	google.golang.org/grpc v1.70.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 )
 
 require (
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/bytedance/gopkg v0.1.1
 	github.com/bytedance/sonic v1.12.8 // indirect
 	github.com/bytedance/sonic/loader v0.2.3 // indirect

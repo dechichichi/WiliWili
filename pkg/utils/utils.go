@@ -1,13 +1,19 @@
 package utils
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
+	"io"
+	"mime/multipart"
 	"net"
 	"strings"
 	"wiliwili/config"
+	"wiliwili/pkg/constants"
 
 	"github.com/bytedance/gopkg/util/logger"
+	"github.com/h2non/filetype"
+	"github.com/h2non/filetype/types"
 )
 
 func GetMysqlDSN() (string, error) {
@@ -48,4 +54,87 @@ func AddrCheck(addr string) bool {
 		}
 	}()
 	return true
+}
+
+// CheckImageFileType 检查文件格式是否合规
+func CheckImageFileType(header *multipart.FileHeader) (string, bool) {
+	file, err := header.Open()
+	if err != nil {
+		return "", false
+	}
+	defer func() {
+		// 捕获并处理关闭文件时可能发生的错误
+		if err := file.Close(); err != nil {
+			logger.Errorf("utils.CheckImageFileType: failed to close file: %v", err.Error())
+		}
+	}()
+
+	buffer := make([]byte, constants.CheckFileTypeBufferSize)
+	_, err = file.Read(buffer)
+	if err != nil {
+		return "", false
+	}
+
+	kind, _ := filetype.Match(buffer)
+
+	// 检查是否为jpg、png
+	switch kind {
+	case types.Get("jpg"):
+		return "jpg", true
+	case types.Get("png"):
+		return "png", true
+	default:
+		return "", false
+	}
+}
+
+func CheckVideoFileType(header *multipart.FileHeader) (string, bool) {
+	file, err := header.Open()
+	if err != nil {
+		return "", false
+	}
+	defer func() {
+		// 捕获并处理关闭文件时可能发生的错误
+		if err := file.Close(); err != nil {
+			logger.Errorf("utils.CheckImageFileType: failed to close file: %v", err.Error())
+		}
+	}()
+
+	buffer := make([]byte, constants.CheckFileTypeBufferSize)
+	_, err = file.Read(buffer)
+	if err != nil {
+		return "", false
+	}
+
+	kind, _ := filetype.Match(buffer)
+
+	// 检查是否为mp4
+	switch kind {
+	case types.Get("mp4"):
+		return "mp4", true
+	default:
+		return "", false
+	}
+}
+
+func FileToBytes(file *multipart.FileHeader) ([]byte, error) {
+	if file == nil {
+		return nil, errors.New("file is nil")
+	}
+
+	// 打开文件
+	fileOpen, err := file.Open()
+	if err != nil {
+		return nil, err
+	}
+	defer fileOpen.Close()
+
+	// 使用 bytes.Buffer 读取文件内容
+	var buffer bytes.Buffer
+	_, err = io.Copy(&buffer, fileOpen)
+	if err != nil {
+		return nil, err
+	}
+
+	return buffer.Bytes(), nil
 }
