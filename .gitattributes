@@ -1,0 +1,12 @@
+*.txt text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+
+*.png binary
+*.jpg binary
+
+*.html linguist-language=HTML
+*.css linguist-language=CSS
+*.js linguist-language=JavaScript
+
+*.png diff=png

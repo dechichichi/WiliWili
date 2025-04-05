@@ -54,7 +54,125 @@ services:
     networks:
     - wiliwili
     command: server /data --console-address ":9000" --address ":9001"
+  wiliwili-kubernetes:
+    container_name: wiliwili-kubernetes
+    image: quay.io/coreos/hyperkube:v1.25.0
+    restart: always
+    ports:
+      - "6443:6443"
+      - "10250:10250"
+      - "10255:10255"
+    env_file:
+      - "./env/kubernetes.env"
+    volumes:
+      - ./script:/script
+      - ../config:/config
+    networks:
+      - wiliwili
+    entrypoint: ["sh", "-c", "chmod +x /script/kubernetes-monitor.sh && /script/kubernetes-monitor.sh & exec hyperkube"]
 
+  wiliwili-kafka:
+    container_name: wiliwili-kafka
+    image: wurstmeister/kafka:latest
+    restart: always
+    ports:
+      - "9092:9092"
+    env_file:
+      - "./env/kafka.env"
+    networks:
+      - wiliwili
+    volumes:
+      - ./data/kafka-data:/kafka-data
+    depends_on:
+      - wiliwili-zookeeper  # 假设 Kafka 依赖 Zookeeper
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  wiliwili-prometheus:
+    container_name: wiliwili-prometheus
+    image: prom/prometheus:latest
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./data/prometheus:/prometheus
+    networks:
+      - wiliwili
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  wiliwili-elasticsearch:
+    container_name: wiliwili-elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+    restart: always
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    env_file:
+      - "./env/elasticsearch.env"
+    networks:
+      - wiliwili
+    volumes:
+      - ./data/elasticsearch-data:/usr/share/elasticsearch/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  wiliwili-logstash:
+    container_name: wiliwili-logstash
+    image: docker.elastic.co/logstash/logstash:7.10.0
+    restart: always
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    env_file:
+      - "./env/logstash.env"
+    networks:
+      - wiliwili
+    volumes:
+      - ./config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./data/logstash-data:/usr/share/logstash/data
+    depends_on:
+      - wiliwili-elasticsearch
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  wiliwili-kibana:
+    container_name: wiliwili-kibana
+    image: docker.elastic.co/kibana/kibana:7.10.0
+    restart: always
+    ports:
+      - "5601:5601"
+    env_file:
+      - "./env/kibana.env"
+    networks:
+      - wiliwili
+    volumes:
+      - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    depends_on:
+      - wiliwili-elasticsearch
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 networks:
   wiliwili:
     driver: bridge  # 默认使用桥接网络

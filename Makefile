@@ -1,7 +1,7 @@
 # 辅助工具安装列表
 # 执行 go install github.com/cloudwego/hertz/cmd/hz@latest
 # 执行 go install github.com/cloudwego/kitex/tool/cmd/kitex@latest
-
+# 执行 go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.56.2
 #项目MODULE名
 MODULE=wiliwili
 # 检查 tmux 是否存在
@@ -53,6 +53,10 @@ kitex-gen-%:
 hz-%:
 	hz update -idl ${IDL_PATH}/api/$*.thrift
 
+.PHONY: init
+init:
+	@echo "init"
+	@golangci-lint run 
 
 .PHONY: $(SERVICES)
 $(SERVICES):

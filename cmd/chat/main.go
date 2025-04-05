@@ -75,7 +75,6 @@ closed:
 }
 
 func (wsConn *wsConnection) procLoop() {
-	// 启动一个gouroutine发送心跳
 	go func() {
 		for {
 			time.Sleep(2 * time.Second)
@@ -86,8 +85,6 @@ func (wsConn *wsConnection) procLoop() {
 			}
 		}
 	}()
-
-	// 这是一个同步处理模型（只是一个例子），如果希望并行处理可以每个请求一个gorutine，注意控制并发goroutine的数量!!!
 	for {
 		msg, err := wsConn.wsRead()
 		if err != nil {
@@ -116,7 +113,6 @@ func wsHandler(resp http.ResponseWriter, req *http.Request) {
 		closeChan: make(chan byte),
 		isClosed:  false,
 	}
-
 	// 处理器
 	go wsConn.procLoop()
 	// 读协程
