@@ -77,6 +77,22 @@ func (u *UserHandler) UserAvatarUpload(ctx context.Context, req *user.UserAvatar
 	return
 }
 
+func (u *UserHandler) UserAvatarGet(ctx context.Context, req *user.UserAvatarGetReq) (r *user.UserAvatarGetResp, err error) {
+	r = new(user.UserAvatarGetResp)
+	url, err := u.useCase.UserAvatarGet(ctx, req.Uid)
+	if err != nil {
+		r.BaseResp = base.BuildBaseResp(err)
+		return
+	}
+	if url == "" {
+		r.BaseResp = base.BuildBaseResp(err)
+		return
+	}
+	r.BaseResp = base.BuildBaseResp(nil)
+	r.Url = url
+	return
+}
+
 func NewUserHandler(useCase usecase.UserUsecase) *UserHandler {
 	return &UserHandler{useCase}
 }

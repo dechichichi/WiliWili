@@ -35,9 +35,17 @@ func (uc *useCase) UserLogin(ctx context.Context, user *model.User) (*model.User
 }
 
 func (uc *useCase) UserProfile(ctx context.Context, uid int64) (*model.UserProfile, error) {
-	user, err := uc.db.GEtUserById(ctx, uid)
-	if err != nil {
-		return nil, err
+	//先在缓存中找
+	user, err := uc.cache.GetUser(ctx, uid)
+	if err == nil {
+		user, err = uc.db.GEtUserById(ctx, uid)
+		if err != nil {
+			return nil, err
+		}
+		err = uc.cache.StoreUser(ctx, uid, user)
+		if err != nil {
+			return nil, err
+		}
 	}
 	userProfile := &model.UserProfile{
 		Username:  user.Username,
@@ -59,7 +67,7 @@ func (uc *useCase) UserAvatarUpload(ctx context.Context, uid int64, avatar []byt
 	if err != nil {
 		return nil, fmt.Errorf("upload avatar failed: %v", err)
 	}
-	url = fmt.Sprintf("%s/%s/%d", config.Minio.Addr,constants.ImageBucket, uid)
+	url = fmt.Sprintf("%s/%s/%d", config.Minio.Addr, constants.ImageBucket, uid)
 	image := &model.Image{
 		Uid: uid,
 		Url: url,
@@ -69,5 +77,29 @@ func (uc *useCase) UserAvatarUpload(ctx context.Context, uid int64, avatar []byt
 	if err != nil {
 		return nil, err
 	}
+	//更新缓存
+	err = uc.cache.StoreImage(ctx, image)
+	if err != nil {
+		return nil, err
+	}
 	return image, nil
+}
+
+func (uc *useCase) UserAvatarGet(ctx context.Context, uid int64) (string, error) {
+	//先在缓存中找
+	url, err := uc.cache.GetImage(ctx, uid)
+	if err == nil {
+		return url, nil
+	}
+	//再在数据库中找
+	image, err := uc.db.GetImage(ctx, uid)
+	if err != nil {
+		return "", err
+	}
+	//更新缓存
+	err = uc.cache.StoreImage(ctx, image)
+	if err != nil {
+		return "", err
+	}
+	return image.Url, nil
 }

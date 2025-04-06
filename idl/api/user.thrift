@@ -42,9 +42,18 @@ struct UserAvatarUploadResp {
     1: required bool success;
 }
 
+struct UserAvatarGetReq {
+    1: required i64 userId;
+}
+
+struct UserAvatarGetResp {
+    1: required string url;
+}
+
 service UserService {
     RegiterUserResp registerUser(1:RegiterUserReq req)(api.post="api/v1/user/register"),
     LoginResponse login(1:LoginRequest req)(api.post="api/v1/user/login"),
     ProfileResp getProfile(1:ProfileReq req)(api.get="api/v1/user/profile"),
-    UserAvatarUploadResp uploadAvatar(1:UserAvatarUploadReq req)(api.post="api/v1/user/avatar");
+    UserAvatarUploadResp uploadAvatar(1:UserAvatarUploadReq req)(api.post="api/v1/user/uploadavatar");
+    UserAvatarGetResp getAvatar(1:UserAvatarGetReq req)(api.get="api/v1/user/getavatar");
 }

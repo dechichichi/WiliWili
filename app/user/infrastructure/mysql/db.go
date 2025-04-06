@@ -73,3 +73,14 @@ func (db *userDB) StoreImage(ctx context.Context, image *model.Image) error {
 
 	return nil
 }
+
+func (db *userDB) GetImage(ctx context.Context, imageid int64) (*model.Image, error) {
+	var image model.Image
+	if err := db.client.Where("image_id = ?", imageid).First(&image).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errno.Errorf(errno.ErrCodeImageNotExist, "image not exist")
+		}
+		return nil, errno.Errorf(errno.ErrCodeDBerror, "failed to get image by id: %w", err)
+	}
+	return &image, nil
+}

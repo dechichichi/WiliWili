@@ -41,6 +41,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"userAvatarGet": kitex.NewMethodInfo(
+		userAvatarGetHandler,
+		newUserServiceUserAvatarGetArgs,
+		newUserServiceUserAvatarGetResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -179,6 +186,24 @@ func newUserServiceUserAvatarUploadResult() interface{} {
 	return user.NewUserServiceUserAvatarUploadResult()
 }
 
+func userAvatarGetHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceUserAvatarGetArgs)
+	realResult := result.(*user.UserServiceUserAvatarGetResult)
+	success, err := handler.(user.UserService).UserAvatarGet(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceUserAvatarGetArgs() interface{} {
+	return user.NewUserServiceUserAvatarGetArgs()
+}
+
+func newUserServiceUserAvatarGetResult() interface{} {
+	return user.NewUserServiceUserAvatarGetResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -224,6 +249,16 @@ func (p *kClient) UserAvatarUpload(ctx context.Context, req *user.UserAvatarUplo
 	_args.Req = req
 	var _result user.UserServiceUserAvatarUploadResult
 	if err = p.c.Call(ctx, "userAvatarUpload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UserAvatarGet(ctx context.Context, req *user.UserAvatarGetReq) (r *user.UserAvatarGetResp, err error) {
+	var _args user.UserServiceUserAvatarGetArgs
+	_args.Req = req
+	var _result user.UserServiceUserAvatarGetResult
+	if err = p.c.Call(ctx, "userAvatarGet", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

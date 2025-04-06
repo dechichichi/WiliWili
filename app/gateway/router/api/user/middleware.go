@@ -47,3 +47,8 @@ func _registeruserMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _getavatarMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

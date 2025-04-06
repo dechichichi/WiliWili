@@ -12,6 +12,7 @@ type UserUsecase interface {
 	UserLogin(ctx context.Context, user *model.User) (*model.UserInfo, error)
 	UserProfile(ctx context.Context, uid int64) (*model.UserProfile, error)
 	UserAvatarUpload(ctx context.Context, uid int64, avatar []byte) (*model.Image, error)
+	UserAvatarGet(ctx context.Context, uid int64) (string, error)
 }
 
 type useCase struct {

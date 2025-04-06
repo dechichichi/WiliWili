@@ -15,6 +15,7 @@ type Client interface {
 	UserLogin(ctx context.Context, req *user.UserLoginReq, callOptions ...callopt.Option) (r *user.UserLoginResp, err error)
 	UserProfile(ctx context.Context, req *user.UserProfileReq, callOptions ...callopt.Option) (r *user.UserProfileResp, err error)
 	UserAvatarUpload(ctx context.Context, req *user.UserAvatarUploadReq, callOptions ...callopt.Option) (r *user.UserAvatarUploadResp, err error)
+	UserAvatarGet(ctx context.Context, req *user.UserAvatarGetReq, callOptions ...callopt.Option) (r *user.UserAvatarGetResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -64,4 +65,9 @@ func (p *kUserServiceClient) UserProfile(ctx context.Context, req *user.UserProf
 func (p *kUserServiceClient) UserAvatarUpload(ctx context.Context, req *user.UserAvatarUploadReq, callOptions ...callopt.Option) (r *user.UserAvatarUploadResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UserAvatarUpload(ctx, req)
+}
+
+func (p *kUserServiceClient) UserAvatarGet(ctx context.Context, req *user.UserAvatarGetReq, callOptions ...callopt.Option) (r *user.UserAvatarGetResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UserAvatarGet(ctx, req)
 }

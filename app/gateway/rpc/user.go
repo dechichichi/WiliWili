@@ -32,3 +32,7 @@ func UploadAvatar(ctx context.Context, req *user.UserAvatarUploadReq) (reponse *
 	resp, err := userClient.UserAvatarUpload(ctx, req)
 	return resp, err
 }
+func GetAvatar(ctx context.Context, req *user.UserAvatarGetReq) (reponse *user.UserAvatarGetResp, err error) {
+	resp, err := userClient.UserAvatarGet(ctx, req)
+	return resp, err
+}

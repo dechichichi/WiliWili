@@ -129,3 +129,25 @@ func UploadAvatar(ctx context.Context, c *app.RequestContext) {
 	}
 	pack.RespData(c, resp)
 }
+
+// GetAvatar .
+// @router api/v1/user/getavatar [GET]
+func GetAvatar(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req user.UserAvatarGetReq
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+
+	resp, err := rpc.GetAvatar(ctx, &user.UserAvatarGetReq{
+		Uid: req.Uid,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+
+	pack.RespData(c, resp)
+}

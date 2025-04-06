@@ -69,9 +69,19 @@ struct  UserAvatarUploadResp {
     2:model.Image image;
 }
 
+struct UserAvatarGetReq {
+    1: required i64 Uid;
+}
+
+struct UserAvatarGetResp {
+    1:model.BaseResp baseResp;
+    2: required string url;
+}
+
 service UserService {
     UserRegisterResp userRegister(1: UserRegisterReq req);
     UserLoginResp userLogin(1: UserLoginReq req);
     UserProfileResp userProfile(1: UserProfileReq req);
     UserAvatarUploadResp userAvatarUpload(1: UserAvatarUploadReq req);
+    UserAvatarGetResp userAvatarGet(1: UserAvatarGetReq req);
 }
