@@ -17,13 +17,11 @@ type LikeUseCase interface {
 type useCase struct {
 	db    repository.LikeDB
 	svc   *service.LikeService
-	cache repository.LikeCache
 }
 
-func NewLikeUseCase(db repository.LikeDB, svc *service.LikeService, cache repository.LikeCache) LikeUseCase {
+func NewLikeUseCase(db repository.LikeDB, svc *service.LikeService) LikeUseCase {
 	return &useCase{
 		db:    db,
 		svc:   svc,
-		cache: cache,
 	}
 }

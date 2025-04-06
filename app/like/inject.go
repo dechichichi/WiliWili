@@ -1,14 +1,12 @@
 package like
 
 import (
-	"wiliwili/kitex_gen/like"
 	"wiliwili/app/like/controllers/rpc"
 	"wiliwili/app/like/domain/service"
 	"wiliwili/app/like/infrastructure/mysql"
-	"wiliwili/app/like/infrastructure/redis"
 	"wiliwili/app/like/usecase"
+	"wiliwili/kitex_gen/like"
 	"wiliwili/pkg/base/client"
-	"wiliwili/pkg/constants"
 )
 
 func InjectLikeHandler() like.LikeService {
@@ -16,14 +14,10 @@ func InjectLikeHandler() like.LikeService {
 	if err != nil {
 		panic(err)
 	}
-	redisCache, err := client.NewRedisClient(constants.RedisDBLike)
-	if err != nil {
-		panic(err)
-	}
+
 	db := mysql.NewLikeDB(gormDB)
-	re := redis.NewLikeCache(redisCache)
-	svc := service.NewLikeService(db, re)
-	uc := usecase.NewLikeUseCase(db, svc, re)
+	svc := service.NewLikeService(db)
+	uc := usecase.NewLikeUseCase(db, svc)
 
 	return rpc.NewLikeHandler(uc)
 }

@@ -29,7 +29,15 @@ func (uc *useCase) SubmitVideo(ctx context.Context, video *model.Video, data []b
 	return videoid, url, nil
 }
 func (uc *useCase) GetVideo(ctx context.Context, videoid string) (*model.VideoProfile, error) {
-	model, err := uc.db.GetVideo(ctx, videoid)
+	model, err := uc.cache.GetVideo(ctx, videoid)
+	if err == nil {
+		return model, nil
+	}
+	model, err = uc.db.GetVideo(ctx, videoid)
+	if err != nil {
+		return nil, err
+	}
+	err = uc.cache.SetVideo(ctx, model)
 	if err != nil {
 		return nil, err
 	}

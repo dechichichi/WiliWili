@@ -12,5 +12,4 @@ type LikeDB interface {
 	VideoLikeNum(ctx context.Context, video_id string) (int64, error)
 }
 
-type LikeCache interface {
-}
+
