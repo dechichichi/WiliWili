@@ -1,4 +1,4 @@
-         package config
+package config
 
 import (
 	"errors"
@@ -16,6 +16,7 @@ var (
 	Redis        *redis
 	Etcd         *etcd
 	Server       *server
+	Kafka        *kafka
 	Minio        *minio
 	runtimeViper = viper.New()
 )
@@ -70,6 +71,7 @@ func configMapping(srv string) {
 	Service = &c.Service
 	Server = &c.Server
 	Minio = &c.Minio
+	Kafka = &c.Kafka
 	Service = getService(srv)
 }
 

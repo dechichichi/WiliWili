@@ -57,6 +57,10 @@ minio:
   accesskeyid: admin
   secretkey: admin_123456
 
+kafka:
+  addr: 127.0.0.1:9092
+  topic: wiliwili
+
 services:
   gateway:
     name: gateway

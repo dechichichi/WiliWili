@@ -20,6 +20,7 @@ type config struct {
 	Service service
 	Etcd    etcd
 	Minio   minio
+	Kafka   kafka
 	Server  server
 }
 type mysql struct {
@@ -43,4 +44,9 @@ type minio struct {
 	AccessKey   string
 	AccessKeyID string
 	SecretKey   string
+}
+
+type kafka struct {
+	Addr  string `mapstructure:"addr"`
+	Topic string `mapstructure:"topic"`
 }
