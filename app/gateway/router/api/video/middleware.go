@@ -9,6 +9,7 @@ import (
 )
 
 func rootMw() []app.HandlerFunc {
+	mw.SentinelServer()
 	return nil
 }
 

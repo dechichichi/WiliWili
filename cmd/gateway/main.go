@@ -6,6 +6,7 @@ import (
 
 	"wiliwili/app/gateway/router"
 	"wiliwili/pkg/constants"
+	"wiliwili/pkg/utils"
 
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
@@ -18,7 +19,7 @@ func main() {
 		server.WithMaxRequestBodySize(constants.ServerMaxRequestBodySize),
 	)
 	router.GeneratedRegister(h)
-
+	utils.InitSentinel()
 	// 启动 HTTP 服务器
 	go func() {
 		log.Println("WebSocket 服务器启动，监听端口:8080")
