@@ -1,4 +1,4 @@
-## 目录结构
+# 目录结构
 
 ```
 ├─app
@@ -108,4 +108,34 @@
     ├─middleware
     └─utils
 ```
+
+# 项目部署
+
+- 更改config\config.yaml文件
+
+- 在linux或者mac环境下运行
+
+- 初始化环境：在命令行输入（在此之前保证docker启动）
+
+  ```
+  make env-up
+  ```
+
+- 启动项目
+
+  ```
+  make +相应项目名字（在cmd文件夹下）
+  ```
+
+  值得注意的是 chat模块并不能直接make chat 
+
+  若要启动chat功能 应该
+
+  ```
+  cd cmd
+  cd chat
+  go run ./
+  ```
+
+  
 

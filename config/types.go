@@ -47,6 +47,10 @@ type minio struct {
 }
 
 type kafka struct {
-	Addr  string `mapstructure:"addr"`
-	Topic string `mapstructure:"topic"`
+	Broker          string `yaml:"broker"`
+	Topic           string `yaml:"topic"`
+	ConsumerGroup   string `yaml:"consumer_group"`
+	MaxConnections  int    `yaml:"max_connections"`
+	MaxQPS          int    `yaml:"max_qps"`
+	AutoOffsetReset string `yaml:"auto_offset_reset"`
 }

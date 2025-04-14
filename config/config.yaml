@@ -58,8 +58,12 @@ minio:
   secretkey: admin_123456
 
 kafka:
-  addr: 127.0.0.1:9092
+  broker: 127.0.0.1:9092
   topic: wiliwili
+  consumer_group: upload-task-group
+  max_connections: 100
+  max_qps: 1000
+  auto_offset_reset: earliest
 
 services:
   gateway:
