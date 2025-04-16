@@ -10,7 +10,7 @@ import (
 )
 
 type UserHandler struct {
-	useCase usecase.UserUsecase
+	useCase usecase.UserUseCase
 }
 
 func (u *UserHandler) UserRegister(ctx context.Context, req *user.UserRegisterReq) (r *user.UserRegisterResp, err error) {
@@ -93,6 +93,6 @@ func (u *UserHandler) UserAvatarGet(ctx context.Context, req *user.UserAvatarGet
 	return
 }
 
-func NewUserHandler(useCase usecase.UserUsecase) *UserHandler {
+func NewUserHandler(useCase usecase.UserUseCase) *UserHandler {
 	return &UserHandler{useCase}
 }
