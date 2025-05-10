@@ -9,8 +9,9 @@ import (
 )
 
 func rootMw() []app.HandlerFunc {
-	mw.SentinelServer()
-	return nil
+	return []app.HandlerFunc{
+		mw.SentinelServer(),
+	}
 }
 
 func _apiMw() []app.HandlerFunc {

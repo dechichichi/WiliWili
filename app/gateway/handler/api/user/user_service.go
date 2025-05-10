@@ -27,10 +27,11 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	resp, err := rpc.RegisterUser(ctx, &user.UserRegisterReq{
-		Username: req.Username,
-		Password: req.Password,
-		Email:    req.Email,
-		Gender:   req.Gender,
+		Username:  req.Username,
+		Password:  req.Password,
+		Email:     req.Email,
+		Gender:    req.Gender,
+		Signature: req.Signature,
 	})
 	if err != nil {
 		pack.RespError(c, err)
