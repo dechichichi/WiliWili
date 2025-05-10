@@ -29,11 +29,6 @@ func _videoMw() []app.HandlerFunc {
 	return nil
 }
 
-func _getvideolistMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
 func _searchvideoMw() []app.HandlerFunc {
 	// your code...
 	return nil

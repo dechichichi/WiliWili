@@ -79,9 +79,9 @@ struct UserAvatarGetResp {
 }
 
 service UserService {
-    UserRegisterResp userRegister(1: UserRegisterReq req);
-    UserLoginResp userLogin(1: UserLoginReq req);
-    UserProfileResp userProfile(1: UserProfileReq req);
-    UserAvatarUploadResp userAvatarUpload(1: UserAvatarUploadReq req);
-    UserAvatarGetResp userAvatarGet(1: UserAvatarGetReq req);
+    UserRegisterResp UserRegister(1: UserRegisterReq req);
+    UserLoginResp UserLogin(1: UserLoginReq req);
+    UserProfileResp UserProfile(1: UserProfileReq req);
+    UserAvatarUploadResp UserAvatarUpload(1: UserAvatarUploadReq req);
+    UserAvatarGetResp UserAvatarGet(1: UserAvatarGetReq req);
 }

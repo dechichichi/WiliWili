@@ -20,7 +20,7 @@ import (
 // @router api/v1/user/register [POST]
 func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.RegiterUserReq
+	var req api.RegisterUserReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		pack.RespError(c, err)
