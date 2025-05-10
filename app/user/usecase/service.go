@@ -41,7 +41,8 @@ func (uc *useCase) UserLogin(ctx context.Context, user *model.User) (*model.User
 func (uc *useCase) UserProfile(ctx context.Context, uid int64) (*model.UserProfile, error) {
 	//先在缓存中找
 	user, err := uc.cache.GetUser(ctx, uid)
-	if err == nil {
+	// 如果缓存中没有，则从数据库中获取
+	if err != nil {
 		user, err = uc.db.GEtUserById(ctx, uid)
 		if err != nil {
 			return nil, err

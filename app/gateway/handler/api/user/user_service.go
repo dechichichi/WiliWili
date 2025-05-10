@@ -4,6 +4,7 @@ package user
 
 import (
 	"context"
+	"log"
 	"wiliwili/app/gateway/pack"
 	"wiliwili/app/gateway/rpc"
 	"wiliwili/pkg/constants"
@@ -45,6 +46,7 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 func Login(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req api.LoginRequest
+	log.Default().Println("Login")
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		pack.RespError(c, err)
