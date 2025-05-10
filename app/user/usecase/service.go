@@ -74,11 +74,12 @@ func (uc *useCase) UserAvatarUpload(ctx context.Context, uid int64, avatar []byt
 		log.Fatalf("Failed to create Kafka producer: %v", err)
 	}
 	defer producer.Close()
-
+	// 生成唯一的图片 ID
+	imageid := uc.svc.NewId()
 	// 将上传任务发送到 Kafka 主题
 	task := map[string]interface{}{
-		"uid":    uid,
-		"avatar": avatar,
+		"imageid": fmt.Sprintf("%d", imageid),
+		"avatar":  avatar,
 	}
 	taskBytes, err := json.Marshal(task)
 	if err != nil {
@@ -93,10 +94,11 @@ func (uc *useCase) UserAvatarUpload(ctx context.Context, uid int64, avatar []byt
 		return nil, fmt.Errorf("failed to produce message: %v", err)
 	}
 	// 返回图片信息（此时图片尚未上传）
-	url := fmt.Sprintf("%s/%s/%d", config.Minio.Addr, constants.ImageBucket, uid)
+	url := fmt.Sprintf("%s/%s/%d", config.Minio.Addr, constants.ImageBucket, imageid)
 	image := &model.Image{
-		Uid: uid,
-		Url: url,
+		Uid:     uid,
+		ImageID: imageid,
+		Url:     url,
 	}
 	return image, nil
 }
