@@ -4,6 +4,7 @@ package user
 
 import (
 	"context"
+	"log"
 	"wiliwili/app/gateway/pack"
 	"wiliwili/app/gateway/rpc"
 	"wiliwili/pkg/constants"
@@ -20,17 +21,18 @@ import (
 // @router api/v1/user/register [POST]
 func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.RegiterUserReq
+	var req api.RegisterUserReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		pack.RespError(c, err)
 		return
 	}
 	resp, err := rpc.RegisterUser(ctx, &user.UserRegisterReq{
-		Username: req.Username,
-		Password: req.Password,
-		Email:    req.Email,
-		Gender:   req.Gender,
+		Username:  req.Username,
+		Password:  req.Password,
+		Email:     req.Email,
+		Gender:    req.Gender,
+		Signature: req.Signature,
 	})
 	if err != nil {
 		pack.RespError(c, err)
@@ -44,6 +46,7 @@ func RegisterUser(ctx context.Context, c *app.RequestContext) {
 func Login(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req api.LoginRequest
+	log.Default().Println("Login")
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		pack.RespError(c, err)
@@ -127,5 +130,27 @@ func UploadAvatar(ctx context.Context, c *app.RequestContext) {
 		pack.RespError(c, err)
 		return
 	}
+	pack.RespData(c, resp)
+}
+
+// GetAvatar .
+// @router api/v1/user/getavatar [GET]
+func GetAvatar(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req user.UserAvatarGetReq
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+
+	resp, err := rpc.GetAvatar(ctx, &user.UserAvatarGetReq{
+		Uid: req.Uid,
+	})
+	if err != nil {
+		pack.RespError(c, err)
+		return
+	}
+
 	pack.RespData(c, resp)
 }

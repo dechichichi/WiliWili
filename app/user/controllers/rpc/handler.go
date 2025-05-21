@@ -10,7 +10,7 @@ import (
 )
 
 type UserHandler struct {
-	useCase usecase.UserUsecase
+	useCase usecase.UserUseCase
 }
 
 func (u *UserHandler) UserRegister(ctx context.Context, req *user.UserRegisterReq) (r *user.UserRegisterResp, err error) {
@@ -58,7 +58,6 @@ func (u *UserHandler) UserProfile(ctx context.Context, req *user.UserProfileReq)
 	r.BaseResp = base.BuildBaseResp(nil)
 	r.UserProfile = pack.BuildUserProfile(UserProfile)
 	return
-
 }
 
 func (u *UserHandler) UserAvatarUpload(ctx context.Context, req *user.UserAvatarUploadReq) (r *user.UserAvatarUploadResp, err error) {
@@ -77,6 +76,22 @@ func (u *UserHandler) UserAvatarUpload(ctx context.Context, req *user.UserAvatar
 	return
 }
 
-func NewUserHandler(useCase usecase.UserUsecase) *UserHandler {
+func (u *UserHandler) UserAvatarGet(ctx context.Context, req *user.UserAvatarGetReq) (r *user.UserAvatarGetResp, err error) {
+	r = new(user.UserAvatarGetResp)
+	url, err := u.useCase.UserAvatarGet(ctx, req.Uid)
+	if err != nil {
+		r.BaseResp = base.BuildBaseResp(err)
+		return
+	}
+	if url == "" {
+		r.BaseResp = base.BuildBaseResp(err)
+		return
+	}
+	r.BaseResp = base.BuildBaseResp(nil)
+	r.Url = url
+	return
+}
+
+func NewUserHandler(useCase usecase.UserUseCase) *UserHandler {
 	return &UserHandler{useCase}
 }

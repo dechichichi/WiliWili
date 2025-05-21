@@ -14,11 +14,11 @@ import (
 func GeneratedRegister(r *server.Hertz) {
 	//INSERT_POINT: DO NOT DELETE THIS LINE!
 
+	api_user.Register(r)
+	
 	api_comment.Register(r)
 
 	api_like.Register(r)
 
 	api_video.Register(r)
-
-	api_user.Register(r)
 }

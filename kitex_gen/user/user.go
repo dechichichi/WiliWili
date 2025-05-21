@@ -655,6 +655,132 @@ var fieldIDToName_UserAvatarUploadResp = map[int16]string{
 	2: "image",
 }
 
+type UserAvatarGetReq struct {
+	Uid int64 `thrift:"Uid,1,required" frugal:"1,required,i64" json:"Uid"`
+}
+
+func NewUserAvatarGetReq() *UserAvatarGetReq {
+	return &UserAvatarGetReq{}
+}
+
+func (p *UserAvatarGetReq) InitDefault() {
+}
+
+func (p *UserAvatarGetReq) GetUid() (v int64) {
+	return p.Uid
+}
+func (p *UserAvatarGetReq) SetUid(val int64) {
+	p.Uid = val
+}
+
+func (p *UserAvatarGetReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UserAvatarGetReq(%+v)", *p)
+}
+
+func (p *UserAvatarGetReq) DeepEqual(ano *UserAvatarGetReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Uid) {
+		return false
+	}
+	return true
+}
+
+func (p *UserAvatarGetReq) Field1DeepEqual(src int64) bool {
+
+	if p.Uid != src {
+		return false
+	}
+	return true
+}
+
+var fieldIDToName_UserAvatarGetReq = map[int16]string{
+	1: "Uid",
+}
+
+type UserAvatarGetResp struct {
+	BaseResp *model.BaseResp `thrift:"baseResp,1" frugal:"1,default,model.BaseResp" json:"baseResp"`
+	Url      string          `thrift:"url,2,required" frugal:"2,required,string" json:"url"`
+}
+
+func NewUserAvatarGetResp() *UserAvatarGetResp {
+	return &UserAvatarGetResp{}
+}
+
+func (p *UserAvatarGetResp) InitDefault() {
+}
+
+var UserAvatarGetResp_BaseResp_DEFAULT *model.BaseResp
+
+func (p *UserAvatarGetResp) GetBaseResp() (v *model.BaseResp) {
+	if !p.IsSetBaseResp() {
+		return UserAvatarGetResp_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+
+func (p *UserAvatarGetResp) GetUrl() (v string) {
+	return p.Url
+}
+func (p *UserAvatarGetResp) SetBaseResp(val *model.BaseResp) {
+	p.BaseResp = val
+}
+func (p *UserAvatarGetResp) SetUrl(val string) {
+	p.Url = val
+}
+
+func (p *UserAvatarGetResp) IsSetBaseResp() bool {
+	return p.BaseResp != nil
+}
+
+func (p *UserAvatarGetResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UserAvatarGetResp(%+v)", *p)
+}
+
+func (p *UserAvatarGetResp) DeepEqual(ano *UserAvatarGetResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.BaseResp) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Url) {
+		return false
+	}
+	return true
+}
+
+func (p *UserAvatarGetResp) Field1DeepEqual(src *model.BaseResp) bool {
+
+	if !p.BaseResp.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *UserAvatarGetResp) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Url, src) != 0 {
+		return false
+	}
+	return true
+}
+
+var fieldIDToName_UserAvatarGetResp = map[int16]string{
+	1: "baseResp",
+	2: "url",
+}
+
 type UserService interface {
 	UserRegister(ctx context.Context, req *UserRegisterReq) (r *UserRegisterResp, err error)
 
@@ -663,6 +789,8 @@ type UserService interface {
 	UserProfile(ctx context.Context, req *UserProfileReq) (r *UserProfileResp, err error)
 
 	UserAvatarUpload(ctx context.Context, req *UserAvatarUploadReq) (r *UserAvatarUploadResp, err error)
+
+	UserAvatarGet(ctx context.Context, req *UserAvatarGetReq) (r *UserAvatarGetResp, err error)
 }
 
 type UserServiceUserRegisterArgs struct {
@@ -1126,5 +1254,121 @@ func (p *UserServiceUserAvatarUploadResult) Field0DeepEqual(src *UserAvatarUploa
 }
 
 var fieldIDToName_UserServiceUserAvatarUploadResult = map[int16]string{
+	0: "success",
+}
+
+type UserServiceUserAvatarGetArgs struct {
+	Req *UserAvatarGetReq `thrift:"req,1" frugal:"1,default,UserAvatarGetReq" json:"req"`
+}
+
+func NewUserServiceUserAvatarGetArgs() *UserServiceUserAvatarGetArgs {
+	return &UserServiceUserAvatarGetArgs{}
+}
+
+func (p *UserServiceUserAvatarGetArgs) InitDefault() {
+}
+
+var UserServiceUserAvatarGetArgs_Req_DEFAULT *UserAvatarGetReq
+
+func (p *UserServiceUserAvatarGetArgs) GetReq() (v *UserAvatarGetReq) {
+	if !p.IsSetReq() {
+		return UserServiceUserAvatarGetArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *UserServiceUserAvatarGetArgs) SetReq(val *UserAvatarGetReq) {
+	p.Req = val
+}
+
+func (p *UserServiceUserAvatarGetArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *UserServiceUserAvatarGetArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UserServiceUserAvatarGetArgs(%+v)", *p)
+}
+
+func (p *UserServiceUserAvatarGetArgs) DeepEqual(ano *UserServiceUserAvatarGetArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *UserServiceUserAvatarGetArgs) Field1DeepEqual(src *UserAvatarGetReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+var fieldIDToName_UserServiceUserAvatarGetArgs = map[int16]string{
+	1: "req",
+}
+
+type UserServiceUserAvatarGetResult struct {
+	Success *UserAvatarGetResp `thrift:"success,0,optional" frugal:"0,optional,UserAvatarGetResp" json:"success,omitempty"`
+}
+
+func NewUserServiceUserAvatarGetResult() *UserServiceUserAvatarGetResult {
+	return &UserServiceUserAvatarGetResult{}
+}
+
+func (p *UserServiceUserAvatarGetResult) InitDefault() {
+}
+
+var UserServiceUserAvatarGetResult_Success_DEFAULT *UserAvatarGetResp
+
+func (p *UserServiceUserAvatarGetResult) GetSuccess() (v *UserAvatarGetResp) {
+	if !p.IsSetSuccess() {
+		return UserServiceUserAvatarGetResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *UserServiceUserAvatarGetResult) SetSuccess(x interface{}) {
+	p.Success = x.(*UserAvatarGetResp)
+}
+
+func (p *UserServiceUserAvatarGetResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *UserServiceUserAvatarGetResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UserServiceUserAvatarGetResult(%+v)", *p)
+}
+
+func (p *UserServiceUserAvatarGetResult) DeepEqual(ano *UserServiceUserAvatarGetResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *UserServiceUserAvatarGetResult) Field0DeepEqual(src *UserAvatarGetResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+var fieldIDToName_UserServiceUserAvatarGetResult = map[int16]string{
 	0: "success",
 }

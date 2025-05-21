@@ -15,7 +15,7 @@ var (
 )
 
 func Init() {
-	InitLikeRPC()
+	InitUserRPC()
 	InitVideoRPC()
 	InitCommentRPC()
 	InitLikeRPC()

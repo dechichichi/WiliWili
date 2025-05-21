@@ -12,4 +12,7 @@ type CommentDB interface {
 }
 
 type CommentCache interface {
+	DelCommentCache(ctx context.Context, id string) error
+	GetCommentList(ctx context.Context, id string, page, pageSize, commenttype int64) ([]*model.Comment, error)
+	SetCommentList(ctx context.Context, id string, commenttype int64, models []*model.Comment) error
 }

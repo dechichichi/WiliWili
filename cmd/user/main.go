@@ -56,6 +56,7 @@ func main() {
 		}),
 		server.WithMiddleware(middleware.Respond()),
 	)
+	go utils.InitAvatarUploadTask()
 	if err = svr.Run(); err != nil {
 		logger.Fatalf("User: run server failed, err: %v", err)
 	}

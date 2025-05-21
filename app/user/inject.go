@@ -24,7 +24,7 @@ func InjectUserHandler() user.UserService {
 	db := mysql.NewUserDB(gormDB)
 	re := redis.NewUserCache(redisCache)
 	svc := service.NewUserService(db, re)
-	uc := usecase.NewUserUsecase(db, svc, re)
+	uc := usecase.NewUserUseCase(db, svc, re)
 
 	return rpc.NewUserHandler(uc)
 }

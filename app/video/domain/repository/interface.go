@@ -13,4 +13,6 @@ type VideoDB interface {
 }
 
 type VideoCache interface {
+	GetVideo(ctx context.Context, videoid string) (*model.VideoProfile, error)
+	SetVideo(ctx context.Context, video *model.VideoProfile) error
 }

@@ -1,7 +1,8 @@
 # 辅助工具安装列表
+# 执行 go install github.com/vektra/mockery/v2@v2.52.1
 # 执行 go install github.com/cloudwego/hertz/cmd/hz@latest
 # 执行 go install github.com/cloudwego/kitex/tool/cmd/kitex@latest
-
+# 执行 go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.56.2
 #项目MODULE名
 MODULE=wiliwili
 # 检查 tmux 是否存在
@@ -16,7 +17,7 @@ CONFIG_PATH = $(DIR)/config
 IDL_PATH=${DIR}/idl
 OUTPUT_PATH = $(DIR)/output
 API_PATH= $(DIR)/cmd/api
-
+APP_PATH = $(DIR)/app
 # 服务名
 SERVICES := gateway user video like comment chat
 service = $(word 1, $@)
@@ -53,7 +54,16 @@ kitex-gen-%:
 hz-%:
 	hz update -idl ${IDL_PATH}/api/$*.thrift
 
+.PHONY: init
+init:
+	@echo "init"
+	@golangci-lint run 
 
+# 定义 mock-% 规则
+.PHONY: mock-%
+mock-%:
+	@mockery --name $$(echo $* | awk '{print toupper(substr($$0, 1, 1)) substr($$0, 2) "UseCase"}') --dir ${DIR}/app/$*/usecase --output ${DIR}/app/$*/usecase/mocks
+	@mockery --name $$(echo $* | awk '{print toupper(substr($$0, 1, 1)) substr($$0, 2) "DB"}') --dir ${DIR}/app/$*/domain/repository --output ${DIR}/app/$*/usecase/mocks
 .PHONY: $(SERVICES)
 $(SERVICES):
 	@if [ -z "$(TMUX_EXISTS)" ]; then \

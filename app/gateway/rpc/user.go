@@ -14,21 +14,25 @@ func InitUserRPC() {
 	userClient = *c
 }
 
-func RegisterUser(ctx context.Context, req *user.UserRegisterReq) (reponse *user.UserRegisterResp, err error) {
+func RegisterUser(ctx context.Context, req *user.UserRegisterReq) (response *user.UserRegisterResp, err error) {
 	resp, err := userClient.UserRegister(ctx, req)
 	return resp, err
 }
 
-func Login(ctx context.Context, req *user.UserLoginReq) (reponse *user.UserLoginResp, err error) {
+func Login(ctx context.Context, req *user.UserLoginReq) (response *user.UserLoginResp, err error) {
 	resp, err := userClient.UserLogin(ctx, req)
 	return resp, err
 }
 
-func GetProfile(ctx context.Context, req *user.UserProfileReq) (reponse *user.UserProfileResp, err error) {
+func GetProfile(ctx context.Context, req *user.UserProfileReq) (response *user.UserProfileResp, err error) {
 	resp, err := userClient.UserProfile(ctx, req)
 	return resp, err
 }
-func UploadAvatar(ctx context.Context, req *user.UserAvatarUploadReq) (reponse *user.UserAvatarUploadResp, err error) {
+func UploadAvatar(ctx context.Context, req *user.UserAvatarUploadReq) (response *user.UserAvatarUploadResp, err error) {
 	resp, err := userClient.UserAvatarUpload(ctx, req)
+	return resp, err
+}
+func GetAvatar(ctx context.Context, req *user.UserAvatarGetReq) (response *user.UserAvatarGetResp, err error) {
+	resp, err := userClient.UserAvatarGet(ctx, req)
 	return resp, err
 }

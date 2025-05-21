@@ -20,6 +20,7 @@ type config struct {
 	Service service
 	Etcd    etcd
 	Minio   minio
+	Kafka   kafka
 	Server  server
 }
 type mysql struct {
@@ -43,4 +44,13 @@ type minio struct {
 	AccessKey   string
 	AccessKeyID string
 	SecretKey   string
+}
+
+type kafka struct {
+	Broker          string `yaml:"broker"`
+	Topic           string `yaml:"topic"`
+	ConsumerGroup   string `yaml:"consumer_group"`
+	MaxConnections  int    `yaml:"max_connections"`
+	MaxQPS          int    `yaml:"max_qps"`
+	AutoOffsetReset string `yaml:"auto_offset_reset"`
 }

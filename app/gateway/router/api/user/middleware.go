@@ -9,7 +9,9 @@ import (
 )
 
 func rootMw() []app.HandlerFunc {
-	return nil
+	return []app.HandlerFunc{
+		mw.SentinelServer(),
+	}
 }
 
 func _apiMw() []app.HandlerFunc {
@@ -44,6 +46,11 @@ func _getprofileMw() []app.HandlerFunc {
 }
 
 func _registeruserMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _getavatarMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }

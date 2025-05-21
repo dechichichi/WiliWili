@@ -54,7 +54,44 @@ services:
     networks:
     - wiliwili
     command: server /data --console-address ":9000" --address ":9001"
+  
+  wiliwili-zookeeper:
+    container_name: wiliwili-zookeeper
+    image: bitnami/zookeeper:latest
+    restart: always
+    ports:
+      - "2181:2181"  # Zookeeper 服务端口
+    volumes:
+      - ./data/zookeeper-data:/data  # 数据存储目录
+    networks:
+      - wiliwili
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
 
+  wiliwili-kafka:
+    container_name: wiliwili-kafka
+    image: wurstmeister/kafka:latest
+    restart: always
+    ports:
+      - "9092:9092"  # Kafka 服务端口
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ZOOKEEPER_CONNECT: wiliwili-zookeeper:2181  # 需要一个 Zookeeper 服务
+      KAFKA_CREATE_TOPICS: "wiliwili:1:1"  # 创建一个名为 wiliwili 的主题，1 个分区，1 个副本
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_LOG_DIRS: /kafka-data
+    volumes:
+      - ./data/kafka-data:/kafka-data  # 数据存储目录
+    networks:
+      - wiliwili
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    depends_on:
+      - wiliwili-zookeeper
+      
 networks:
   wiliwili:
     driver: bridge  # 默认使用桥接网络
