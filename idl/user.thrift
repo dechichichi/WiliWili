@@ -1,5 +1,4 @@
-namespace go user  
-
+namespace go user
 include "model.thrift"
 
 /*
@@ -19,10 +18,8 @@ struct  UserRegisterReq {
 }
 
 struct  UserRegisterResp {
-    1: required model.BaseResp baseResp;
-    2: required i64 Uid;
+    1: required i64 Uid;
 }
-
 
 /*
 *struct UserLoginReq 用户登录请求
@@ -34,10 +31,8 @@ struct  UserLoginReq {
     2: required string password;
 }
 
-
 struct  UserLoginResp {
-    1:model.BaseResp baseResp;
-    2:model.UserInfo userInfo;
+    1:model.UserInfo userInfo;
 }
 
 /*
@@ -48,10 +43,8 @@ struct  UserProfileReq {
     1: required i64 Uid;
 }
 
-
 struct  UserProfileResp {
-   1:model.BaseResp baseResp;
-   2:model.UserProfile userProfile;
+   1:model.UserProfile userProfile;
 }
 
 /*
@@ -63,10 +56,8 @@ struct  UserAvatarUploadReq {
     2: required i64 Uid;
 }
 
-
 struct  UserAvatarUploadResp {
-    1:model.BaseResp baseResp;
-    2:model.Image image;
+    1:model.Image image;
 }
 
 struct UserAvatarGetReq {
@@ -74,8 +65,7 @@ struct UserAvatarGetReq {
 }
 
 struct UserAvatarGetResp {
-    1:model.BaseResp baseResp;
-    2: required string url;
+    1: required string url;
 }
 
 service UserService {

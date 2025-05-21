@@ -1,5 +1,6 @@
 namespace go like
 include "model.thrift"
+
 /*LikeComment 给评论点赞
 * @param commentId 评论ID
 * @param userId 用户ID
@@ -11,9 +12,7 @@ struct LikeCommentReq {
 }
 
 struct LikeCommentResp {
-    1:required model.BaseResp baseResp;
 }
-
 
 /*LikeVideo 给视频点赞
 * @param postId 帖子ID
@@ -25,7 +24,6 @@ struct LikeVideoReq {
     2:required bool IsLike // 点赞类型 1:点赞 2:取消点赞
 }
 struct LikeVideoResp {
-    1:required model.BaseResp baseResp;
 }
 
 /*CommentLikeNum 获取评论点赞数目
@@ -35,8 +33,7 @@ struct CommentLikeNumReq {
 }
 
 struct CommentLikeNumResp {
-    1:required model.BaseResp baseResp;
-    2:required i64 totalCount; // 总数量
+    1:required i64 totalCount; // 总数量
 }
 
 /*VideoLikeNum 获取视频点赞数目
@@ -46,8 +43,7 @@ struct VideoLikeNumReq {
 }
 
 struct VideoLikeNumResp {
-    1:required model.BaseResp baseResp;
-    2:required i64 totalCount; // 总数量
+    1:required i64 totalCount; // 总数量
 }
 
 service LikeService {

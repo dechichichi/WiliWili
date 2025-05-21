@@ -136,8 +136,7 @@ var fieldIDToName_UserRegisterReq = map[int16]string{
 }
 
 type UserRegisterResp struct {
-	BaseResp *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
-	Uid      int64           `thrift:"Uid,2,required" frugal:"2,required,i64" json:"Uid"`
+	Uid int64 `thrift:"Uid,1,required" frugal:"1,required,i64" json:"Uid"`
 }
 
 func NewUserRegisterResp() *UserRegisterResp {
@@ -147,27 +146,11 @@ func NewUserRegisterResp() *UserRegisterResp {
 func (p *UserRegisterResp) InitDefault() {
 }
 
-var UserRegisterResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *UserRegisterResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return UserRegisterResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-
 func (p *UserRegisterResp) GetUid() (v int64) {
 	return p.Uid
 }
-func (p *UserRegisterResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
 func (p *UserRegisterResp) SetUid(val int64) {
 	p.Uid = val
-}
-
-func (p *UserRegisterResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *UserRegisterResp) String() string {
@@ -183,23 +166,13 @@ func (p *UserRegisterResp) DeepEqual(ano *UserRegisterResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.Uid) {
+	if !p.Field1DeepEqual(ano.Uid) {
 		return false
 	}
 	return true
 }
 
-func (p *UserRegisterResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *UserRegisterResp) Field2DeepEqual(src int64) bool {
+func (p *UserRegisterResp) Field1DeepEqual(src int64) bool {
 
 	if p.Uid != src {
 		return false
@@ -208,8 +181,7 @@ func (p *UserRegisterResp) Field2DeepEqual(src int64) bool {
 }
 
 var fieldIDToName_UserRegisterResp = map[int16]string{
-	1: "baseResp",
-	2: "Uid",
+	1: "Uid",
 }
 
 type UserLoginReq struct {
@@ -281,8 +253,7 @@ var fieldIDToName_UserLoginReq = map[int16]string{
 }
 
 type UserLoginResp struct {
-	BaseResp *model.BaseResp `thrift:"baseResp,1" frugal:"1,default,model.BaseResp" json:"baseResp"`
-	UserInfo *model.UserInfo `thrift:"userInfo,2" frugal:"2,default,model.UserInfo" json:"userInfo"`
+	UserInfo *model.UserInfo `thrift:"userInfo,1" frugal:"1,default,model.UserInfo" json:"userInfo"`
 }
 
 func NewUserLoginResp() *UserLoginResp {
@@ -290,15 +261,6 @@ func NewUserLoginResp() *UserLoginResp {
 }
 
 func (p *UserLoginResp) InitDefault() {
-}
-
-var UserLoginResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *UserLoginResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return UserLoginResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
 }
 
 var UserLoginResp_UserInfo_DEFAULT *model.UserInfo
@@ -309,15 +271,8 @@ func (p *UserLoginResp) GetUserInfo() (v *model.UserInfo) {
 	}
 	return p.UserInfo
 }
-func (p *UserLoginResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
 func (p *UserLoginResp) SetUserInfo(val *model.UserInfo) {
 	p.UserInfo = val
-}
-
-func (p *UserLoginResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *UserLoginResp) IsSetUserInfo() bool {
@@ -337,23 +292,13 @@ func (p *UserLoginResp) DeepEqual(ano *UserLoginResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.UserInfo) {
+	if !p.Field1DeepEqual(ano.UserInfo) {
 		return false
 	}
 	return true
 }
 
-func (p *UserLoginResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *UserLoginResp) Field2DeepEqual(src *model.UserInfo) bool {
+func (p *UserLoginResp) Field1DeepEqual(src *model.UserInfo) bool {
 
 	if !p.UserInfo.DeepEqual(src) {
 		return false
@@ -362,8 +307,7 @@ func (p *UserLoginResp) Field2DeepEqual(src *model.UserInfo) bool {
 }
 
 var fieldIDToName_UserLoginResp = map[int16]string{
-	1: "baseResp",
-	2: "userInfo",
+	1: "userInfo",
 }
 
 type UserProfileReq struct {
@@ -416,8 +360,7 @@ var fieldIDToName_UserProfileReq = map[int16]string{
 }
 
 type UserProfileResp struct {
-	BaseResp    *model.BaseResp    `thrift:"baseResp,1" frugal:"1,default,model.BaseResp" json:"baseResp"`
-	UserProfile *model.UserProfile `thrift:"userProfile,2" frugal:"2,default,model.UserProfile" json:"userProfile"`
+	UserProfile *model.UserProfile `thrift:"userProfile,1" frugal:"1,default,model.UserProfile" json:"userProfile"`
 }
 
 func NewUserProfileResp() *UserProfileResp {
@@ -425,15 +368,6 @@ func NewUserProfileResp() *UserProfileResp {
 }
 
 func (p *UserProfileResp) InitDefault() {
-}
-
-var UserProfileResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *UserProfileResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return UserProfileResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
 }
 
 var UserProfileResp_UserProfile_DEFAULT *model.UserProfile
@@ -444,15 +378,8 @@ func (p *UserProfileResp) GetUserProfile() (v *model.UserProfile) {
 	}
 	return p.UserProfile
 }
-func (p *UserProfileResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
 func (p *UserProfileResp) SetUserProfile(val *model.UserProfile) {
 	p.UserProfile = val
-}
-
-func (p *UserProfileResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *UserProfileResp) IsSetUserProfile() bool {
@@ -472,23 +399,13 @@ func (p *UserProfileResp) DeepEqual(ano *UserProfileResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.UserProfile) {
+	if !p.Field1DeepEqual(ano.UserProfile) {
 		return false
 	}
 	return true
 }
 
-func (p *UserProfileResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *UserProfileResp) Field2DeepEqual(src *model.UserProfile) bool {
+func (p *UserProfileResp) Field1DeepEqual(src *model.UserProfile) bool {
 
 	if !p.UserProfile.DeepEqual(src) {
 		return false
@@ -497,8 +414,7 @@ func (p *UserProfileResp) Field2DeepEqual(src *model.UserProfile) bool {
 }
 
 var fieldIDToName_UserProfileResp = map[int16]string{
-	1: "baseResp",
-	2: "userProfile",
+	1: "userProfile",
 }
 
 type UserAvatarUploadReq struct {
@@ -570,8 +486,7 @@ var fieldIDToName_UserAvatarUploadReq = map[int16]string{
 }
 
 type UserAvatarUploadResp struct {
-	BaseResp *model.BaseResp `thrift:"baseResp,1" frugal:"1,default,model.BaseResp" json:"baseResp"`
-	Image    *model.Image    `thrift:"image,2" frugal:"2,default,model.Image" json:"image"`
+	Image *model.Image `thrift:"image,1" frugal:"1,default,model.Image" json:"image"`
 }
 
 func NewUserAvatarUploadResp() *UserAvatarUploadResp {
@@ -579,15 +494,6 @@ func NewUserAvatarUploadResp() *UserAvatarUploadResp {
 }
 
 func (p *UserAvatarUploadResp) InitDefault() {
-}
-
-var UserAvatarUploadResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *UserAvatarUploadResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return UserAvatarUploadResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
 }
 
 var UserAvatarUploadResp_Image_DEFAULT *model.Image
@@ -598,15 +504,8 @@ func (p *UserAvatarUploadResp) GetImage() (v *model.Image) {
 	}
 	return p.Image
 }
-func (p *UserAvatarUploadResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
 func (p *UserAvatarUploadResp) SetImage(val *model.Image) {
 	p.Image = val
-}
-
-func (p *UserAvatarUploadResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *UserAvatarUploadResp) IsSetImage() bool {
@@ -626,23 +525,13 @@ func (p *UserAvatarUploadResp) DeepEqual(ano *UserAvatarUploadResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.Image) {
+	if !p.Field1DeepEqual(ano.Image) {
 		return false
 	}
 	return true
 }
 
-func (p *UserAvatarUploadResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *UserAvatarUploadResp) Field2DeepEqual(src *model.Image) bool {
+func (p *UserAvatarUploadResp) Field1DeepEqual(src *model.Image) bool {
 
 	if !p.Image.DeepEqual(src) {
 		return false
@@ -651,8 +540,7 @@ func (p *UserAvatarUploadResp) Field2DeepEqual(src *model.Image) bool {
 }
 
 var fieldIDToName_UserAvatarUploadResp = map[int16]string{
-	1: "baseResp",
-	2: "image",
+	1: "image",
 }
 
 type UserAvatarGetReq struct {
@@ -705,8 +593,7 @@ var fieldIDToName_UserAvatarGetReq = map[int16]string{
 }
 
 type UserAvatarGetResp struct {
-	BaseResp *model.BaseResp `thrift:"baseResp,1" frugal:"1,default,model.BaseResp" json:"baseResp"`
-	Url      string          `thrift:"url,2,required" frugal:"2,required,string" json:"url"`
+	Url string `thrift:"url,1,required" frugal:"1,required,string" json:"url"`
 }
 
 func NewUserAvatarGetResp() *UserAvatarGetResp {
@@ -716,27 +603,11 @@ func NewUserAvatarGetResp() *UserAvatarGetResp {
 func (p *UserAvatarGetResp) InitDefault() {
 }
 
-var UserAvatarGetResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *UserAvatarGetResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return UserAvatarGetResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-
 func (p *UserAvatarGetResp) GetUrl() (v string) {
 	return p.Url
 }
-func (p *UserAvatarGetResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
 func (p *UserAvatarGetResp) SetUrl(val string) {
 	p.Url = val
-}
-
-func (p *UserAvatarGetResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *UserAvatarGetResp) String() string {
@@ -752,23 +623,13 @@ func (p *UserAvatarGetResp) DeepEqual(ano *UserAvatarGetResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.Url) {
+	if !p.Field1DeepEqual(ano.Url) {
 		return false
 	}
 	return true
 }
 
-func (p *UserAvatarGetResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *UserAvatarGetResp) Field2DeepEqual(src string) bool {
+func (p *UserAvatarGetResp) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.Url, src) != 0 {
 		return false
@@ -777,8 +638,7 @@ func (p *UserAvatarGetResp) Field2DeepEqual(src string) bool {
 }
 
 var fieldIDToName_UserAvatarGetResp = map[int16]string{
-	1: "baseResp",
-	2: "url",
+	1: "url",
 }
 
 type UserService interface {

@@ -6,7 +6,6 @@ import (
 	"wiliwili/app/user/domain/model"
 	"wiliwili/app/user/usecase"
 	"wiliwili/kitex_gen/user"
-	"wiliwili/pkg/base"
 )
 
 type UserHandler struct {
@@ -24,10 +23,8 @@ func (u *UserHandler) UserRegister(ctx context.Context, req *user.UserRegisterRe
 	}
 	var uid int64
 	if uid, err = u.useCase.UserRegister(ctx, user); err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
-	r.BaseResp = base.BuildBaseResp(nil)
 	r.Uid = uid
 	return
 }
@@ -40,10 +37,8 @@ func (u *UserHandler) UserLogin(ctx context.Context, req *user.UserLoginReq) (r 
 	}
 	userInfo, err := u.useCase.UserLogin(ctx, user)
 	if err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
-	r.BaseResp = base.BuildBaseResp(nil)
 	r.UserInfo = pack.BuildUser(userInfo)
 	return
 }
@@ -52,10 +47,8 @@ func (u *UserHandler) UserProfile(ctx context.Context, req *user.UserProfileReq)
 	r = new(user.UserProfileResp)
 	UserProfile, err := u.useCase.UserProfile(ctx, req.Uid)
 	if err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
-	r.BaseResp = base.BuildBaseResp(nil)
 	r.UserProfile = pack.BuildUserProfile(UserProfile)
 	return
 
@@ -65,14 +58,11 @@ func (u *UserHandler) UserAvatarUpload(ctx context.Context, req *user.UserAvatar
 	r = new(user.UserAvatarUploadResp)
 	image, err := u.useCase.UserAvatarUpload(ctx, req.Uid, req.Avatar)
 	if err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
 	if image == nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
-	r.BaseResp = base.BuildBaseResp(nil)
 	r.Image = pack.BuildImage(image)
 	return
 }
@@ -81,14 +71,11 @@ func (u *UserHandler) UserAvatarGet(ctx context.Context, req *user.UserAvatarGet
 	r = new(user.UserAvatarGetResp)
 	url, err := u.useCase.UserAvatarGet(ctx, req.Uid)
 	if err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
 	if url == "" {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
-	r.BaseResp = base.BuildBaseResp(nil)
 	r.Url = url
 	return
 }

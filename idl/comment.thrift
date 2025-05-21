@@ -1,6 +1,5 @@
 namespace go comment
 
-
 include "model.thrift"
 
 /*对视频进行评论
@@ -14,8 +13,7 @@ struct CommentVideoReq {
 }
 
 struct CommentVideoResp {
-    1:required model.BaseResp baseResp
-    2:required string commentId
+    1:required string commentId
 }
 
 /*对评论进行回复
@@ -29,8 +27,7 @@ struct ReplyCommentReq {
 }
 
 struct ReplyCommentResp {
-    1:required model.BaseResp baseResp
-    2:required string commentId
+    1:required string commentId
 }
 
 //获取评论列表
@@ -42,17 +39,14 @@ struct GetCommentListReq {
 }
 
 struct GetCommentListResp {
-    1:required model.BaseResp baseResp,
-    2:required list<model.Comment> commentList
+    1:required list<model.Comment> commentList
 }
-
 
 struct DeleteCommentReq {
     1: required string commentId
 }
 
 struct DeleteCommentResp {
-    1:required model.BaseResp baseResp
 }
 
 service CommentService {

@@ -6,7 +6,6 @@ import (
 	"context"
 	"fmt"
 	"strings"
-	"wiliwili/kitex_gen/model"
 )
 
 type LikeCommentReq struct {
@@ -78,7 +77,6 @@ var fieldIDToName_LikeCommentReq = map[int16]string{
 }
 
 type LikeCommentResp struct {
-	BaseResp *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
 }
 
 func NewLikeCommentResp() *LikeCommentResp {
@@ -86,22 +84,6 @@ func NewLikeCommentResp() *LikeCommentResp {
 }
 
 func (p *LikeCommentResp) InitDefault() {
-}
-
-var LikeCommentResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *LikeCommentResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return LikeCommentResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-func (p *LikeCommentResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
-
-func (p *LikeCommentResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *LikeCommentResp) String() string {
@@ -117,23 +99,10 @@ func (p *LikeCommentResp) DeepEqual(ano *LikeCommentResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
 	return true
 }
 
-func (p *LikeCommentResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-var fieldIDToName_LikeCommentResp = map[int16]string{
-	1: "baseResp",
-}
+var fieldIDToName_LikeCommentResp = map[int16]string{}
 
 type LikeVideoReq struct {
 	VideoId string `thrift:"videoId,1,required" frugal:"1,required,string" json:"videoId"`
@@ -204,7 +173,6 @@ var fieldIDToName_LikeVideoReq = map[int16]string{
 }
 
 type LikeVideoResp struct {
-	BaseResp *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
 }
 
 func NewLikeVideoResp() *LikeVideoResp {
@@ -212,22 +180,6 @@ func NewLikeVideoResp() *LikeVideoResp {
 }
 
 func (p *LikeVideoResp) InitDefault() {
-}
-
-var LikeVideoResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *LikeVideoResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return LikeVideoResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-func (p *LikeVideoResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
-
-func (p *LikeVideoResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *LikeVideoResp) String() string {
@@ -243,23 +195,10 @@ func (p *LikeVideoResp) DeepEqual(ano *LikeVideoResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
 	return true
 }
 
-func (p *LikeVideoResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-var fieldIDToName_LikeVideoResp = map[int16]string{
-	1: "baseResp",
-}
+var fieldIDToName_LikeVideoResp = map[int16]string{}
 
 type CommentLikeNumReq struct {
 	CommentId string `thrift:"commentId,1,required" frugal:"1,required,string" json:"commentId"`
@@ -311,8 +250,7 @@ var fieldIDToName_CommentLikeNumReq = map[int16]string{
 }
 
 type CommentLikeNumResp struct {
-	BaseResp   *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
-	TotalCount int64           `thrift:"totalCount,2,required" frugal:"2,required,i64" json:"totalCount"`
+	TotalCount int64 `thrift:"totalCount,1,required" frugal:"1,required,i64" json:"totalCount"`
 }
 
 func NewCommentLikeNumResp() *CommentLikeNumResp {
@@ -322,27 +260,11 @@ func NewCommentLikeNumResp() *CommentLikeNumResp {
 func (p *CommentLikeNumResp) InitDefault() {
 }
 
-var CommentLikeNumResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *CommentLikeNumResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return CommentLikeNumResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-
 func (p *CommentLikeNumResp) GetTotalCount() (v int64) {
 	return p.TotalCount
 }
-func (p *CommentLikeNumResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
 func (p *CommentLikeNumResp) SetTotalCount(val int64) {
 	p.TotalCount = val
-}
-
-func (p *CommentLikeNumResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *CommentLikeNumResp) String() string {
@@ -358,23 +280,13 @@ func (p *CommentLikeNumResp) DeepEqual(ano *CommentLikeNumResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.TotalCount) {
+	if !p.Field1DeepEqual(ano.TotalCount) {
 		return false
 	}
 	return true
 }
 
-func (p *CommentLikeNumResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *CommentLikeNumResp) Field2DeepEqual(src int64) bool {
+func (p *CommentLikeNumResp) Field1DeepEqual(src int64) bool {
 
 	if p.TotalCount != src {
 		return false
@@ -383,8 +295,7 @@ func (p *CommentLikeNumResp) Field2DeepEqual(src int64) bool {
 }
 
 var fieldIDToName_CommentLikeNumResp = map[int16]string{
-	1: "baseResp",
-	2: "totalCount",
+	1: "totalCount",
 }
 
 type VideoLikeNumReq struct {
@@ -437,8 +348,7 @@ var fieldIDToName_VideoLikeNumReq = map[int16]string{
 }
 
 type VideoLikeNumResp struct {
-	BaseResp   *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
-	TotalCount int64           `thrift:"totalCount,2,required" frugal:"2,required,i64" json:"totalCount"`
+	TotalCount int64 `thrift:"totalCount,1,required" frugal:"1,required,i64" json:"totalCount"`
 }
 
 func NewVideoLikeNumResp() *VideoLikeNumResp {
@@ -448,27 +358,11 @@ func NewVideoLikeNumResp() *VideoLikeNumResp {
 func (p *VideoLikeNumResp) InitDefault() {
 }
 
-var VideoLikeNumResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *VideoLikeNumResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return VideoLikeNumResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-
 func (p *VideoLikeNumResp) GetTotalCount() (v int64) {
 	return p.TotalCount
 }
-func (p *VideoLikeNumResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
 func (p *VideoLikeNumResp) SetTotalCount(val int64) {
 	p.TotalCount = val
-}
-
-func (p *VideoLikeNumResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *VideoLikeNumResp) String() string {
@@ -484,23 +378,13 @@ func (p *VideoLikeNumResp) DeepEqual(ano *VideoLikeNumResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.TotalCount) {
+	if !p.Field1DeepEqual(ano.TotalCount) {
 		return false
 	}
 	return true
 }
 
-func (p *VideoLikeNumResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *VideoLikeNumResp) Field2DeepEqual(src int64) bool {
+func (p *VideoLikeNumResp) Field1DeepEqual(src int64) bool {
 
 	if p.TotalCount != src {
 		return false
@@ -509,8 +393,7 @@ func (p *VideoLikeNumResp) Field2DeepEqual(src int64) bool {
 }
 
 var fieldIDToName_VideoLikeNumResp = map[int16]string{
-	1: "baseResp",
-	2: "totalCount",
+	1: "totalCount",
 }
 
 type LikeService interface {

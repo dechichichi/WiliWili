@@ -6,7 +6,6 @@ import (
 	"wiliwili/app/comment/domain/model"
 	"wiliwili/app/comment/usecase"
 	"wiliwili/kitex_gen/comment"
-	"wiliwili/pkg/base"
 	"wiliwili/pkg/constants"
 )
 
@@ -23,10 +22,8 @@ func (c *CommentHandler) CommentVideo(ctx context.Context, req *comment.CommentV
 	}
 	commentid, err := c.useCase.CommentVideo(ctx, comment)
 	if err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
-	r.BaseResp = base.BuildBaseResp(nil)
 	r.CommentId = commentid
 	return
 }
@@ -40,10 +37,8 @@ func (c *CommentHandler) ReplyComment(ctx context.Context, req *comment.ReplyCom
 	}
 	commentid, err := c.useCase.ReplyComment(ctx, comment)
 	if err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
-	r.BaseResp = base.BuildBaseResp(nil)
 	r.CommentId = commentid
 	return
 }
@@ -52,10 +47,8 @@ func (c *CommentHandler) GetCommentList(ctx context.Context, req *comment.GetCom
 	r = new(comment.GetCommentListResp)
 	commentList, err := c.useCase.GetCommentList(ctx, req.Id, req.Page, req.PageSize, req.CommentTpye)
 	if err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
-	r.BaseResp = base.BuildBaseResp(nil)
 	r.CommentList = *pack.BuildCommentList(commentList)
 	return
 }
@@ -64,7 +57,6 @@ func (c *CommentHandler) DeleteComment(ctx context.Context, req *comment.DeleteC
 	r = new(comment.DeleteCommentResp)
 	err = c.useCase.DeleteComment(ctx, req.CommentId)
 	if err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 	}
 	return
 }

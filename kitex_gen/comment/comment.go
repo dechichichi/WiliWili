@@ -78,8 +78,7 @@ var fieldIDToName_CommentVideoReq = map[int16]string{
 }
 
 type CommentVideoResp struct {
-	BaseResp  *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
-	CommentId string          `thrift:"commentId,2,required" frugal:"2,required,string" json:"commentId"`
+	CommentId string `thrift:"commentId,1,required" frugal:"1,required,string" json:"commentId"`
 }
 
 func NewCommentVideoResp() *CommentVideoResp {
@@ -89,27 +88,11 @@ func NewCommentVideoResp() *CommentVideoResp {
 func (p *CommentVideoResp) InitDefault() {
 }
 
-var CommentVideoResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *CommentVideoResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return CommentVideoResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-
 func (p *CommentVideoResp) GetCommentId() (v string) {
 	return p.CommentId
 }
-func (p *CommentVideoResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
 func (p *CommentVideoResp) SetCommentId(val string) {
 	p.CommentId = val
-}
-
-func (p *CommentVideoResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *CommentVideoResp) String() string {
@@ -125,23 +108,13 @@ func (p *CommentVideoResp) DeepEqual(ano *CommentVideoResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.CommentId) {
+	if !p.Field1DeepEqual(ano.CommentId) {
 		return false
 	}
 	return true
 }
 
-func (p *CommentVideoResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *CommentVideoResp) Field2DeepEqual(src string) bool {
+func (p *CommentVideoResp) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.CommentId, src) != 0 {
 		return false
@@ -150,8 +123,7 @@ func (p *CommentVideoResp) Field2DeepEqual(src string) bool {
 }
 
 var fieldIDToName_CommentVideoResp = map[int16]string{
-	1: "baseResp",
-	2: "commentId",
+	1: "commentId",
 }
 
 type ReplyCommentReq struct {
@@ -223,8 +195,7 @@ var fieldIDToName_ReplyCommentReq = map[int16]string{
 }
 
 type ReplyCommentResp struct {
-	BaseResp  *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
-	CommentId string          `thrift:"commentId,2,required" frugal:"2,required,string" json:"commentId"`
+	CommentId string `thrift:"commentId,1,required" frugal:"1,required,string" json:"commentId"`
 }
 
 func NewReplyCommentResp() *ReplyCommentResp {
@@ -234,27 +205,11 @@ func NewReplyCommentResp() *ReplyCommentResp {
 func (p *ReplyCommentResp) InitDefault() {
 }
 
-var ReplyCommentResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *ReplyCommentResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return ReplyCommentResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-
 func (p *ReplyCommentResp) GetCommentId() (v string) {
 	return p.CommentId
 }
-func (p *ReplyCommentResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
 func (p *ReplyCommentResp) SetCommentId(val string) {
 	p.CommentId = val
-}
-
-func (p *ReplyCommentResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *ReplyCommentResp) String() string {
@@ -270,23 +225,13 @@ func (p *ReplyCommentResp) DeepEqual(ano *ReplyCommentResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.CommentId) {
+	if !p.Field1DeepEqual(ano.CommentId) {
 		return false
 	}
 	return true
 }
 
-func (p *ReplyCommentResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *ReplyCommentResp) Field2DeepEqual(src string) bool {
+func (p *ReplyCommentResp) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.CommentId, src) != 0 {
 		return false
@@ -295,8 +240,7 @@ func (p *ReplyCommentResp) Field2DeepEqual(src string) bool {
 }
 
 var fieldIDToName_ReplyCommentResp = map[int16]string{
-	1: "baseResp",
-	2: "commentId",
+	1: "commentId",
 }
 
 type GetCommentListReq struct {
@@ -406,8 +350,7 @@ var fieldIDToName_GetCommentListReq = map[int16]string{
 }
 
 type GetCommentListResp struct {
-	BaseResp    *model.BaseResp  `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
-	CommentList []*model.Comment `thrift:"commentList,2,required" frugal:"2,required,list<model.Comment>" json:"commentList"`
+	CommentList []*model.Comment `thrift:"commentList,1,required" frugal:"1,required,list<model.Comment>" json:"commentList"`
 }
 
 func NewGetCommentListResp() *GetCommentListResp {
@@ -417,27 +360,11 @@ func NewGetCommentListResp() *GetCommentListResp {
 func (p *GetCommentListResp) InitDefault() {
 }
 
-var GetCommentListResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *GetCommentListResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return GetCommentListResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-
 func (p *GetCommentListResp) GetCommentList() (v []*model.Comment) {
 	return p.CommentList
 }
-func (p *GetCommentListResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
 func (p *GetCommentListResp) SetCommentList(val []*model.Comment) {
 	p.CommentList = val
-}
-
-func (p *GetCommentListResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *GetCommentListResp) String() string {
@@ -453,23 +380,13 @@ func (p *GetCommentListResp) DeepEqual(ano *GetCommentListResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.CommentList) {
+	if !p.Field1DeepEqual(ano.CommentList) {
 		return false
 	}
 	return true
 }
 
-func (p *GetCommentListResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *GetCommentListResp) Field2DeepEqual(src []*model.Comment) bool {
+func (p *GetCommentListResp) Field1DeepEqual(src []*model.Comment) bool {
 
 	if len(p.CommentList) != len(src) {
 		return false
@@ -484,8 +401,7 @@ func (p *GetCommentListResp) Field2DeepEqual(src []*model.Comment) bool {
 }
 
 var fieldIDToName_GetCommentListResp = map[int16]string{
-	1: "baseResp",
-	2: "commentList",
+	1: "commentList",
 }
 
 type DeleteCommentReq struct {
@@ -538,7 +454,6 @@ var fieldIDToName_DeleteCommentReq = map[int16]string{
 }
 
 type DeleteCommentResp struct {
-	BaseResp *model.BaseResp `thrift:"baseResp,1,required" frugal:"1,required,model.BaseResp" json:"baseResp"`
 }
 
 func NewDeleteCommentResp() *DeleteCommentResp {
@@ -546,22 +461,6 @@ func NewDeleteCommentResp() *DeleteCommentResp {
 }
 
 func (p *DeleteCommentResp) InitDefault() {
-}
-
-var DeleteCommentResp_BaseResp_DEFAULT *model.BaseResp
-
-func (p *DeleteCommentResp) GetBaseResp() (v *model.BaseResp) {
-	if !p.IsSetBaseResp() {
-		return DeleteCommentResp_BaseResp_DEFAULT
-	}
-	return p.BaseResp
-}
-func (p *DeleteCommentResp) SetBaseResp(val *model.BaseResp) {
-	p.BaseResp = val
-}
-
-func (p *DeleteCommentResp) IsSetBaseResp() bool {
-	return p.BaseResp != nil
 }
 
 func (p *DeleteCommentResp) String() string {
@@ -577,23 +476,10 @@ func (p *DeleteCommentResp) DeepEqual(ano *DeleteCommentResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.BaseResp) {
-		return false
-	}
 	return true
 }
 
-func (p *DeleteCommentResp) Field1DeepEqual(src *model.BaseResp) bool {
-
-	if !p.BaseResp.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-var fieldIDToName_DeleteCommentResp = map[int16]string{
-	1: "baseResp",
-}
+var fieldIDToName_DeleteCommentResp = map[int16]string{}
 
 type CommentService interface {
 	CommentVideo(ctx context.Context, req *CommentVideoReq) (r *CommentVideoResp, err error)

@@ -5,7 +5,6 @@ import (
 	"wiliwili/app/like/domain/model"
 	"wiliwili/app/like/usecase"
 	"wiliwili/kitex_gen/like"
-	"wiliwili/pkg/base"
 )
 
 type LikeHandler struct {
@@ -19,10 +18,8 @@ func (l *LikeHandler) LikeComment(ctx context.Context, req *like.LikeCommentReq)
 	}
 
 	if err = l.useCase.LikeComment(ctx, comment_like, req.IsLike); err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
-	r.BaseResp = base.BuildBaseResp(nil)
 	return
 }
 
@@ -32,10 +29,8 @@ func (l *LikeHandler) LikeVideo(ctx context.Context, req *like.LikeVideoReq) (r 
 		VideoID: req.VideoId,
 	}
 	if err = l.useCase.LikeVideo(ctx, video_like, req.IsLike); err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
-	r.BaseResp = base.BuildBaseResp(nil)
 	return
 }
 
@@ -43,11 +38,9 @@ func (l *LikeHandler) CommentLikeNum(ctx context.Context, req *like.CommentLikeN
 	r = new(like.CommentLikeNumResp)
 	var num int64
 	if num, err = l.useCase.CommentLikeNum(ctx, req.CommentId); err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
 	r.TotalCount = num
-	r.BaseResp = base.BuildBaseResp(nil)
 	return
 }
 
@@ -55,11 +48,9 @@ func (l *LikeHandler) VideoLikeNum(ctx context.Context, req *like.VideoLikeNumRe
 	r = new(like.VideoLikeNumResp)
 	var num int64
 	if num, err = l.useCase.VideoLikeNum(ctx, req.VideoId); err != nil {
-		r.BaseResp = base.BuildBaseResp(err)
 		return
 	}
 	r.TotalCount = num
-	r.BaseResp = base.BuildBaseResp(nil)
 	return
 }
 
