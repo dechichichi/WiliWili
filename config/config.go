@@ -18,6 +18,7 @@ var (
 	Server       *server
 	Kafka        *kafka
 	Minio        *minio
+	Otel         *otel
 	runtimeViper = viper.New()
 )
 

@@ -54,3 +54,8 @@ type kafka struct {
 	MaxQPS          int    `yaml:"max_qps"`
 	AutoOffsetReset string `yaml:"auto_offset_reset"`
 }
+
+type otel struct {
+	Addr string `yaml:"host"`
+	Servicesname string `yaml:"servicesname"`
+}

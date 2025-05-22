@@ -64,6 +64,9 @@ kafka:
   max_connections: 100
   max_qps: 1000
   auto_offset_reset: earliest
+otel:
+  servicesname: "echo"
+  addr: localhost:9411
 
 services:
   gateway:
@@ -113,3 +116,4 @@ services:
     load-blance: false
     addr:
     - 0.0.0.0:20007
+

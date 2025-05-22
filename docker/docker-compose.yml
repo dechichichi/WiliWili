@@ -86,6 +86,22 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+  wiliwili-jaeger:
+    container_name: wiliwili-jaeger
+    image: jaegertracing/all-in-one:1.42
+    ports:
+      - "5775:5775/udp"  # Collects logs
+      - "6831:6831/udp"  # Collects traces
+      - "6832:6832/udp"  # Collects metrics
+      - "5778:5778"      # Admin HTTP server
+      - "14268:14268"    # Jaeger gRPC collector
+      - "14250:14250"    # Jaeger gRPC query
+      - "16686:16686"    # Jaeger UI
+      - "9411:9411"      # Zipkin HTTP collector
+    networks:
+      - wiliwili
+    environment:
+      COLLECTOR_ZIPKIN_HTTP_PORT: 9411 #jeagger和otel端口应该一致
 networks:
   wiliwili:
     driver: bridge  # 默认使用桥接网络
