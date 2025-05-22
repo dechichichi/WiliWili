@@ -1,5 +1,5 @@
 namespace go api.user
-struct RegiterUserReq {
+struct RegisterUserReq {
     1: required string username;
     2: required string password;
     3: required string email;
@@ -7,7 +7,7 @@ struct RegiterUserReq {
     5: required string signature;
 }
 
-struct RegiterUserResp{
+struct RegisterUserResp{
     1: required i64 id;
 }
 struct LoginRequest{
@@ -51,9 +51,9 @@ struct UserAvatarGetResp {
 }
 
 service UserService {
-    RegiterUserResp registerUser(1:RegiterUserReq req)(api.post="api/v1/user/register"),
-    LoginResponse login(1:LoginRequest req)(api.post="api/v1/user/login"),
-    ProfileResp getProfile(1:ProfileReq req)(api.get="api/v1/user/profile"),
-    UserAvatarUploadResp uploadAvatar(1:UserAvatarUploadReq req)(api.post="api/v1/user/uploadavatar");
-    UserAvatarGetResp getAvatar(1:UserAvatarGetReq req)(api.get="api/v1/user/getavatar");
+    RegisterUserResp RegisterUser(1:RegisterUserReq req)(api.post="api/v1/user/register"),
+    LoginResponse Login(1:LoginRequest req)(api.post="api/v1/user/login"),
+    ProfileResp GetProfile(1:ProfileReq req)(api.get="api/v1/user/profile"),
+    UserAvatarUploadResp UploadAvatar(1:UserAvatarUploadReq req)(api.post="api/v1/user/uploadavatar");
+    UserAvatarGetResp GetAvatar(1:UserAvatarGetReq req)(api.get="api/v1/user/getavatar");
 }

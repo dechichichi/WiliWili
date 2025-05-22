@@ -8,7 +8,7 @@ import (
 	"github.com/apache/thrift/lib/go/thrift"
 )
 
-type RegiterUserReq struct {
+type RegisterUserReq struct {
 	Username  string `thrift:"username,1,required" form:"username,required" json:"username,required" query:"username,required"`
 	Password  string `thrift:"password,2,required" form:"password,required" json:"password,required" query:"password,required"`
 	Email     string `thrift:"email,3,required" form:"email,required" json:"email,required" query:"email,required"`
@@ -16,34 +16,34 @@ type RegiterUserReq struct {
 	Signature string `thrift:"signature,5,required" form:"signature,required" json:"signature,required" query:"signature,required"`
 }
 
-func NewRegiterUserReq() *RegiterUserReq {
-	return &RegiterUserReq{}
+func NewRegisterUserReq() *RegisterUserReq {
+	return &RegisterUserReq{}
 }
 
-func (p *RegiterUserReq) InitDefault() {
+func (p *RegisterUserReq) InitDefault() {
 }
 
-func (p *RegiterUserReq) GetUsername() (v string) {
+func (p *RegisterUserReq) GetUsername() (v string) {
 	return p.Username
 }
 
-func (p *RegiterUserReq) GetPassword() (v string) {
+func (p *RegisterUserReq) GetPassword() (v string) {
 	return p.Password
 }
 
-func (p *RegiterUserReq) GetEmail() (v string) {
+func (p *RegisterUserReq) GetEmail() (v string) {
 	return p.Email
 }
 
-func (p *RegiterUserReq) GetGender() (v string) {
+func (p *RegisterUserReq) GetGender() (v string) {
 	return p.Gender
 }
 
-func (p *RegiterUserReq) GetSignature() (v string) {
+func (p *RegisterUserReq) GetSignature() (v string) {
 	return p.Signature
 }
 
-var fieldIDToName_RegiterUserReq = map[int16]string{
+var fieldIDToName_RegisterUserReq = map[int16]string{
 	1: "username",
 	2: "password",
 	3: "email",
@@ -51,7 +51,7 @@ var fieldIDToName_RegiterUserReq = map[int16]string{
 	5: "signature",
 }
 
-func (p *RegiterUserReq) Read(iprot thrift.TProtocol) (err error) {
+func (p *RegisterUserReq) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetUsername bool = false
@@ -162,7 +162,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_RegiterUserReq[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_RegisterUserReq[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -171,10 +171,10 @@ ReadFieldEndError:
 ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 RequiredFieldNotSetError:
-	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_RegiterUserReq[fieldId]))
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_RegisterUserReq[fieldId]))
 }
 
-func (p *RegiterUserReq) ReadField1(iprot thrift.TProtocol) error {
+func (p *RegisterUserReq) ReadField1(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -185,7 +185,7 @@ func (p *RegiterUserReq) ReadField1(iprot thrift.TProtocol) error {
 	p.Username = _field
 	return nil
 }
-func (p *RegiterUserReq) ReadField2(iprot thrift.TProtocol) error {
+func (p *RegisterUserReq) ReadField2(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -196,7 +196,7 @@ func (p *RegiterUserReq) ReadField2(iprot thrift.TProtocol) error {
 	p.Password = _field
 	return nil
 }
-func (p *RegiterUserReq) ReadField3(iprot thrift.TProtocol) error {
+func (p *RegisterUserReq) ReadField3(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -207,7 +207,7 @@ func (p *RegiterUserReq) ReadField3(iprot thrift.TProtocol) error {
 	p.Email = _field
 	return nil
 }
-func (p *RegiterUserReq) ReadField4(iprot thrift.TProtocol) error {
+func (p *RegisterUserReq) ReadField4(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -218,7 +218,7 @@ func (p *RegiterUserReq) ReadField4(iprot thrift.TProtocol) error {
 	p.Gender = _field
 	return nil
 }
-func (p *RegiterUserReq) ReadField5(iprot thrift.TProtocol) error {
+func (p *RegisterUserReq) ReadField5(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -230,9 +230,9 @@ func (p *RegiterUserReq) ReadField5(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *RegiterUserReq) Write(oprot thrift.TProtocol) (err error) {
+func (p *RegisterUserReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("RegiterUserReq"); err != nil {
+	if err = oprot.WriteStructBegin("RegisterUserReq"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -274,7 +274,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *RegiterUserReq) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *RegisterUserReq) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("username", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -290,7 +290,7 @@ WriteFieldBeginError:
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
-func (p *RegiterUserReq) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *RegisterUserReq) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("password", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -306,7 +306,7 @@ WriteFieldBeginError:
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
-func (p *RegiterUserReq) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *RegisterUserReq) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("email", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -322,7 +322,7 @@ WriteFieldBeginError:
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
-func (p *RegiterUserReq) writeField4(oprot thrift.TProtocol) (err error) {
+func (p *RegisterUserReq) writeField4(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("gender", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -338,7 +338,7 @@ WriteFieldBeginError:
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
-func (p *RegiterUserReq) writeField5(oprot thrift.TProtocol) (err error) {
+func (p *RegisterUserReq) writeField5(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("signature", thrift.STRING, 5); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -355,34 +355,34 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
 }
 
-func (p *RegiterUserReq) String() string {
+func (p *RegisterUserReq) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("RegiterUserReq(%+v)", *p)
+	return fmt.Sprintf("RegisterUserReq(%+v)", *p)
 
 }
 
-type RegiterUserResp struct {
+type RegisterUserResp struct {
 	ID int64 `thrift:"id,1,required" form:"id,required" json:"id,required" query:"id,required"`
 }
 
-func NewRegiterUserResp() *RegiterUserResp {
-	return &RegiterUserResp{}
+func NewRegisterUserResp() *RegisterUserResp {
+	return &RegisterUserResp{}
 }
 
-func (p *RegiterUserResp) InitDefault() {
+func (p *RegisterUserResp) InitDefault() {
 }
 
-func (p *RegiterUserResp) GetID() (v int64) {
+func (p *RegisterUserResp) GetID() (v int64) {
 	return p.ID
 }
 
-var fieldIDToName_RegiterUserResp = map[int16]string{
+var fieldIDToName_RegisterUserResp = map[int16]string{
 	1: "id",
 }
 
-func (p *RegiterUserResp) Read(iprot thrift.TProtocol) (err error) {
+func (p *RegisterUserResp) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetID bool = false
@@ -433,7 +433,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_RegiterUserResp[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_RegisterUserResp[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -442,10 +442,10 @@ ReadFieldEndError:
 ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 RequiredFieldNotSetError:
-	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_RegiterUserResp[fieldId]))
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_RegisterUserResp[fieldId]))
 }
 
-func (p *RegiterUserResp) ReadField1(iprot thrift.TProtocol) error {
+func (p *RegisterUserResp) ReadField1(iprot thrift.TProtocol) error {
 
 	var _field int64
 	if v, err := iprot.ReadI64(); err != nil {
@@ -457,9 +457,9 @@ func (p *RegiterUserResp) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *RegiterUserResp) Write(oprot thrift.TProtocol) (err error) {
+func (p *RegisterUserResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("RegiterUserResp"); err != nil {
+	if err = oprot.WriteStructBegin("RegisterUserResp"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -485,7 +485,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *RegiterUserResp) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *RegisterUserResp) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -502,11 +502,11 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *RegiterUserResp) String() string {
+func (p *RegisterUserResp) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("RegiterUserResp(%+v)", *p)
+	return fmt.Sprintf("RegisterUserResp(%+v)", *p)
 
 }
 
@@ -2085,7 +2085,7 @@ func (p *UserAvatarGetResp) String() string {
 }
 
 type UserService interface {
-	RegisterUser(ctx context.Context, req *RegiterUserReq) (r *RegiterUserResp, err error)
+	RegisterUser(ctx context.Context, req *RegisterUserReq) (r *RegisterUserResp, err error)
 
 	Login(ctx context.Context, req *LoginRequest) (r *LoginResponse, err error)
 
@@ -2122,11 +2122,11 @@ func (p *UserServiceClient) Client_() thrift.TClient {
 	return p.c
 }
 
-func (p *UserServiceClient) RegisterUser(ctx context.Context, req *RegiterUserReq) (r *RegiterUserResp, err error) {
+func (p *UserServiceClient) RegisterUser(ctx context.Context, req *RegisterUserReq) (r *RegisterUserResp, err error) {
 	var _args UserServiceRegisterUserArgs
 	_args.Req = req
 	var _result UserServiceRegisterUserResult
-	if err = p.Client_().Call(ctx, "registerUser", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "RegisterUser", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -2135,7 +2135,7 @@ func (p *UserServiceClient) Login(ctx context.Context, req *LoginRequest) (r *Lo
 	var _args UserServiceLoginArgs
 	_args.Req = req
 	var _result UserServiceLoginResult
-	if err = p.Client_().Call(ctx, "login", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "Login", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -2144,7 +2144,7 @@ func (p *UserServiceClient) GetProfile(ctx context.Context, req *ProfileReq) (r 
 	var _args UserServiceGetProfileArgs
 	_args.Req = req
 	var _result UserServiceGetProfileResult
-	if err = p.Client_().Call(ctx, "getProfile", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "GetProfile", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -2153,7 +2153,7 @@ func (p *UserServiceClient) UploadAvatar(ctx context.Context, req *UserAvatarUpl
 	var _args UserServiceUploadAvatarArgs
 	_args.Req = req
 	var _result UserServiceUploadAvatarResult
-	if err = p.Client_().Call(ctx, "uploadAvatar", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "UploadAvatar", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -2162,7 +2162,7 @@ func (p *UserServiceClient) GetAvatar(ctx context.Context, req *UserAvatarGetReq
 	var _args UserServiceGetAvatarArgs
 	_args.Req = req
 	var _result UserServiceGetAvatarResult
-	if err = p.Client_().Call(ctx, "getAvatar", &_args, &_result); err != nil {
+	if err = p.Client_().Call(ctx, "GetAvatar", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -2188,11 +2188,11 @@ func (p *UserServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFuncti
 
 func NewUserServiceProcessor(handler UserService) *UserServiceProcessor {
 	self := &UserServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self.AddToProcessorMap("registerUser", &userServiceProcessorRegisterUser{handler: handler})
-	self.AddToProcessorMap("login", &userServiceProcessorLogin{handler: handler})
-	self.AddToProcessorMap("getProfile", &userServiceProcessorGetProfile{handler: handler})
-	self.AddToProcessorMap("uploadAvatar", &userServiceProcessorUploadAvatar{handler: handler})
-	self.AddToProcessorMap("getAvatar", &userServiceProcessorGetAvatar{handler: handler})
+	self.AddToProcessorMap("RegisterUser", &userServiceProcessorRegisterUser{handler: handler})
+	self.AddToProcessorMap("Login", &userServiceProcessorLogin{handler: handler})
+	self.AddToProcessorMap("GetProfile", &userServiceProcessorGetProfile{handler: handler})
+	self.AddToProcessorMap("UploadAvatar", &userServiceProcessorUploadAvatar{handler: handler})
+	self.AddToProcessorMap("GetAvatar", &userServiceProcessorGetAvatar{handler: handler})
 	return self
 }
 func (p *UserServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -2222,7 +2222,7 @@ func (p *userServiceProcessorRegisterUser) Process(ctx context.Context, seqId in
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("registerUser", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("RegisterUser", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2232,10 +2232,10 @@ func (p *userServiceProcessorRegisterUser) Process(ctx context.Context, seqId in
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := UserServiceRegisterUserResult{}
-	var retval *RegiterUserResp
+	var retval *RegisterUserResp
 	if retval, err2 = p.handler.RegisterUser(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing registerUser: "+err2.Error())
-		oprot.WriteMessageBegin("registerUser", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing RegisterUser: "+err2.Error())
+		oprot.WriteMessageBegin("RegisterUser", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2243,7 +2243,7 @@ func (p *userServiceProcessorRegisterUser) Process(ctx context.Context, seqId in
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("registerUser", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("RegisterUser", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -2270,7 +2270,7 @@ func (p *userServiceProcessorLogin) Process(ctx context.Context, seqId int32, ip
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("login", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("Login", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2282,8 +2282,8 @@ func (p *userServiceProcessorLogin) Process(ctx context.Context, seqId int32, ip
 	result := UserServiceLoginResult{}
 	var retval *LoginResponse
 	if retval, err2 = p.handler.Login(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing login: "+err2.Error())
-		oprot.WriteMessageBegin("login", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Login: "+err2.Error())
+		oprot.WriteMessageBegin("Login", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2291,7 +2291,7 @@ func (p *userServiceProcessorLogin) Process(ctx context.Context, seqId int32, ip
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("login", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("Login", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -2318,7 +2318,7 @@ func (p *userServiceProcessorGetProfile) Process(ctx context.Context, seqId int3
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("getProfile", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("GetProfile", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2330,8 +2330,8 @@ func (p *userServiceProcessorGetProfile) Process(ctx context.Context, seqId int3
 	result := UserServiceGetProfileResult{}
 	var retval *ProfileResp
 	if retval, err2 = p.handler.GetProfile(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing getProfile: "+err2.Error())
-		oprot.WriteMessageBegin("getProfile", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetProfile: "+err2.Error())
+		oprot.WriteMessageBegin("GetProfile", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2339,7 +2339,7 @@ func (p *userServiceProcessorGetProfile) Process(ctx context.Context, seqId int3
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("getProfile", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("GetProfile", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -2366,7 +2366,7 @@ func (p *userServiceProcessorUploadAvatar) Process(ctx context.Context, seqId in
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("uploadAvatar", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("UploadAvatar", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2378,8 +2378,8 @@ func (p *userServiceProcessorUploadAvatar) Process(ctx context.Context, seqId in
 	result := UserServiceUploadAvatarResult{}
 	var retval *UserAvatarUploadResp
 	if retval, err2 = p.handler.UploadAvatar(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing uploadAvatar: "+err2.Error())
-		oprot.WriteMessageBegin("uploadAvatar", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing UploadAvatar: "+err2.Error())
+		oprot.WriteMessageBegin("UploadAvatar", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2387,7 +2387,7 @@ func (p *userServiceProcessorUploadAvatar) Process(ctx context.Context, seqId in
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("uploadAvatar", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("UploadAvatar", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -2414,7 +2414,7 @@ func (p *userServiceProcessorGetAvatar) Process(ctx context.Context, seqId int32
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("getAvatar", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("GetAvatar", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2426,8 +2426,8 @@ func (p *userServiceProcessorGetAvatar) Process(ctx context.Context, seqId int32
 	result := UserServiceGetAvatarResult{}
 	var retval *UserAvatarGetResp
 	if retval, err2 = p.handler.GetAvatar(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing getAvatar: "+err2.Error())
-		oprot.WriteMessageBegin("getAvatar", thrift.EXCEPTION, seqId)
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetAvatar: "+err2.Error())
+		oprot.WriteMessageBegin("GetAvatar", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2435,7 +2435,7 @@ func (p *userServiceProcessorGetAvatar) Process(ctx context.Context, seqId int32
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("getAvatar", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("GetAvatar", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -2454,7 +2454,7 @@ func (p *userServiceProcessorGetAvatar) Process(ctx context.Context, seqId int32
 }
 
 type UserServiceRegisterUserArgs struct {
-	Req *RegiterUserReq `thrift:"req,1"`
+	Req *RegisterUserReq `thrift:"req,1"`
 }
 
 func NewUserServiceRegisterUserArgs() *UserServiceRegisterUserArgs {
@@ -2464,9 +2464,9 @@ func NewUserServiceRegisterUserArgs() *UserServiceRegisterUserArgs {
 func (p *UserServiceRegisterUserArgs) InitDefault() {
 }
 
-var UserServiceRegisterUserArgs_Req_DEFAULT *RegiterUserReq
+var UserServiceRegisterUserArgs_Req_DEFAULT *RegisterUserReq
 
-func (p *UserServiceRegisterUserArgs) GetReq() (v *RegiterUserReq) {
+func (p *UserServiceRegisterUserArgs) GetReq() (v *RegisterUserReq) {
 	if !p.IsSetReq() {
 		return UserServiceRegisterUserArgs_Req_DEFAULT
 	}
@@ -2537,7 +2537,7 @@ ReadStructEndError:
 }
 
 func (p *UserServiceRegisterUserArgs) ReadField1(iprot thrift.TProtocol) error {
-	_field := NewRegiterUserReq()
+	_field := NewRegisterUserReq()
 	if err := _field.Read(iprot); err != nil {
 		return err
 	}
@@ -2547,7 +2547,7 @@ func (p *UserServiceRegisterUserArgs) ReadField1(iprot thrift.TProtocol) error {
 
 func (p *UserServiceRegisterUserArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("registerUser_args"); err != nil {
+	if err = oprot.WriteStructBegin("RegisterUser_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2599,7 +2599,7 @@ func (p *UserServiceRegisterUserArgs) String() string {
 }
 
 type UserServiceRegisterUserResult struct {
-	Success *RegiterUserResp `thrift:"success,0,optional"`
+	Success *RegisterUserResp `thrift:"success,0,optional"`
 }
 
 func NewUserServiceRegisterUserResult() *UserServiceRegisterUserResult {
@@ -2609,9 +2609,9 @@ func NewUserServiceRegisterUserResult() *UserServiceRegisterUserResult {
 func (p *UserServiceRegisterUserResult) InitDefault() {
 }
 
-var UserServiceRegisterUserResult_Success_DEFAULT *RegiterUserResp
+var UserServiceRegisterUserResult_Success_DEFAULT *RegisterUserResp
 
-func (p *UserServiceRegisterUserResult) GetSuccess() (v *RegiterUserResp) {
+func (p *UserServiceRegisterUserResult) GetSuccess() (v *RegisterUserResp) {
 	if !p.IsSetSuccess() {
 		return UserServiceRegisterUserResult_Success_DEFAULT
 	}
@@ -2682,7 +2682,7 @@ ReadStructEndError:
 }
 
 func (p *UserServiceRegisterUserResult) ReadField0(iprot thrift.TProtocol) error {
-	_field := NewRegiterUserResp()
+	_field := NewRegisterUserResp()
 	if err := _field.Read(iprot); err != nil {
 		return err
 	}
@@ -2692,7 +2692,7 @@ func (p *UserServiceRegisterUserResult) ReadField0(iprot thrift.TProtocol) error
 
 func (p *UserServiceRegisterUserResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("registerUser_result"); err != nil {
+	if err = oprot.WriteStructBegin("RegisterUser_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2839,7 +2839,7 @@ func (p *UserServiceLoginArgs) ReadField1(iprot thrift.TProtocol) error {
 
 func (p *UserServiceLoginArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("login_args"); err != nil {
+	if err = oprot.WriteStructBegin("Login_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2984,7 +2984,7 @@ func (p *UserServiceLoginResult) ReadField0(iprot thrift.TProtocol) error {
 
 func (p *UserServiceLoginResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("login_result"); err != nil {
+	if err = oprot.WriteStructBegin("Login_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3131,7 +3131,7 @@ func (p *UserServiceGetProfileArgs) ReadField1(iprot thrift.TProtocol) error {
 
 func (p *UserServiceGetProfileArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getProfile_args"); err != nil {
+	if err = oprot.WriteStructBegin("GetProfile_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3276,7 +3276,7 @@ func (p *UserServiceGetProfileResult) ReadField0(iprot thrift.TProtocol) error {
 
 func (p *UserServiceGetProfileResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getProfile_result"); err != nil {
+	if err = oprot.WriteStructBegin("GetProfile_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3423,7 +3423,7 @@ func (p *UserServiceUploadAvatarArgs) ReadField1(iprot thrift.TProtocol) error {
 
 func (p *UserServiceUploadAvatarArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("uploadAvatar_args"); err != nil {
+	if err = oprot.WriteStructBegin("UploadAvatar_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3568,7 +3568,7 @@ func (p *UserServiceUploadAvatarResult) ReadField0(iprot thrift.TProtocol) error
 
 func (p *UserServiceUploadAvatarResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("uploadAvatar_result"); err != nil {
+	if err = oprot.WriteStructBegin("UploadAvatar_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3715,7 +3715,7 @@ func (p *UserServiceGetAvatarArgs) ReadField1(iprot thrift.TProtocol) error {
 
 func (p *UserServiceGetAvatarArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getAvatar_args"); err != nil {
+	if err = oprot.WriteStructBegin("GetAvatar_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3860,7 +3860,7 @@ func (p *UserServiceGetAvatarResult) ReadField0(iprot thrift.TProtocol) error {
 
 func (p *UserServiceGetAvatarResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("getAvatar_result"); err != nil {
+	if err = oprot.WriteStructBegin("GetAvatar_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {

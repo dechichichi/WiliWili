@@ -55,16 +55,15 @@ func (uc *useCase) SubmitVideo(ctx context.Context, video *model.Video, data []b
 }
 func (uc *useCase) GetVideo(ctx context.Context, videoid string) (*model.VideoProfile, error) {
 	model, err := uc.cache.GetVideo(ctx, videoid)
-	if err == nil {
-		return model, nil
-	}
-	model, err = uc.db.GetVideo(ctx, videoid)
 	if err != nil {
-		return nil, err
-	}
-	err = uc.cache.SetVideo(ctx, model)
-	if err != nil {
-		return nil, err
+		model, err = uc.db.GetVideo(ctx, videoid)
+		if err != nil {
+			return nil, err
+		}
+		// 尝试将数据存入缓存，但即使失败也不影响返回结果
+		if err := uc.cache.SetVideo(ctx, model); err != nil {
+			log.Printf("Failed to set video in cache: %v", err)
+		}
 	}
 	return model, nil
 }

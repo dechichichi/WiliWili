@@ -51,7 +51,6 @@ func (u *UserHandler) UserProfile(ctx context.Context, req *user.UserProfileReq)
 	}
 	r.UserProfile = pack.BuildUserProfile(UserProfile)
 	return
-
 }
 
 func (u *UserHandler) UserAvatarUpload(ctx context.Context, req *user.UserAvatarUploadReq) (r *user.UserAvatarUploadResp, err error) {

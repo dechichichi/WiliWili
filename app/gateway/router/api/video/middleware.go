@@ -9,8 +9,9 @@ import (
 )
 
 func rootMw() []app.HandlerFunc {
-	mw.SentinelServer()
-	return nil
+	return []app.HandlerFunc{
+		mw.SentinelServer(),
+	}
 }
 
 func _apiMw() []app.HandlerFunc {
@@ -24,11 +25,6 @@ func _v1Mw() []app.HandlerFunc {
 }
 
 func _videoMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _getvideolistMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
