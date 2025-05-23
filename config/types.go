@@ -22,6 +22,7 @@ type config struct {
 	Minio   minio
 	Kafka   kafka
 	Server  server
+	Otel    otel
 }
 type mysql struct {
 	Addr     string
@@ -56,6 +57,6 @@ type kafka struct {
 }
 
 type otel struct {
-	Addr string `yaml:"host"`
-	Servicesname string `yaml:"servicesname"`
+	Addr        string `yaml:"host"`
+	Servicename string `yaml:"servicename"`
 }

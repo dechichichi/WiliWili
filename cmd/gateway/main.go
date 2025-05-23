@@ -39,7 +39,7 @@ func main() {
 		server.WithMaxRequestBodySize(constants.ServerMaxRequestBodySize),
 	)
 	p := provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(config.Otel.Servicesname),
+		provider.WithServiceName(config.Otel.Servicename),
 		provider.WithExportEndpoint(config.Otel.Addr),
 		provider.WithInsecure(),
 	)

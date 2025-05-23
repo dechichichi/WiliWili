@@ -73,6 +73,7 @@ func configMapping(srv string) {
 	Server = &c.Server
 	Minio = &c.Minio
 	Kafka = &c.Kafka
+	Otel = &c.Otel
 	Service = getService(srv)
 }
 

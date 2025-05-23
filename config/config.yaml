@@ -65,8 +65,8 @@ kafka:
   max_qps: 1000
   auto_offset_reset: earliest
 otel:
-  servicesname: "echo"
-  addr: localhost:9411
+  servicename: "echo"
+  addr: localhost:14250
 
 services:
   gateway:
