@@ -1,0 +1,65 @@
+auth_enabled: false
+
+compactor:
+  working_directory: /data/loki/boltdb-shipper-compactor
+  shared_store: aws
+  compaction_interval: 1h
+  retention_enabled: true
+  retention_delete_delay: 2h
+  retention_delete_worker_count: 150
+
+storage_config:
+  aws:
+    s3: s3://wiliwili-loki
+    bucket_name: wiliwili-loki
+  compactor:
+    working_directory: /data/loki/boltdb-shipper-compactor
+    shared_store: aws
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: aws
+      object_store: aws
+      schema: v11
+      index:
+        prefix: loki_index_
+        period: 24h
+
+ruler:
+  storage:
+    type: local
+    local:
+      directory: /data/loki/rules
+  rule_path: /data/loki/rules-temp
+  alertmanager_url: http://alertmanager:9093
+  enable_api: true
+
+server:
+  http_listen_port: 3100
+
+compactor:
+  working_directory: /data/loki/boltdb-shipper-compactor
+  shared_store: aws
+  compaction_interval: 1h
+  retention_enabled: true
+  retention_delete_delay: 2h
+  retention_delete_worker_count: 150
+
+query_range:
+  max_concurrent: 50
+  max_duration: 1h
+  max_retries: 5
+  max_time_range: 720h
+  max_time_range_per_query: 24h
+  results_cache:
+    enable: true
+    cache_results: true
+    max_size_mb: 1024
+    cache_stale_duration: 2h
+    enable_metrics: true
+    cache_telemetry: true
+
+frontend:
+  batched_query_enabled:
+    enabled: true

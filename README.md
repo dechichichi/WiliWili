@@ -137,5 +137,20 @@
   go run ./
   ```
 
+# 监控与可观测性（Prometheus/Alloy/Grafana/Loki）
+
+## QPS 业务指标
+- user 服务已埋点 QPS 指标（user_handler_qps），通过 OpenTelemetry metrics 导出。
+- Alloy/otel-collector 采集后，Prometheus 可抓取，Grafana 可视化。
+- 推荐在 Grafana 添加 Prometheus 数据源，搜索 `user_handler_qps`，可按 method 维度展示。
+
+## 日志采集
+- user 服务日志已标准化为 json 格式，Loki/promtail 可直接采集。
+- 在 Grafana 添加 Loki 数据源后，可通过 `{job="user"}` 检索日志。
+
+## 参考
+- 可根据 docker-compose.yml 启动 Prometheus、Grafana、Loki、Alloy。
+- 其他服务可参考 user 服务埋点方式扩展。
+
   
 

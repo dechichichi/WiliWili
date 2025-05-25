@@ -7,6 +7,8 @@ import (
 	"wiliwili/app/comment/usecase"
 	"wiliwili/kitex_gen/comment"
 	"wiliwili/pkg/constants"
+	"go.opentelemetry.io/otel/attribute"
+	"wiliwili/app/comment/controllers/rpc/otelmetrics"
 )
 
 type CommentHandler struct {
@@ -14,6 +16,7 @@ type CommentHandler struct {
 }
 
 func (c *CommentHandler) CommentVideo(ctx context.Context, req *comment.CommentVideoReq) (r *comment.CommentVideoResp, err error) {
+	otelmetrics.CommentQPSCounter.Add(ctx, 1, attribute.String("method", "CommentVideo"))
 	r = new(comment.CommentVideoResp)
 	comment := &model.Comment{
 		BeCommentID:    req.VideoId,
@@ -29,6 +32,7 @@ func (c *CommentHandler) CommentVideo(ctx context.Context, req *comment.CommentV
 }
 
 func (c *CommentHandler) ReplyComment(ctx context.Context, req *comment.ReplyCommentReq) (r *comment.ReplyCommentResp, err error) {
+	otelmetrics.CommentQPSCounter.Add(ctx, 1, attribute.String("method", "ReplyComment"))
 	r = new(comment.ReplyCommentResp)
 	comment := &model.Comment{
 		BeCommentID:    req.CommentId,
@@ -44,6 +48,7 @@ func (c *CommentHandler) ReplyComment(ctx context.Context, req *comment.ReplyCom
 }
 
 func (c *CommentHandler) GetCommentList(ctx context.Context, req *comment.GetCommentListReq) (r *comment.GetCommentListResp, err error) {
+	otelmetrics.CommentQPSCounter.Add(ctx, 1, attribute.String("method", "GetCommentList"))
 	r = new(comment.GetCommentListResp)
 	commentList, err := c.useCase.GetCommentList(ctx, req.Id, req.Page, req.PageSize, req.CommentTpye)
 	if err != nil {
@@ -54,6 +59,7 @@ func (c *CommentHandler) GetCommentList(ctx context.Context, req *comment.GetCom
 }
 
 func (c *CommentHandler) DeleteComment(ctx context.Context, req *comment.DeleteCommentReq) (r *comment.DeleteCommentResp, err error) {
+	otelmetrics.CommentQPSCounter.Add(ctx, 1, attribute.String("method", "DeleteComment"))
 	r = new(comment.DeleteCommentResp)
 	err = c.useCase.DeleteComment(ctx, req.CommentId)
 	if err != nil {

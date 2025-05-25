@@ -108,7 +108,59 @@ services:
       - wiliwili
     environment:
       COLLECTOR_ZIPKIN_HTTP_PORT: 9411 #jeagger和otel端口应该一致
+    
+  wiliwili-prometheus:
+    container_name: wiliwili-prometheus
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitor/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    networks:
+      - wiliwili
+
+  wiliwili-collector-alloy:
+    container_name: wiliwili-collector-alloy
+    image: otel/opentelemetry-collector-contrib:0.82.0
+    ports:
+      - "4317:4317"  # OTLP/gRPC
+      - "4318:4318"  # OTLP/HTTP
+      - "55680:55680"  # Prometheus metrics
+    volumes:
+      - ./monitor/otel-collector/collector-config.yaml:/etc/otel-collector-config.yaml
+    networks:
+      - wiliwili
+    depends_on:
+      - wiliwili-prometheus
+
+  wiliwili-grafana:
+    container_name: wiliwili-grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - wiliwili
+    depends_on:
+      - wiliwili-prometheus
+  wiliwili-loki:
+    container_name: wiliwili-loki
+    image: grafana/loki:2.9.0
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./monitor/loki/loki-config.yaml:/etc/loki/local-config.yaml
+      - ./data/loki-data:/loki
+    networks:
+      - wiliwili
+
 networks:
   wiliwili:
     driver: bridge  # 默认使用桥接网络
     name: wiliwili
+    
+volumes:
+  prometheus-data:
+  grafana-data:

@@ -6,6 +6,8 @@ import (
 	"wiliwili/app/user/domain/model"
 	"wiliwili/app/user/usecase"
 	"wiliwili/kitex_gen/user"
+	"go.opentelemetry.io/otel/attribute"
+	"wiliwili/app/user/controllers/rpc/otelmetrics"
 )
 
 type UserHandler struct {
@@ -13,6 +15,7 @@ type UserHandler struct {
 }
 
 func (u *UserHandler) UserRegister(ctx context.Context, req *user.UserRegisterReq) (r *user.UserRegisterResp, err error) {
+	otelmetrics.UserQPSCounter.Add(ctx, 1, attribute.String("method", "UserRegister"))
 	r = new(user.UserRegisterResp)
 	user := &model.User{
 		Username:  req.Username,
@@ -30,6 +33,7 @@ func (u *UserHandler) UserRegister(ctx context.Context, req *user.UserRegisterRe
 }
 
 func (u *UserHandler) UserLogin(ctx context.Context, req *user.UserLoginReq) (r *user.UserLoginResp, err error) {
+	otelmetrics.UserQPSCounter.Add(ctx, 1, attribute.String("method", "UserLogin"))
 	r = new(user.UserLoginResp)
 	user := &model.User{
 		Uid:      req.Uid,
@@ -44,6 +48,7 @@ func (u *UserHandler) UserLogin(ctx context.Context, req *user.UserLoginReq) (r 
 }
 
 func (u *UserHandler) UserProfile(ctx context.Context, req *user.UserProfileReq) (r *user.UserProfileResp, err error) {
+	otelmetrics.UserQPSCounter.Add(ctx, 1, attribute.String("method", "UserProfile"))
 	r = new(user.UserProfileResp)
 	UserProfile, err := u.useCase.UserProfile(ctx, req.Uid)
 	if err != nil {
@@ -54,6 +59,7 @@ func (u *UserHandler) UserProfile(ctx context.Context, req *user.UserProfileReq)
 }
 
 func (u *UserHandler) UserAvatarUpload(ctx context.Context, req *user.UserAvatarUploadReq) (r *user.UserAvatarUploadResp, err error) {
+	otelmetrics.UserQPSCounter.Add(ctx, 1, attribute.String("method", "UserAvatarUpload"))
 	r = new(user.UserAvatarUploadResp)
 	image, err := u.useCase.UserAvatarUpload(ctx, req.Uid, req.Avatar)
 	if err != nil {
@@ -67,6 +73,7 @@ func (u *UserHandler) UserAvatarUpload(ctx context.Context, req *user.UserAvatar
 }
 
 func (u *UserHandler) UserAvatarGet(ctx context.Context, req *user.UserAvatarGetReq) (r *user.UserAvatarGetResp, err error) {
+	otelmetrics.UserQPSCounter.Add(ctx, 1, attribute.String("method", "UserAvatarGet"))
 	r = new(user.UserAvatarGetResp)
 	url, err := u.useCase.UserAvatarGet(ctx, req.Uid)
 	if err != nil {

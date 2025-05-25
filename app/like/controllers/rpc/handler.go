@@ -5,6 +5,8 @@ import (
 	"wiliwili/app/like/domain/model"
 	"wiliwili/app/like/usecase"
 	"wiliwili/kitex_gen/like"
+	"go.opentelemetry.io/otel/attribute"
+	"wiliwili/app/like/controllers/rpc/otelmetrics"
 )
 
 type LikeHandler struct {
@@ -12,6 +14,7 @@ type LikeHandler struct {
 }
 
 func (l *LikeHandler) LikeComment(ctx context.Context, req *like.LikeCommentReq) (r *like.LikeCommentResp, err error) {
+	otelmetrics.LikeQPSCounter.Add(ctx, 1, attribute.String("method", "LikeComment"))
 	r = new(like.LikeCommentResp)
 	comment_like := &model.CommentLike{
 		CommentID: req.CommentId,
@@ -24,6 +27,7 @@ func (l *LikeHandler) LikeComment(ctx context.Context, req *like.LikeCommentReq)
 }
 
 func (l *LikeHandler) LikeVideo(ctx context.Context, req *like.LikeVideoReq) (r *like.LikeVideoResp, err error) {
+	otelmetrics.LikeQPSCounter.Add(ctx, 1, attribute.String("method", "LikeVideo"))
 	r = new(like.LikeVideoResp)
 	video_like := &model.VideoLike{
 		VideoID: req.VideoId,
@@ -35,6 +39,7 @@ func (l *LikeHandler) LikeVideo(ctx context.Context, req *like.LikeVideoReq) (r 
 }
 
 func (l *LikeHandler) CommentLikeNum(ctx context.Context, req *like.CommentLikeNumReq) (r *like.CommentLikeNumResp, err error) {
+	otelmetrics.LikeQPSCounter.Add(ctx, 1, attribute.String("method", "CommentLikeNum"))
 	r = new(like.CommentLikeNumResp)
 	var num int64
 	if num, err = l.useCase.CommentLikeNum(ctx, req.CommentId); err != nil {
@@ -45,6 +50,7 @@ func (l *LikeHandler) CommentLikeNum(ctx context.Context, req *like.CommentLikeN
 }
 
 func (l *LikeHandler) VideoLikeNum(ctx context.Context, req *like.VideoLikeNumReq) (r *like.VideoLikeNumResp, err error) {
+	otelmetrics.LikeQPSCounter.Add(ctx, 1, attribute.String("method", "VideoLikeNum"))
 	r = new(like.VideoLikeNumResp)
 	var num int64
 	if num, err = l.useCase.VideoLikeNum(ctx, req.VideoId); err != nil {
